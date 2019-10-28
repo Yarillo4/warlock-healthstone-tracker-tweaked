@@ -1,0 +1,23 @@
+package-as: WarlockHealthstoneTracker
+license-output: LICENSE.txt
+manual-changelog:
+    filename: CHANGELOG.md
+    markup-type: markdown
+
+move-folders:
+    WarlockHealthstoneTracker/HST-Core: WarlockHealthstoneTracker
+    WarlockHealthstoneTracker/HST-BlizzUI: WarlockHealthstoneTracker_BlizzUI
+
+externals:
+    WarlockHealthstoneTracker/lib/LibStub:
+        url: https://repos.wowace.com/wow/libstub/trunk
+        tag: latest
+    WarlockHealthstoneTracker/lib/CallbackHandler-1.0:
+        url: https://repos.wowace.com/wow/callbackhandler/trunk/CallbackHandler-1.0
+        tag: latest
+    WarlockHealthstoneTracker/lib/AceLocale-3.0:
+        url: https://repos.wowace.com/wow/ace3/mainline/trunk/AceLocale-3.0
+        tag: latest
+    WarlockHealthstoneTracker/lib/AceConfig-3.0:
+        url: https://repos.wowace.com/wow/ace3/mainline/trunk/AceConfig-3.0
+        tag: latest

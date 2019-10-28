@@ -1,0 +1,9 @@
+local ADDON_NAME = ...
+
+local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "itIT")
+
+if not L then
+    return
+end
+
+--@localization(locale="itIT", format="lua_addititve_table", namespace="BlizzUI")@
