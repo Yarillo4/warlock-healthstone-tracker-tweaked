@@ -3,7 +3,7 @@ local ADDON_NAME = ...
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "ptBR")
 
 if not L then
-	return
+    return
 end
 
---@localization(locale="ptBR", format="lua_addititve_table")@
+--@localization(locale="ptBR", format="lua_addititve_table", namespace="Core")@

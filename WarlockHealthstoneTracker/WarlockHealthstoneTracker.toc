@@ -1,24 +1,24 @@
 ## Interface: 11302
-## Title: Warlock Healthstone Tracker
-## Title-deDE: @localization(locale="deDE", key="Warlock Healthstone Tracker")@
-## Title-esES: @localization(locale="esES", key="Warlock Healthstone Tracker")@
-## Title-frFR: @localization(locale="frFR", key="Warlock Healthstone Tracker")@
-## Title-itIT: @localization(locale="itIT", key="Warlock Healthstone Tracker")@
-## Title-koKR: @localization(locale="koKR", key="Warlock Healthstone Tracker")@
-## Title-ptBR: @localization(locale="ptBR", key="Warlock Healthstone Tracker")@
-## Title-ruRU: @localization(locale="ruRU", key="Warlock Healthstone Tracker")@
-## Title-zhCN: @localization(locale="zhCN", key="Warlock Healthstone Tracker")@
-## Title-zhTW: @localization(locale="zhTW", key="Warlock Healthstone Tracker")@
-## Notes: Track healthstones used by party & raid members
-## Notes-deDE: @localization(locale="deDE", key="Track healthstones used by party & raid members")@
-## Notes-esES: @localization(locale="esES", key="Track healthstones used by party & raid members")@
-## Notes-frFR: @localization(locale="frFR", key="Track healthstones used by party & raid members")@
-## Notes-itIT: @localization(locale="itIT", key="Track healthstones used by party & raid members")@
-## Notes-koKR: @localization(locale="koKR", key="Track healthstones used by party & raid members")@
-## Notes-ptBR: @localization(locale="ptBR", key="Track healthstones used by party & raid members")@
-## Notes-ruRU: @localization(locale="ruRU", key="Track healthstones used by party & raid members")@
-## Notes-zhCN: @localization(locale="zhCN", key="Track healthstones used by party & raid members")@
-## Notes-zhTW: @localization(locale="zhTW", key="Track healthstones used by party & raid members")@
+## Title: @localization(locale="enUS", namespace="Core", key="Warlock Healthstone Tracker")@
+## Title-deDE: @localization(locale="deDE", namespace="Core", key="Warlock Healthstone Tracker")@
+## Title-esES: @localization(locale="esES", namespace="Core", key="Warlock Healthstone Tracker")@
+## Title-frFR: @localization(locale="frFR", namespace="Core", key="Warlock Healthstone Tracker")@
+## Title-itIT: @localization(locale="itIT", namespace="Core", key="Warlock Healthstone Tracker")@
+## Title-koKR: @localization(locale="koKR", namespace="Core", key="Warlock Healthstone Tracker")@
+## Title-ptBR: @localization(locale="ptBR", namespace="Core", key="Warlock Healthstone Tracker")@
+## Title-ruRU: @localization(locale="ruRU", namespace="Core", key="Warlock Healthstone Tracker")@
+## Title-zhCN: @localization(locale="zhCN", namespace="Core", key="Warlock Healthstone Tracker")@
+## Title-zhTW: @localization(locale="zhTW", namespace="Core", key="Warlock Healthstone Tracker")@
+## Notes: @localization(locale="enUS", namespace="Core", key="Track healthstones used by party & raid members")@
+## Notes-deDE: @localization(locale="deDE", namespace="Core", key="Track healthstones used by party & raid members")@
+## Notes-esES: @localization(locale="esES", namespace="Core", key="Track healthstones used by party & raid members")@
+## Notes-frFR: @localization(locale="frFR", namespace="Core", key="Track healthstones used by party & raid members")@
+## Notes-itIT: @localization(locale="itIT", namespace="Core", key="Track healthstones used by party & raid members")@
+## Notes-koKR: @localization(locale="koKR", namespace="Core", key="Track healthstones used by party & raid members")@
+## Notes-ptBR: @localization(locale="ptBR", namespace="Core", key="Track healthstones used by party & raid members")@
+## Notes-ruRU: @localization(locale="ruRU", namespace="Core", key="Track healthstones used by party & raid members")@
+## Notes-zhCN: @localization(locale="zhCN", namespace="Core", key="Track healthstones used by party & raid members")@
+## Notes-zhTW: @localization(locale="zhTW", namespace="Core", key="Track healthstones used by party & raid members")@
 ## Version: @project-version@
 ## Author: Malicene-Mankrik
 ##

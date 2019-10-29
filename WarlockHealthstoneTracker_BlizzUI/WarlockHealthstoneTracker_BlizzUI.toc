@@ -1,24 +1,24 @@
 ## Interface: 11302
-## Title: Warlock Healthstone Tracker - BlizzUI Plugin
-## Title-deDE: @localization(locale="deDE", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
-## Title-esES: @localization(locale="esES", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
-## Title-frFR: @localization(locale="frFR", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
-## Title-itIT: @localization(locale="itIT", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
-## Title-koKR: @localization(locale="koKR", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
-## Title-ptBR: @localization(locale="ptBR", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
-## Title-ruRU: @localization(locale="ruRU", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
-## Title-zhCN: @localization(locale="zhCN", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
-## Title-zhTW: @localization(locale="zhTW", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
-## Notes: Plugin that displays healthstone status on BlizzUI party and raid frames
-## Notes-deDE: @localization(locale="deDE", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
-## Notes-esES: @localization(locale="esES", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
-## Notes-frFR: @localization(locale="frFR", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
-## Notes-itIT: @localization(locale="itIT", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
-## Notes-koKR: @localization(locale="koKR", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
-## Notes-ptBR: @localization(locale="ptBR", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
-## Notes-ruRU: @localization(locale="ruRU", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
-## Notes-zhCN: @localization(locale="zhCN", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
-## Notes-zhTW: @localization(locale="zhTW", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
+## Title: @localization(locale="enUS", namespace="BlizzUI", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
+## Title-deDE: @localization(locale="deDE", namespace="BlizzUI", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
+## Title-esES: @localization(locale="esES", namespace="BlizzUI", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
+## Title-frFR: @localization(locale="frFR", namespace="BlizzUI", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
+## Title-itIT: @localization(locale="itIT", namespace="BlizzUI", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
+## Title-koKR: @localization(locale="koKR", namespace="BlizzUI", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
+## Title-ptBR: @localization(locale="ptBR", namespace="BlizzUI", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
+## Title-ruRU: @localization(locale="ruRU", namespace="BlizzUI", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
+## Title-zhCN: @localization(locale="zhCN", namespace="BlizzUI", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
+## Title-zhTW: @localization(locale="zhTW", namespace="BlizzUI", key="Warlock Healthstone Tracker - BlizzUI Plugin")@
+## Notes: @localization(locale="enUS", namespace="BlizzUI", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
+## Notes-deDE: @localization(locale="deDE", namespace="BlizzUI", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
+## Notes-esES: @localization(locale="esES", namespace="BlizzUI", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
+## Notes-frFR: @localization(locale="frFR", namespace="BlizzUI", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
+## Notes-itIT: @localization(locale="itIT", namespace="BlizzUI", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
+## Notes-koKR: @localization(locale="koKR", namespace="BlizzUI", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
+## Notes-ptBR: @localization(locale="ptBR", namespace="BlizzUI", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
+## Notes-ruRU: @localization(locale="ruRU", namespace="BlizzUI", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
+## Notes-zhCN: @localization(locale="zhCN", namespace="BlizzUI", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
+## Notes-zhTW: @localization(locale="zhTW", namespace="BlizzUI", key="Plugin that displays healthstone status on BlizzUI party and raid frames")@
 ## Version: @project-version@
 ## Author: Malicene-Mankrik
 ##
