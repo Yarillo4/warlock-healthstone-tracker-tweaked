@@ -4,12 +4,11 @@ local MODULE_NAME = "addon.lua"
 ADDON[1] = {} -- HSTBlizzUI, Addon
 ADDON[2] = {} -- C, Config
 ADDON[3] = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME) -- L, Locale
-
+local HSTBlizzUI, C, L = unpack(ADDON)
 
 ---------------------------------------------
 -- CONSTANTS
 ---------------------------------------------
-HSTBlizzUI = ADDON[1]
 HSTBlizzUI.ADDON_NAME = ADDON_NAME
 HSTBlizzUI.VERSION = GetAddOnMetadata(ADDON_NAME, "Version")
 
@@ -36,14 +35,16 @@ end
 ---------------------------------------------
 -- INITIALIZE
 ---------------------------------------------
-HSTBlizzUI.RegisterCallback(MODULE_NAME, "initialize", function()
+HSTBlizzUI.RegisterCallback(MODULE_NAME, "initialize", function(event)
 
 end)
 
-HSTBlizzUI.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(addonName)
-    if ( addonName == HST.ADDON_NAME ) then
+HSTBlizzUI.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(event, addonName)
+    if ( addonName == HSTBlizzUI.ADDON_NAME ) then
+        HSTBlizzUI.UnregisterEvent(MODULE_NAME, "ADDON_LOADED")
+
         if ( not WarlockHealthstoneTracker_BlizzUIDB ) then
-            HST:debug("WarlockHealthstoneTracker_BlizzUIDB not found, using defaults")
+            HSTBlizzUI:debug("WarlockHealthstoneTracker_BlizzUIDB not found, using defaults")
             WarlockHealthstoneTracker_BlizzUIDB = C.DEFAULT_DB
         end
 

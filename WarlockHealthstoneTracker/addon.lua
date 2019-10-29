@@ -3,12 +3,12 @@ local MODULE_NAME = "addon.lua"
 
 ADDON[1] = {} -- HST, Addon
 ADDON[2] = {} -- C, Config
-ADDON[3] = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME) -- L, Locale
+ADDON[3] = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME, true) -- L, Locale
+local HST, C, L = unpack(ADDON)
 
 ---------------------------------------------
 -- CONSTANTS
 ---------------------------------------------
-HST = ADDON[1]
 HST.ADDON_NAME = ADDON_NAME
 HST.VERSION = GetAddOnMetadata(ADDON_NAME, "Version")
 
@@ -53,7 +53,7 @@ local function GetItemInfo_Async(itemID, func)
         pendingGetItemInfoReceived[itemID] = func
     end
 end
-HST.RegisterEvent(MODULE_NAME, "GET_ITEM_INFO_RECEIVED", function(itemID, success)
+HST.RegisterEvent(MODULE_NAME, "GET_ITEM_INFO_RECEIVED", function(event, itemID, success)
     if ( success and pendingGetItemInfoReceived[itemID] ) then
         pendingGetItemInfoReceived[itemID](GetItemInfo(itemID))
         pendingGetItemInfoReceived[itemID] = nil
@@ -64,7 +64,7 @@ end)
 ---------------------------------------------
 -- INITIALIZE
 ---------------------------------------------
-HST.RegisterCallback(MODULE_NAME, "initialize", function()
+HST.RegisterCallback(MODULE_NAME, "initialize", function(event)
     -- Initialize HealthstoneNames from itemId. (automatic localization)
     for _,itemID in pairs(HST.HEALTHSTONES_BY_ITEMID) do
         GetItemInfo_Async(itemID, function(itemName, ...)
@@ -73,8 +73,10 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     end
 end)
 
-HST.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(addonName)
+HST.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(event, addonName)
     if ( addonName == HST.ADDON_NAME ) then
+        HST.UnregisterEvent(MODULE_NAME, "ADDON_LOADED")
+
         if ( not WarlockHealthstoneTrackerDB ) then
             HST:debug("WarlockHealthstoneTrackerDB not found, using defaults")
             WarlockHealthstoneTrackerDB = C.DEFAULT_DB
