@@ -42,32 +42,13 @@ end
 
 
 ---------------------------------------------
--- UTILITIES
----------------------------------------------
-local pendingGetItemInfoReceived = {}
-local function GetItemInfo_Async(itemID, func)
-    local itemName = GetItemInfo(itemID)
-    if ( itemName ) then
-        func(itemName)
-    else
-        pendingGetItemInfoReceived[itemID] = func
-    end
-end
-HST.RegisterEvent(MODULE_NAME, "GET_ITEM_INFO_RECEIVED", function(event, itemID, success)
-    if ( success and pendingGetItemInfoReceived[itemID] ) then
-        pendingGetItemInfoReceived[itemID](GetItemInfo(itemID))
-        pendingGetItemInfoReceived[itemID] = nil
-    end
-end)
-
-
----------------------------------------------
 -- INITIALIZE
 ---------------------------------------------
+local GetItemInfoAsync = LibStub("GetItemInfoAsync-1.0")
 HST.RegisterCallback(MODULE_NAME, "initialize", function(event)
     -- Initialize HealthstoneNames from itemId. (automatic localization)
     for _,itemID in pairs(HST.HEALTHSTONES_BY_ITEMID) do
-        GetItemInfo_Async(itemID, function(itemName, ...)
+        GetItemInfoAsync(itemID, function(itemName, ...)
             HST.HEALTHSTONES_BY_NAME[itemName] = true
         end)
     end
