@@ -5,8 +5,8 @@ manual-changelog:
     markup-type: markdown
 
 move-folders:
-    WarlockHealthstoneTracker/HST-Core: WarlockHealthstoneTracker
-    WarlockHealthstoneTracker/HST-BlizzUI: WarlockHealthstoneTracker_BlizzUI
+    WarlockHealthstoneTracker/WarlockHealthstoneTracker: WarlockHealthstoneTracker
+    WarlockHealthstoneTracker/WarlockHealthstoneTracker_BlizzUI: WarlockHealthstoneTracker_BlizzUI
 
 externals:
     WarlockHealthstoneTracker/lib/LibStub:
