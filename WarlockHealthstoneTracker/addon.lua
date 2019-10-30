@@ -71,7 +71,9 @@ HST.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(event, addonName)
         --@end-debug@
 
         if ( not WarlockHealthstoneTrackerDB ) then
-            HST:debug("WarlockHealthstoneTrackerDB not found, using defaults")
+            --@alpha@
+            print("[" .. HST.ADDON_NAME .. "]", "DB not found, using default configurations")
+            --@end-alpha@
             WarlockHealthstoneTrackerDB = C.DEFAULT_DB
         end
 

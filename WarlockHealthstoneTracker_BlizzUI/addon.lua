@@ -54,7 +54,9 @@ HSTBlizzUI.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(event, addonName)
         --@end-debug@
 
         if ( not WarlockHealthstoneTracker_BlizzUIDB ) then
-            HSTBlizzUI:debug("WarlockHealthstoneTracker_BlizzUIDB not found, using defaults")
+            --@alpha@
+            print("[" .. HST.ADDON_NAME .. "]", "DB not found, using default configurations")
+            --@end-alpha@
             WarlockHealthstoneTracker_BlizzUIDB = C.DEFAULT_DB
         end
 
