@@ -58,7 +58,6 @@ end
 
 local function prepareTradeFinalization()
     -- Confirm trade completion
-    local tradeUnitName, itemsBeingTraded = aura_env.tradeUnitName, aura_env.itemsBeingTraded
     if ( tradeUnitName ) then
         -- trade contained healthstone
         if ( containsAnyValue(itemsBeingTraded, HST.HEALTHSTONES_BY_ITEMID) ) then
