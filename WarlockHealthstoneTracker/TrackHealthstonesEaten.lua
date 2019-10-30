@@ -65,7 +65,7 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     --@end-debug@
 
     -- Watch combat log for healthstone consumption
-    HST.RegisterEvent(MODULE_NAME, "COMBAT_LOG_EVENT_UNFILTERED", function()
+    HST.RegisterEvent(MODULE_NAME, "COMBAT_LOG_EVENT_UNFILTERED", function(event)
         trackHealthstoneUsage(CombatLogGetCurrentEventInfo())
     end)
 end)

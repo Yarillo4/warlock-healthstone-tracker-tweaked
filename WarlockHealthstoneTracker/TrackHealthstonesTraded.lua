@@ -39,14 +39,14 @@ local tradeUnitName = nil
 local itemsBeingTraded = {}
 local pendingHealthstoneTradeUnitName = nil
 
-local function initializeTrade()
+local function initializeTrade(event)
     tradeUnitName = UnitName("NPC")
     --@debug@
     HST:debug("Trading with", tradeUnitName)
     --@end-debug@
 end
 
-local function updateTrade(slot)
+local function updateTrade(event, slot)
     if (slot) then
         local itemLink = GetTradePlayerItemLink(slot);
         --@alpha@
@@ -62,7 +62,7 @@ local function updateTrade(slot)
     end
 end
 
-local function prepareTradeFinalization()
+local function prepareTradeFinalization(event)
     -- Confirm trade completion
     if ( tradeUnitName ) then
         --@alpha@
@@ -86,7 +86,7 @@ local function prepareTradeFinalization()
     tradeUnitName = nil
 end
 
-local function validateTradeSuccess(...)
+local function validateTradeSuccess(event, ...)
     if ( not pendingHealthstoneTradeUnitName ) then
         return
     end
