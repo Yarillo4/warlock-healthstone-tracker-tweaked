@@ -11,4 +11,5 @@ if not L then
     return
 end
 
---@localization(locale="enUS", format="lua_addititve_table", namespace="BlizzUI", same-key-is-true=true)@
+--@localization(locale="enUS", format="lua_addititve_table", same-key-is-true=true, namespace="BlizzUI")@
+--@localization(locale="enUS", format="lua_addititve_table", same-key-is-true=true, namespace="Common")@

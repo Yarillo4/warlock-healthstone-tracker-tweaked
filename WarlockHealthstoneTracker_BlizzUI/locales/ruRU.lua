@@ -7,3 +7,4 @@ if not L then
 end
 
 --@localization(locale="ruRU", format="lua_addititve_table", namespace="BlizzUI")@
+--@localization(locale="ruRU", format="lua_addititve_table", namespace="Common")@

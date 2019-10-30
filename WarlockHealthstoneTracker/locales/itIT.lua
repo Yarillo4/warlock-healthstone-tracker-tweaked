@@ -7,3 +7,4 @@ if not L then
 end
 
 --@localization(locale="itIT", format="lua_addititve_table", namespace="Core")@
+--@localization(locale="itIT", format="lua_addititve_table", namespace="Common")@

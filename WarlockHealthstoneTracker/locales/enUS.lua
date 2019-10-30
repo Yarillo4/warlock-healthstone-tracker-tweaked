@@ -12,3 +12,4 @@ if not L then
 end
 
 --@localization(locale="enUS", format="lua_addititve_table", same-key-is-true=true, namespace="Core")@
+--@localization(locale="enUS", format="lua_addititve_table", same-key-is-true=true, namespace="Common")@
