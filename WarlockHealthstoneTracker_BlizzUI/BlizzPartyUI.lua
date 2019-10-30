@@ -16,7 +16,7 @@ local function createHealthstoneTexture(frame)
 end
 
 local function updatePartyMemberHealthstone(unitName, hasHealthstone)
-    if ( C:is("ShowPartyHealthstones") ) then
+    if ( C:is("ShowPartyHealthstones") and UnitInParty(unitName) ) then
         for i = 1,MAX_PARTY_MEMBERS do
             local unit = "party"..i
             if ( UnitExists(unit) and unitName == UnitName(unit) ) then
@@ -70,8 +70,8 @@ HSTBlizzUI.RegisterCallback(MODULE_NAME, "initialize", function()
     -- Update healthstone icons when PartyMemberFrame updates
     hooksecurefunc("PartyMemberFrame_UpdateMember", showHideHealthstoneIcon)
 
-    -- Receive party member healthstone updates
-    PLUGIN.RegisterCallback(MODULE_NAME, "updatePartyMemberHealthstone", updatePartyMemberHealthstone)
+    -- Receive healthstone updates
+    PLUGIN.RegisterCallback(MODULE_NAME, "updateUnitHealthstone", updatePartyMemberHealthstone)
 
     -- Receive option changed updates
     HSTBlizzUI.RegisterCallback(MODULE_NAME, "optionsChanged", updatePartyMemebersOnOptionsChanged)

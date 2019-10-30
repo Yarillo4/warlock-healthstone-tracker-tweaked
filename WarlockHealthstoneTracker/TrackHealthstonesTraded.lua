@@ -98,13 +98,7 @@ local function validateTradeSuccess(...)
             -- Successful trade
             HST:debug("Finalized healthstone trade with", pendingHealthstoneTradeUnitName)
             HST.playersWithHealthstones[pendingHealthstoneTradeUnitName] = true
-
-            if ( UnitInParty(pendingHealthstoneTradeUnitName) ) then
-                HST.pluginCallbacks:Fire("updatePartyMemberHealthstone", pendingHealthstoneTradeUnitName, true)
-            end
-            if ( UnitInRaid(pendingHealthstoneTradeUnitName) ) then
-                HST.pluginCallbacks:Fire("updateRaidMemberHealthstone", pendingHealthstoneTradeUnitName, true)
-            end
+            HST.pluginCallbacks:Fire("updateUnitHealthstone", pendingHealthstoneTradeUnitName, true)
         else
             -- failed trade
             HST:debug("Trade failed with", pendingHealthstoneTradeUnitName)

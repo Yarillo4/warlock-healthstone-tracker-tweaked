@@ -9,10 +9,7 @@ function PLUGIN:PlayerHasHealthstone(playerName)
 end
 
 --@debug@
-PLUGIN.RegisterCallback("debug", "updatePartyMemberHealthstone", function(event, unitname, hasHealthstone)
-    HST:debug(event, unitname, hasHealthstone)
-end)
-PLUGIN.RegisterCallback("debug", "updateRaidMemberHealthstone", function(event, unitname, hasHealthstone)
+PLUGIN.RegisterCallback("debug", "updateUnitHealthstone", function(event, unitname, hasHealthstone)
     HST:debug(event, unitname, hasHealthstone)
 end)
 --@end-debug@

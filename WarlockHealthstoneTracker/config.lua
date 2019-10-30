@@ -45,7 +45,6 @@ end
 local function setOption(info, value)
     if ( WarlockHealthstoneTrackerDB ) then
         WarlockHealthstoneTrackerDB[info.arg] = value --options:SetOption(info.arg, value)
-        return WarlockHealthstoneTrackerDB[info.arg]
     end
 end
 
@@ -58,14 +57,17 @@ end
 
 local function getCache(info)
     if ( UnitExists(info.arg) ) then
-        return HST.playersWithHealthstones[UnitName(info.arg)] == true
+        local unitname = UnitName(info.arg)
+        return HST.playersWithHealthstones[unitname] == true
     end
     return false
 end
 
 local function setCache(info, value)
     if ( UnitExists(info.arg) ) then
-        HST.playersWithHealthstones[UnitName(info.arg)] = value
+        local unitname = UnitName(info.arg)
+        HST.playersWithHealthstones[unitname] = (value) and value or nil -- true or nil
+        HST.pluginCallbacks:Fire("updateUnitHealthstone", unitname, value)
     end
 end
 

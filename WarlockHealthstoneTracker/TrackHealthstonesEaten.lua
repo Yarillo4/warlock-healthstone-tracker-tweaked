@@ -27,14 +27,7 @@ local function trackHealthstoneUsage(...)
         local spellId, spellName, spellSchool, healAmount, overhealing, absorbed, critical = select(12, ...)
         if ( HST.HEALTHSTONES_BY_NAME[spellName] )then
             HST.playersWithHealthstones[srcName] = nil
-
-            if ( isPartyMember(srcFlags) ) then
-                HST.pluginCallbacks:Fire("updatePartyMemberHealthstone", srcName, false)
-            end
-
-            if ( isRaidMember(srcFlags) ) then
-                HST.pluginCallbacks:Fire("updateRaidMemberHealthstone", srcName, false)
-            end
+            HST.pluginCallbacks:Fire("updateUnitHealthstone", srcName, false)
         end
     end
 end
