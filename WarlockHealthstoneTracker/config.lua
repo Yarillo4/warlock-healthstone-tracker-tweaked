@@ -7,7 +7,8 @@ local MODULE_NAME = "config.lua"
 ---------------------------------------------
 local L_ADDON_NAME = L["Warlock Healthstone Tracker"]
 local L_ADDON_DESCRIPTION = L["Track healthstones used by party & raid members"]
-local L_ENABLE_DEBUGGING = L["Enable Debugging"]
+local L_DEBUG = L["Debug"]
+local L_DEBUG_DESCRIPTION = L["Enable debugging"]
 local L_LOG_CONSUMED_HEALTHSTONES = L["Enable healthstone consumed message"]
 local L_LOG_CONSUMED_HEALTHSTONES_DESCRIPTION = L["Display a message in chat when a party or raid member consumes a healthstone. Only visible to you."]
 local L_GENERAL = GENERAL
@@ -108,17 +109,16 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                     width = "full",
                     arg = "EnableHealthstoneConsumedMessage"
                 },
-                --@debug@
                 debug = {
                     order = 9002,
                     type = "toggle",
-                    name = L_ENABLE_DEBUGGING,
+                    name = L_DEBUG,
+                    desc = L_DEBUG_DESCRIPTION,
                     set = setOption,
                     get = getOption,
                     width = "full",
                     arg = "Debug"
                 },
-                --@end-debug@
             },
         },
         cache = {
