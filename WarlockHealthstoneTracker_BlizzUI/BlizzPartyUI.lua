@@ -3,17 +3,26 @@ local MODULE_NAME = "BlizzPartyUI"
 
 local PLUGIN = LibStub("WarlockHealthstoneTracker-1.0", 1)
 
+---------------------------------------------
+-- CONSTANTS
+---------------------------------------------
+local HEALTHSTONE_TEXTURE_SCALING = 0.1
+
 
 ---------------------------------------------
 -- UTILITIES
 ---------------------------------------------
 local function createHealthstoneTexture(frame)
-    frame.HealthstoneIcon = frame:CreateTexture(nil, "Artwork", nil)
-    frame.HealthstoneIcon:SetHeight(16)
-    frame.HealthstoneIcon:SetWidth(16)
-    frame.HealthstoneIcon:SetTexture("Interface\\ICONS\\INV_Stone_04")
-    frame.HealthstoneIcon:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", -2, 0)
-    frame.HealthstoneIcon:Hide()
+    frame.Healthstone = CreateFrame("Frame", nil, frame)
+    frame.Healthstone:SetFrameStrata("HIGH")
+    frame.Healthstone:SetHeight(16)
+    frame.Healthstone:SetWidth(16)
+    frame.Healthstone:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", -2, 0)
+    frame.Healthstone.texture = frame.Healthstone:CreateTexture(nil, "Artwork", nil)
+    frame.Healthstone.texture:SetTexture("Interface\\ICONS\\INV_Stone_04")
+    frame.Healthstone.texture:SetAllPoints()
+    frame.Healthstone.texture:SetTexCoord(0+HEALTHSTONE_TEXTURE_SCALING, 1-HEALTHSTONE_TEXTURE_SCALING, 0+HEALTHSTONE_TEXTURE_SCALING, 1-HEALTHSTONE_TEXTURE_SCALING)
+    frame.Healthstone:Hide()
 end
 
 local function updatePartyMemberHealthstone(event, unitName, hasHealthstone)
@@ -25,13 +34,13 @@ local function updatePartyMemberHealthstone(event, unitName, hasHealthstone)
         for i = 1,MAX_PARTY_MEMBERS do
             local unit = "party"..i
             if ( UnitExists(unit) and unitName == UnitName(unit) ) then
-                _G["PartyMemberFrame"..i].HealthstoneIcon:SetShown(hasHealthstone)
+                _G["PartyMemberFrame"..i].Healthstone:SetShown(hasHealthstone)
             end
         end
     end
 end
 
-local function showHideHealthstoneIcon(self)
+local function showHideHealthstone(self)
     if ( not self ) then
         return
     end
@@ -43,16 +52,16 @@ local function showHideHealthstoneIcon(self)
                 --@alpha@
                 HSTBlizzUI:debug("Show healthstone for", unit)
                 --@end-alpha@
-                self.HealthstoneIcon:Show()
+                self.Healthstone:Show()
             else
                 --@alpha@
                 HSTBlizzUI:debug("Hide healthstone for", unit)
                 --@end-alpha@
-                self.HealthstoneIcon:Hide()
+                self.Healthstone:Hide()
             end
         end
     else
-        self.HealthstoneIcon:Hide()
+        self.Healthstone:Hide()
     end
 end
 
@@ -60,7 +69,7 @@ end
 local function updatePartyMemebersOnOptionsChanged(event, option, oldValue, newValue)
     if ( option == "ShowPartyHealthstones" ) then
         for i = 1,MAX_PARTY_MEMBERS do
-            showHideHealthstoneIcon(_G["PartyMemberFrame"..i])
+            showHideHealthstone(_G["PartyMemberFrame"..i])
         end
     end
 end
@@ -79,7 +88,7 @@ HSTBlizzUI.RegisterCallback(MODULE_NAME, "initialize", function()
     end
 
     -- Update healthstone icons when PartyMemberFrame updates
-    hooksecurefunc("PartyMemberFrame_UpdateMember", showHideHealthstoneIcon)
+    hooksecurefunc("PartyMemberFrame_UpdateMember", showHideHealthstone)
 
     -- Receive healthstone updates
     PLUGIN.RegisterCallback(MODULE_NAME, "updateUnitHealthstone", updatePartyMemberHealthstone)
