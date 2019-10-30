@@ -58,6 +58,10 @@ end
 -- INITIALIZE
 ---------------------------------------------
 HSTBlizzUI.RegisterCallback(MODULE_NAME, "initialize", function()
+    --@debug@
+    HSTBlizzUI:debug("initalize module", MODULE_NAME)
+    --@end-debug@
+
     -- Create healthstone texture for partyframe
     for i = 1,MAX_PARTY_MEMBERS do
         createHealthstoneTexture(_G["PartyMemberFrame"..i])

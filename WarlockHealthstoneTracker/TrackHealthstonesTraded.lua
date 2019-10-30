@@ -41,13 +41,19 @@ local pendingHealthstoneTradeUnitName = nil
 
 local function initializeTrade()
     tradeUnitName = UnitName("NPC")
+    --@debug@
+    HST:debug("Trading with", tradeUnitName)
+    --@end-debug@
 end
 
 local function updateTrade(slot)
     if (slot) then
         local itemLink = GetTradePlayerItemLink(slot);
+        --@alpha@
+        HST:debug("updateTrade slot", slot, "itemLink", itemLink)
+        --@end-alpha@
+
         if ( itemLink ) then
-             trace("Trading", itemLink)
              local itemID = tonumber(itemLink:match("item:(%d+)"))
              itemsBeingTraded[slot] = itemID
         else
@@ -59,10 +65,20 @@ end
 local function prepareTradeFinalization()
     -- Confirm trade completion
     if ( tradeUnitName ) then
+        --@alpha@
+        HST:debug("Trade window closed. Looking for healthstone in trade")
+        --@end-alpha@
+
         -- trade contained healthstone
         if ( containsAnyValue(itemsBeingTraded, HST.HEALTHSTONES_BY_ITEMID) ) then
-             trace("Closing healthstone trade with ", tradeUnitName, ". pending finalization")
-             pendingHealthstoneTradeUnitName = tradeUnitName
+            --@debug@
+            HST:debug("Trade contained healthstone. Pending finalization")
+            --@end-debug@
+            pendingHealthstoneTradeUnitName = tradeUnitName
+        else
+            --@debug@
+            HST:debug("Trade did NOT contain any healthstone")
+            --@end-debug@
         end
     end
 
@@ -80,7 +96,7 @@ local function validateTradeSuccess(...)
     if ( msgid and GetGameMessageInfo(msgid):sub(1,#"ERR_TRADE") == "ERR_TRADE" ) then
         if ( msg == ERR_TRADE_COMPLETE or msg == ERR_TRADE_TARGET_MAX_COUNT_EXCEEDED or msg == ERR_TRADE_TARGET_MAX_LIMIT_CATEGORY_COUNT_EXCEEDED_IS ) then
             -- Successful trade
-            HST:debug("Finalized successful trade with ", pendingHealthstoneTradeUnitName)
+            HST:debug("Finalized healthstone trade with", pendingHealthstoneTradeUnitName)
             HST.playersWithHealthstones[pendingHealthstoneTradeUnitName] = true
 
             if ( UnitInParty(pendingHealthstoneTradeUnitName) ) then
@@ -103,6 +119,10 @@ end
 -- INITIALIZE
 ---------------------------------------------
 HST.RegisterCallback(MODULE_NAME, "initialize", function()
+    --@debug@
+    HST:debug("initalize module", MODULE_NAME)
+    --@end-debug@
+
     -- Track trade state
     HST.RegisterEvent(MODULE_NAME, "TRADE_SHOW", initializeTrade)
     HST.RegisterEvent(MODULE_NAME, "TRADE_PLAYER_ITEM_CHANGED", updateTrade)

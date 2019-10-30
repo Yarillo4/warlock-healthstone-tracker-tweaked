@@ -31,4 +31,7 @@ end
 ---------------------------------------------
 
 HSTBlizzUI.RegisterCallback(MODULE_NAME, "initialize", function()
+    --@debug@
+    HSTBlizzUI:debug("initalize module", MODULE_NAME)
+    --@end-debug@
 end)

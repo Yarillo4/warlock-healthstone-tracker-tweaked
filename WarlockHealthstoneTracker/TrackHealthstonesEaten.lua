@@ -44,6 +44,10 @@ end
 -- INITIALIZE
 ---------------------------------------------
 HST.RegisterCallback(MODULE_NAME, "initialize", function()
+    --@debug@
+    HST:debug("initalize module", MODULE_NAME)
+    --@end-debug@
+
     -- Watch combat log for healthstone consumption
     HST.RegisterEvent(MODULE_NAME, "COMBAT_LOG_EVENT_UNFILTERED", function()
         trackHealthstoneUsage(CombatLogGetCurrentEventInfo())

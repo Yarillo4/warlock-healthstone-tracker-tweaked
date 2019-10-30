@@ -44,8 +44,16 @@ end
 ---------------------------------------------
 -- INITIALIZE
 ---------------------------------------------
+--@debug@
+LoadAddOn("Blizzard_DebugTools")
+--@end-debug@
+
 local GetItemInfoAsync = LibStub("GetItemInfoAsync-1.0")
 HST.RegisterCallback(MODULE_NAME, "initialize", function(event)
+    --@debug@
+    HST:debug("initalize module", MODULE_NAME)
+    --@end-debug@
+
     -- Initialize HealthstoneNames from itemId. (automatic localization)
     for _,itemID in pairs(HST.HEALTHSTONES_BY_ITEMID) do
         GetItemInfoAsync(itemID, function(itemName, ...)
@@ -57,6 +65,10 @@ end)
 HST.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(event, addonName)
     if ( addonName == HST.ADDON_NAME ) then
         HST.UnregisterEvent(MODULE_NAME, "ADDON_LOADED")
+
+        --@debug@
+        HST:debug("ADDON_LOADED")
+        --@end-debug@
 
         if ( not WarlockHealthstoneTrackerDB ) then
             HST:debug("WarlockHealthstoneTrackerDB not found, using defaults")
