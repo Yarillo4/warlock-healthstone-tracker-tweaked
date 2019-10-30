@@ -99,7 +99,7 @@ AceConfig:RegisterOptionsTable(HSTBlizzUI.ADDON_NAME, {
             desc = L_DEBUG_DESCRIPTION,
             set = setOption,
             get = getOption,
-            width = "full",
+            width = "normal",
             arg = "Debug"
         },
     },
