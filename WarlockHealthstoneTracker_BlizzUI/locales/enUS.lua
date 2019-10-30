@@ -1,6 +1,11 @@
 local ADDON_NAME = ...
 
-local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true --[[isDefault]], true --[[silent]])
+local silent = true
+--@debug@
+silent = false -- show localization errors for alpha & beta builds
+--@end-debug@
+
+local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true --[[isDefault]], silent)
 
 if not L then
     return
