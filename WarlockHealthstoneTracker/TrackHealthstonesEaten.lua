@@ -3,6 +3,12 @@ local MODULE_NAME = "TrackHealthstonesEaten"
 
 
 ---------------------------------------------
+-- LOCALIZATION
+---------------------------------------------
+local L_UNIT_ATE_HEALTHSTONE = L["ate a healthstone"];
+
+
+---------------------------------------------
 -- UTILITIES
 ---------------------------------------------
 local function isPlayer(flags)
@@ -28,6 +34,10 @@ local function trackHealthstoneUsage(...)
         if ( HST.HEALTHSTONES_BY_NAME[spellName] )then
             HST.playersWithHealthstones[srcName] = nil
             HST.pluginCallbacks:Fire("updateUnitHealthstone", srcName, false)
+
+            if ( C:is("EnableHealthstoneConsumedMessage") ) then
+                print(srcName, L_UNIT_ATE_HEALTHSTONE)
+            end
         end
     end
 end
