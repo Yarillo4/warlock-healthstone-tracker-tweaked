@@ -27,6 +27,8 @@ C.DEFAULT_DB = {
     ["EnableHealthstoneConsumedMessage"] = true
 }
 
+local optionListeners = LibStub("CallbackHandler-1.0"):New(C, "RegisterListener", "UnregisterListener", false)
+
 function C:is(option)
     return WarlockHealthstoneTrackerDB and WarlockHealthstoneTrackerDB[option]
 end
@@ -47,6 +49,7 @@ end
 local function setOption(info, value)
     if ( WarlockHealthstoneTrackerDB ) then
         WarlockHealthstoneTrackerDB[info.arg] = value --options:SetOption(info.arg, value)
+        optionListeners:Fire(info.arg, value)
     end
 end
 

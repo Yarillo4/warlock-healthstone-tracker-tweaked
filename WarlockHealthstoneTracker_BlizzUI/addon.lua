@@ -60,6 +60,14 @@ HSTBlizzUI.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(event, addonName)
             WarlockHealthstoneTracker_BlizzUIDB = C.DEFAULT_DB
         end
 
+        --@debug@
+        local i = next(WarlockHealthstoneTracker_BlizzUIDB)
+        while ( i ) do
+            C:RegisterListener(i, function(...) HSTBlizzUI:debug(...) end)
+            i = next(WarlockHealthstoneTracker_BlizzUIDB, i)
+        end
+        --@end-debug@
+
         HSTBlizzUI.callbacks:Fire("initialize")
     end
 end)

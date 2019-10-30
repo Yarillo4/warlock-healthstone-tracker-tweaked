@@ -28,6 +28,8 @@ C.DEFAULT_DB = {
     ["Debug"] = false,
 }
 
+local optionListeners = LibStub("CallbackHandler-1.0"):New(C, "RegisterListener", "UnregisterListener", false)
+
 function C:is(option)
     return WarlockHealthstoneTracker_BlizzUIDB and WarlockHealthstoneTracker_BlizzUIDB[option]
 end
@@ -52,6 +54,7 @@ end
 local function setOption(info, value)
     if ( WarlockHealthstoneTracker_BlizzUIDB ) then
         WarlockHealthstoneTracker_BlizzUIDB[info.arg] = value
+        optionListeners:Fire(info.arg, value)
     end
 end
 

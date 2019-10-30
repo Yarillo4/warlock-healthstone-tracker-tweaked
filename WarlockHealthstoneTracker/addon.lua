@@ -77,6 +77,14 @@ HST.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(event, addonName)
             WarlockHealthstoneTrackerDB = C.DEFAULT_DB
         end
 
+        --@debug@
+        local i = next(WarlockHealthstoneTrackerDB)
+        while ( i ) do
+            C:RegisterListener(i, function(...) HST:debug(...) end)
+            i = next(WarlockHealthstoneTrackerDB, i)
+        end
+        --@end-debug@
+
         HST.callbacks:Fire("initialize")
     end
 end)
