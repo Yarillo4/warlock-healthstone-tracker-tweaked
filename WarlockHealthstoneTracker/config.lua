@@ -16,6 +16,7 @@ local L_CACHE_DESCRIPTION = L["Party and Raid members with healthstones"]
 local L_PARTY = PARTY
 local L_RAID = RAID
 
+
 ---------------------------------------------
 -- OPTIONS
 ---------------------------------------------

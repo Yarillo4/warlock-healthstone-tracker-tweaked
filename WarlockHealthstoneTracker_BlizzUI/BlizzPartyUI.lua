@@ -3,6 +3,7 @@ local MODULE_NAME = "BlizzPartyUI"
 
 local PLUGIN = LibStub("WarlockHealthstoneTracker-1.0", 1)
 
+
 ---------------------------------------------
 -- UTILITIES
 ---------------------------------------------
