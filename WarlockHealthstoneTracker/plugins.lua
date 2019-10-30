@@ -11,5 +11,10 @@ end
 --@debug@
 PLUGIN.RegisterCallback("debug", "updateUnitHealthstone", function(event, unitname, hasHealthstone)
     HST:debug(event, unitname, hasHealthstone)
+    --@alpha@
+    if ( C:is("Debug") ) then
+        DevTools_Dump(HST.playersWithHealthstones)
+    end
+    --@end-alpha@
 end)
 --@end-debug@
