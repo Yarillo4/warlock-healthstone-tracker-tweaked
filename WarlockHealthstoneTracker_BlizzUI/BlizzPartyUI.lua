@@ -12,11 +12,15 @@ local function createHealthstoneTexture(frame)
     frame.HealthstoneIcon:SetHeight(16)
     frame.HealthstoneIcon:SetWidth(16)
     frame.HealthstoneIcon:SetTexture("Interface\\ICONS\\INV_Stone_04")
-    frame.HealthstoneIcon:SetPoint("TOPLEFT", _G[frame:GetName().."HealthBar"], "TOPRIGHT", 4, 0)
+    frame.HealthstoneIcon:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", -2, 0)
     frame.HealthstoneIcon:Hide()
 end
 
-local function updatePartyMemberHealthstone(unitName, hasHealthstone)
+local function updatePartyMemberHealthstone(event, unitName, hasHealthstone)
+    --@debug@
+    HSTBlizzUI:debug(unitName, "ShowPartyHealthstones", C:is("ShowPartyHealthstones"), "inParty", UnitInParty(unitName), "hasHealthstone", hasHealthstone)
+    --@end-debug@
+
     if ( C:is("ShowPartyHealthstones") and UnitInParty(unitName) ) then
         for i = 1,MAX_PARTY_MEMBERS do
             local unit = "party"..i
@@ -36,8 +40,14 @@ local function showHideHealthstoneIcon(self)
         local unit = "party" .. self:GetID()
         if ( UnitExists(unit) ) then
             if ( PLUGIN:PlayerHasHealthstone(UnitName(unit)) ) then
+                --@alpha@
+                HSTBlizzUI:debug("Show healthstone for", unit)
+                --@end-alpha@
                 self.HealthstoneIcon:Show()
             else
+                --@alpha@
+                HSTBlizzUI:debug("Hide healthstone for", unit)
+                --@end-alpha@
                 self.HealthstoneIcon:Hide()
             end
         end
@@ -47,7 +57,7 @@ local function showHideHealthstoneIcon(self)
 end
 
 
-local function updatePartyMemebersOnOptionsChanged(option, oldValue, newValue)
+local function updatePartyMemebersOnOptionsChanged(event, option, oldValue, newValue)
     if ( option == "ShowPartyHealthstones" ) then
         for i = 1,MAX_PARTY_MEMBERS do
             showHideHealthstoneIcon(_G["PartyMemberFrame"..i])
