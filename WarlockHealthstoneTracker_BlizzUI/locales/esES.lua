@@ -6,5 +6,5 @@ if not L then
     return
 end
 
---@localization(locale="esES", format="lua_addititve_table", namespace="BlizzUI")@
---@localization(locale="esES", format="lua_addititve_table", namespace="Common")@
+--@localization(locale="esES", format="lua_additive_table", namespace="BlizzUI")@
+--@localization(locale="esES", format="lua_additive_table", namespace="Common")@
