@@ -117,7 +117,7 @@ configPanes.general = AceConfigDialog:AddToBlizOptions(HSTBlizzUI.ADDON_NAME, L_
 -- INITIALIZE
 ---------------------------------------------
 HSTBlizzUI.RegisterCallback(MODULE_NAME, "initialize", function()
-    --@debug@
+    --@alpha@
     HSTBlizzUI:debug("initalize module", MODULE_NAME)
-    --@end-debug@
+    --@end-alpha@
 end)

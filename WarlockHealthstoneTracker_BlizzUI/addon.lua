@@ -35,23 +35,23 @@ end
 ---------------------------------------------
 -- INITIALIZE
 ---------------------------------------------
---@debug@
+--@alpha@
 LoadAddOn("Blizzard_DebugTools")
---@end-debug@
+--@end-alpha@
 
 HSTBlizzUI.RegisterCallback(MODULE_NAME, "initialize", function(event)
-    --@debug@
+    --@alpha@
     HSTBlizzUI:debug("initalize module", MODULE_NAME)
-    --@end-debug@
+    --@end-alpha@
 end)
 
 HSTBlizzUI.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(event, addonName)
     if ( addonName == HSTBlizzUI.ADDON_NAME ) then
         HSTBlizzUI.UnregisterEvent(MODULE_NAME, "ADDON_LOADED")
 
-        --@debug@
-        HSTBlizzUI:debug("ADDON_LOADED")
-        --@end-debug@
+        --@alpha@
+        HSTBlizzUI:debug("ADDON_LOADED", addonName)
+        --@end-alpha@
 
         if ( not WarlockHealthstoneTracker_BlizzUIDB ) then
             --@alpha@
@@ -60,13 +60,12 @@ HSTBlizzUI.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(event, addonName)
             WarlockHealthstoneTracker_BlizzUIDB = C.DEFAULT_DB
         end
 
-        --@debug@
+        -- Register debug listener for all options
         local i = next(WarlockHealthstoneTracker_BlizzUIDB)
         while ( i ) do
             C:RegisterListener(i, function(...) HSTBlizzUI:debug(...) end)
             i = next(WarlockHealthstoneTracker_BlizzUIDB, i)
         end
-        --@end-debug@
 
         HSTBlizzUI.callbacks:Fire("initialize")
     end

@@ -34,6 +34,9 @@ local function updatePartyMemberHealthstone(event, unitName, hasHealthstone)
         for i = 1,MAX_PARTY_MEMBERS do
             local unit = "party"..i
             if ( UnitExists(unit) and unitName == UnitName(unit) ) then
+                --@alpha@
+                HSTBlizzUI:debug(hasHealthstone and "Show" or "Hide", "healthstone for", unit)
+                --@end-alpha@
                 _G["PartyMemberFrame"..i].Healthstone:SetShown(hasHealthstone)
             end
         end
@@ -78,9 +81,9 @@ end
 -- INITIALIZE
 ---------------------------------------------
 HSTBlizzUI.RegisterCallback(MODULE_NAME, "initialize", function()
-    --@debug@
+    --@alpha@
     HSTBlizzUI:debug("initalize module", MODULE_NAME)
-    --@end-debug@
+    --@end-alpha@
 
     -- Create healthstone texture for partyframe
     for i = 1,MAX_PARTY_MEMBERS do

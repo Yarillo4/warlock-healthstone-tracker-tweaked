@@ -8,7 +8,7 @@ function PLUGIN:PlayerHasHealthstone(playerName)
     return HST.playersWithHealthstones[playerName] == true
 end
 
---@debug@
+
 PLUGIN.RegisterCallback("debug", "updateUnitHealthstone", function(event, unitname, hasHealthstone)
     HST:debug(event, unitname, hasHealthstone)
     --@alpha@
@@ -17,4 +17,3 @@ PLUGIN.RegisterCallback("debug", "updateUnitHealthstone", function(event, unitna
     end
     --@end-alpha@
 end)
---@end-debug@

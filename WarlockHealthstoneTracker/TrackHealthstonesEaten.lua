@@ -49,6 +49,8 @@ local function trackHealthstoneUsage(...)
 
                 if ( C:is("EnableHealthstoneConsumedMessage") ) then
                     print(srcName, L_UNIT_ATE_HEALTHSTONE)
+                else
+                    HST:Debug(srcName, L_UNIT_ATE_HEALTHSTONE)
                 end
             end
         end
@@ -60,9 +62,9 @@ end
 -- INITIALIZE
 ---------------------------------------------
 HST.RegisterCallback(MODULE_NAME, "initialize", function()
-    --@debug@
+    --@alpha@
     HST:debug("initalize module", MODULE_NAME)
-    --@end-debug@
+    --@end-alpha@
 
     -- Watch combat log for healthstone consumption
     HST.RegisterEvent(MODULE_NAME, "COMBAT_LOG_EVENT_UNFILTERED", function(event)

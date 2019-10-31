@@ -41,9 +41,7 @@ local pendingHealthstoneTradeUnitName = nil
 
 local function initializeTrade(event)
     tradeUnitName = UnitName("NPC")
-    --@debug@
     HST:debug("Trading with", tradeUnitName)
-    --@end-debug@
 end
 
 local function updateTrade(event, slot)
@@ -65,20 +63,12 @@ end
 local function prepareTradeFinalization(event)
     -- Confirm trade completion
     if ( tradeUnitName ) then
-        --@alpha@
-        HST:debug("Trade window closed. Looking for healthstone in trade")
-        --@end-alpha@
-
         -- trade contained healthstone
         if ( containsAnyValue(itemsBeingTraded, HST.HEALTHSTONES_BY_ITEMID) ) then
-            --@debug@
             HST:debug("Trade contained healthstone. Pending finalization")
-            --@end-debug@
             pendingHealthstoneTradeUnitName = tradeUnitName
         else
-            --@debug@
             HST:debug("Trade did NOT contain any healthstone")
-            --@end-debug@
         end
     end
 
@@ -113,9 +103,9 @@ end
 -- INITIALIZE
 ---------------------------------------------
 HST.RegisterCallback(MODULE_NAME, "initialize", function()
-    --@debug@
+    --@alpha@
     HST:debug("initalize module", MODULE_NAME)
-    --@end-debug@
+    --@end-alpha@
 
     -- Track trade state
     HST.RegisterEvent(MODULE_NAME, "TRADE_SHOW", initializeTrade)

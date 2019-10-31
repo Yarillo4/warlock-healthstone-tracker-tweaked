@@ -649,7 +649,7 @@ end]]
 ---------------------------------------------
 
 HST.RegisterCallback(MODULE_NAME, "initialize", function()
-    --@debug@
+    --@alpha@
     HST:debug("initalize module", MODULE_NAME)
-    --@end-debug@
+    --@end-alpha@
 end)
