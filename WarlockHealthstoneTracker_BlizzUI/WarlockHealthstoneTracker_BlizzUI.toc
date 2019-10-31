@@ -25,8 +25,6 @@
 ## LoadOnDemand: 0
 ## RequiredDeps: WarlockHealthstoneTracker
 ## SavedVariablesPerCharacter: WarlockHealthstoneTracker_BlizzUIDB
-## X-Website: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker
-## X-Category: Warlock
 
 locales.xml
 addon.lua

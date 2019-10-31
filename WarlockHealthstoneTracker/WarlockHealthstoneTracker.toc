@@ -26,8 +26,6 @@
 ## OptionalDeps: LibStub, CallbackHandler-1.0, AceLocale-3.0, AceConfig-3.0
 ## X-Embeds: LibStub, CallbackHandler-1.0, AceLocale-3.0, AceConfig-3.0
 ## SavedVariablesPerCharacter: WarlockHealthstoneTrackerDB
-## X-Website: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker
-## X-Category: Warlock
 
 #@no-lib-strip@
 lib\LibStub\LibStub.lua
