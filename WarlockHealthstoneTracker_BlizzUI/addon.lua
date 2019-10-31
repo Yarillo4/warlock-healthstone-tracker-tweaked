@@ -67,6 +67,7 @@ HSTBlizzUI.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(event, addonName)
             i = next(WarlockHealthstoneTracker_BlizzUIDB, i)
         end
 
+        -- Initialize addon modules
         HSTBlizzUI.callbacks:Fire("initialize")
     end
 end)

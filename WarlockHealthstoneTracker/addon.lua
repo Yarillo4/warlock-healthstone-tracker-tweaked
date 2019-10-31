@@ -84,6 +84,7 @@ HST.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(event, addonName)
             i = next(WarlockHealthstoneTrackerDB, i)
         end
 
+        -- Initialize addon modules
         HST.callbacks:Fire("initialize")
     end
 end)
