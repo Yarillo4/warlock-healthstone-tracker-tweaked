@@ -1,8 +1,8 @@
 local ADDON_NAME = ...
 
-local silent = true
+local silent = false
 --@debug@
-silent = false -- show localization errors for alpha & beta builds
+silent = true -- do not show localization errors in dev
 --@end-debug@
 
 local L = LibStub("AceLocale-3.0"):NewLocale(ADDON_NAME, "enUS", true --[[isDefault]], silent)
