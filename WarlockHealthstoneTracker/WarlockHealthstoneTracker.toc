@@ -30,11 +30,13 @@
 ## X-Curse-Project-ID: 349620
 ## X-Category: Warlock
 
+#@no-lib-strip@
 lib\LibStub\LibStub.lua
 lib\CallbackHandler-1.0\CallbackHandler-1.0.xml
 lib\AceLocale-3.0\AceLocale-3.0.xml
 lib\AceConfig-3.0\AceConfig-3.0.xml
 lib\GetItemInfoAsync-1.0\GetItemInfoAsync-1.0.xml
+#@end-no-lib-strip@
 
 locales.xml
 addon.lua
