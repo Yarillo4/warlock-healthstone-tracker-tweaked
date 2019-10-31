@@ -22,5 +22,5 @@ externals:
         url: https://repos.wowace.com/wow/ace3/mainline/trunk/AceConfig-3.0
         tag: latest
     WarlockHealthstoneTracker/lib/GetItemInfoAsync-1.0:
-        url: https://repos.curseforge.com/wow/getiteminfoasync
+        url: https://repos.curseforge.com/wow/getiteminfoasync/GetItemInfoAsync-1.0
         tag: latest
