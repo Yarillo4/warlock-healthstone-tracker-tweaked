@@ -57,6 +57,9 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function(event)
     -- Initialize HealthstoneNames from itemId. (automatic localization)
     for _,itemID in pairs(HST.HEALTHSTONES_BY_ITEMID) do
         GetItemInfoAsync(itemID, function(itemName, ...)
+            --@alpha@
+            HST:debug("Retrieved item", itemID, itemName)
+            --@end-alpha@
             HST.HEALTHSTONES_BY_NAME[itemName] = true
         end)
     end
