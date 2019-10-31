@@ -1,3 +1,9 @@
+## v0.0.9-beta - 2019-10-31
+###### Added
+* Alpha debugging for GetItemInfoAsync
+
+---
+
 ## v0.0.8-alpha - 2019-10-31
 ###### Fixed
 * Debug & Alpha subtitutions
