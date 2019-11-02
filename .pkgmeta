@@ -4,9 +4,9 @@ manual-changelog:
     filename: CHANGELOG.md
     markup-type: markdown
 
-move-folders:
-    WarlockHealthstoneTracker/WarlockHealthstoneTracker: WarlockHealthstoneTracker
-    WarlockHealthstoneTracker/WarlockHealthstoneTracker_BlizzUI: WarlockHealthstoneTracker_BlizzUI
+ignore:
+    - README.md
+    - CHANGELOG.md
 
 externals:
     WarlockHealthstoneTracker/lib/LibStub:
