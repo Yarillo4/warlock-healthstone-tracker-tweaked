@@ -1,3 +1,11 @@
+## v0.0.12-beta - 2019-11-03
+###### Fixed
+* Library packaging path
+###### Changed
+* Removed latent debugging message
+
+---
+
 ## v0.0.12-alpha - 2019-11-03
 ###### Fixed
 * Library packaging path

@@ -69,7 +69,6 @@
 		</KeyValues>
 		<Scripts>
 			<OnLoad>
-				print("onLoad")
 				self:SetMinResize(self.minimumWidth, self.minimumHeight)
 				self:SetClampedToScreen(true)
 
