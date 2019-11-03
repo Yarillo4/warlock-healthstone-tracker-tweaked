@@ -20,13 +20,13 @@ local L_LISTVIEW = L["List view"]
 local L_LISTVIEW_DESCRIPTION = L["View players without healthstones as a simple list"]
 local L_ENABLE = ENABLE
 local L_LOCK_WINDOW = L["Lock window"]
-local L_LOCK_WINDOW_DESCRIPTION = L["Disable dragging, resizing, and closing of the window"]
+local L_LOCK_WINDOW_DESCRIPTION = L["Disable dragging and resizing of the window"]
 local L_HIDE_WHEN_EMPTY = L["Hide frame when empty"]
 local L_HIDE_WHEN_EMPTY_DESCRIPTION = L["Hide list view when everyone has a healthstone"]
 local L_HIDE_WHEN_IN_COMBAT = L["Hide frame when in combat"]
 local L_HIDE_WHEN_IN_COMBAT_DESCRIPTION = L["Hide list view during combat"]
 local L_HIDE_WHEN_NOT_IN_GROUP = L["Hide frame when not in group"]
-local L_HIDE_WHEN_NOT_IN_GROUP_DESCRIPTION = L["Hist list view when not in party or raid"]
+local L_HIDE_WHEN_NOT_IN_GROUP_DESCRIPTION = L["Hide list view when not in party or raid"]
 
 
 ---------------------------------------------
