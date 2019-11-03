@@ -27,6 +27,8 @@ local L_HIDE_WHEN_IN_COMBAT = L["Hide frame when in combat"]
 local L_HIDE_WHEN_IN_COMBAT_DESCRIPTION = L["Hide list view during combat"]
 local L_HIDE_WHEN_NOT_IN_GROUP = L["Hide frame when not in group"]
 local L_HIDE_WHEN_NOT_IN_GROUP_DESCRIPTION = L["Hide list view when not in party or raid"]
+local L_RESET_DEFAULTS = L["Reset to Defaults"]
+local L_RESET_DEFAULTS_DESCRIPTION = L["Reset all options, frame sizing, and position to defaults"]
 
 
 ---------------------------------------------
@@ -162,6 +164,18 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
             type = "group",
             name = L_GENERAL,
             args = {
+                resetDefaults = {
+                    order = 9000,
+                    type = "execute",
+                    name = L_RESET_DEFAULTS,
+                    desc = L_RESET_DEFAULTS_DESCRIPTION,
+                    func = function()
+                        WarlockHealthstoneTrackerListView:ClearAllPoints()
+                        WarlockHealthstoneTrackerListView:SetPoint("CENTER", UIParent)
+                        WarlockHealthstoneTrackerListView:SetSize(150, 100)
+                        WarlockHealthstoneTrackerDB = C.DEFAULT_DB
+                    end
+                },
                 desc = {
                     order = 1,
                     type = "description",
