@@ -22,8 +22,11 @@ local L_ENABLE = ENABLE
 local L_LOCK_WINDOW = L["Lock window"]
 local L_LOCK_WINDOW_DESCRIPTION = L["Disable dragging, resizing, and closing of the window"]
 local L_HIDE_WHEN_EMPTY = L["Hide frame when empty"]
-local L_HIDE_WHEN_EMPTY_DESCRIPTION = L["Hide frame when everyone has a healthstone"]
-
+local L_HIDE_WHEN_EMPTY_DESCRIPTION = L["Hide list view when everyone has a healthstone"]
+local L_HIDE_WHEN_IN_COMBAT = L["Hide frame when in combat"]
+local L_HIDE_WHEN_IN_COMBAT_DESCRIPTION = L["Hide list view during combat"]
+local L_HIDE_WHEN_NOT_IN_GROUP = L["Hide frame when not in group"]
+local L_HIDE_WHEN_NOT_IN_GROUP_DESCRIPTION = L["Hist list view when not in party or raid"]
 
 
 ---------------------------------------------
@@ -37,6 +40,8 @@ C.DEFAULT_DB = {
         ["Enabled"] = true,
         ["Locked"] = false,
         ["HideWhenEmpty"] = false, -- false by default so initial users can position windows
+        ["HideWhenInCombat"] = false,
+        ["HideWhenNotInGroup"] = false,
     },
 }
 
@@ -74,7 +79,7 @@ function C:upgradeDB()
 end
 
 function C:is(option)
-    return WarlockHealthstoneTrackerDB and WarlockHealthstoneTrackerDB[option]
+    return C:get(option) == true
 end
 
 function C:get(option)
@@ -235,6 +240,26 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                             get = getOption,
                             width = "full",
                             arg = "ListView/HideWhenEmpty"
+                        },
+                        hideWhenInCombat = {
+                            order = 40,
+                            type = "toggle",
+                            name = L_HIDE_WHEN_IN_COMBAT,
+                            desc = L_HIDE_WHEN_IN_COMBAT_DESCRIPTION,
+                            set = setOption,
+                            get = getOption,
+                            width = "full",
+                            arg = "ListView/HideWhenInCombat"
+                        },
+                        hideWhenNotInGroup = {
+                            order = 60,
+                            type = "toggle",
+                            name = L_HIDE_WHEN_NOT_IN_GROUP,
+                            desc = L_HIDE_WHEN_NOT_IN_GROUP_DESCRIPTION,
+                            set = setOption,
+                            get = getOption,
+                            width = "full",
+                            arg = "ListView/HideWhenNotInGroup"
                         },
                     },
                 },
