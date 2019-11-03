@@ -1,3 +1,9 @@
+## v0.0.12-alpha - 2019-11-03
+###### Fixed
+* Library packaging path
+
+---
+
 ## v0.0.11-alpha - 2019-11-03
 ###### Fixed
 * Localization namespace

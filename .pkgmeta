@@ -9,18 +9,18 @@ ignore:
     - CHANGELOG.md
 
 externals:
-    WarlockHealthstoneTracker/lib/LibStub:
+    lib/LibStub:
         url: https://repos.wowace.com/wow/libstub/trunk
         tag: latest
-    WarlockHealthstoneTracker/lib/CallbackHandler-1.0:
+    lib/CallbackHandler-1.0:
         url: https://repos.wowace.com/wow/callbackhandler/trunk/CallbackHandler-1.0
         tag: latest
-    WarlockHealthstoneTracker/lib/AceLocale-3.0:
+    lib/AceLocale-3.0:
         url: https://repos.wowace.com/wow/ace3/mainline/trunk/AceLocale-3.0
         tag: latest
-    WarlockHealthstoneTracker/lib/AceConfig-3.0:
+    lib/AceConfig-3.0:
         url: https://repos.wowace.com/wow/ace3/mainline/trunk/AceConfig-3.0
         tag: latest
-    WarlockHealthstoneTracker/lib/GetItemInfoAsync-1.0:
+    lib/GetItemInfoAsync-1.0:
         url: https://repos.curseforge.com/wow/getiteminfoasync/GetItemInfoAsync-1.0
         tag: latest
