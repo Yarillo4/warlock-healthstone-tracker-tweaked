@@ -216,4 +216,5 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     C.RegisterListener(MODULE_NAME, "ListView/HideWhenEmpty", handleOptionsChanged)
     C.RegisterListener(MODULE_NAME, "ListView/HideWhenInCombat", handleOptionsChanged)
     C.RegisterListener(MODULE_NAME, "ListView/HideWhenNotInGroup", handleOptionsChanged)
+    handleOptionsChanged("ListView/Locked", C:is("ListView/Locked")) -- hack until proper options initialize events
 end)
