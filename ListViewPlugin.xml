@@ -1,0 +1,84 @@
+<Ui
+	xmlns="http://www.blizzard.com/wow/ui/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+
+	<Frame name="WarlockHealthstoneTrackerListView" hidden="false" toplevel="true" parent="UIParent" movable="true" resizable="true">
+		<Size x="150" y="100"/>
+		<Anchors>
+			<Anchor point="CENTER" />
+		</Anchors>
+		<Frames>
+			<Frame parentKey="TitleBar" mixin="WarlockHealthstoneTrackerListViewTitleBarMixIn" frameLevel="100" hidden="false" enableMouse="true">
+				<Size y="20"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" />
+					<Anchor point="RIGHT" />
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture>
+							<Anchors>
+								<Anchor point="TOPLEFT" />
+								<Anchor point="BOTTOMRIGHT" />
+							</Anchors>
+							<Color r="0" g="0" b="0" a="0.5"/>
+						</Texture>
+					</Layer>
+					<Layer level="ARTWORK">
+						<FontString inherits="GameFontNormalMed1" text="L_WARLOCK_HEALTHSTONE_TRACKER_NEED_HEALTHSTONES" justifyH="CENTER" justifyV="CENTER">
+							<Anchors>
+								<Anchor point="TOPLEFT" />
+								<Anchor point="BOTTOMRIGHT" />
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						self:RegisterForDrag("LeftButton")
+					</OnLoad>
+					<OnDragStart method="OnDragStart" />
+					<OnDragStop method="OnDragStop" />
+				</Scripts>
+			</Frame>
+			<Button parentKey="ResizeButton" mixin="WarlockHealthstoneTrackerListViewResizeButtonMixIn" frameLevel="200" enableMouse="true" movable="true" >
+				<Size x="16" y="16"/>
+				<Anchors>
+					<Anchor point="BOTTOMRIGHT" relativeTo="$parent" x="0" y="0" />
+				</Anchors>
+				<Scripts>
+					<OnMouseDown method="OnMouseDown" />
+					<OnMouseUp method="OnMouseUp" />
+				</Scripts>
+				<NormalTexture file="Interface\ChatFrame\UI-ChatIM-SizeGrabber-Up"/>
+				<HighlightTexture file="Interface\ChatFrame\UI-ChatIM-SizeGrabber-Highlight"/>
+				<PushedTexture file="Interface\ChatFrame\UI-ChatIM-SizeGrabber-Down"/>
+			</Button>
+		</Frames>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture>
+					<Anchors>
+						<Anchor point="TOPLEFT" />
+						<Anchor point="BOTTOMRIGHT" />
+					</Anchors>
+					<Color r="0" g="0" b="0" a="0.5"/>
+				</Texture>
+			</Layer>
+		</Layers>
+		<KeyValues>
+			<KeyValue key="minimumWidth" value="150" type="number"/>
+			<KeyValue key="minimumHeight" value="100" type="number"/>
+		</KeyValues>
+		<Scripts>
+			<OnLoad>
+				print("onLoad")
+				self:SetMinResize(self.minimumWidth, self.minimumHeight)
+				self:SetClampedToScreen(true)
+
+				self.namePool = CreateFontStringPool(self, "ARTWORK", 0, "GameFontNormal");
+			</OnLoad>
+		</Scripts>
+	</Frame>
+</Ui>

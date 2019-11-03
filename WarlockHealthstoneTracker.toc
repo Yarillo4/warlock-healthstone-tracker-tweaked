@@ -42,3 +42,5 @@ plugins.lua
 
 TrackHealthstonesEaten.lua
 TrackHealthstonesTraded.lua
+ListViewPlugin.lua
+ListViewPlugin.xml
