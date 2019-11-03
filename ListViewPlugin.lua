@@ -64,15 +64,18 @@ local function updateListViewFrame()
 
     showHideFrame()
     if ( frame:IsShown() ) then
+        local isFirst = true
         local previous = WarlockHealthstoneTrackerListView.TitleBar
         for _,name in pairs(playersThatNeedHealthstones) do
             local fontstring = frame.namePool:Acquire()
-            fontstring:SetPoint("TOPLEFT", previous, "BOTTOMLEFT", 0, 0)
+            fontstring:ClearAllPoints()
+            fontstring:SetPoint("TOPLEFT", previous, "BOTTOMLEFT", isFirst and 5 or 0, -3)
             fontstring:SetPoint("RIGHT", previous)
             fontstring:SetJustifyH("LEFT");
             fontstring:SetText(name)
             fontstring:Show()
             previous = fontstring
+            isFirst = false
         end
     end
 end
