@@ -17,11 +17,7 @@
 				</Anchors>
 				<Layers>
 					<Layer level="BACKGROUND">
-						<Texture>
-							<Anchors>
-								<Anchor point="TOPLEFT" />
-								<Anchor point="BOTTOMRIGHT" />
-							</Anchors>
+						<Texture setAllPoints="true">
 							<Color r="0" g="0" b="0" a="0.5"/>
 						</Texture>
 					</Layer>
