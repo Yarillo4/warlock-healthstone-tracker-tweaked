@@ -1,14 +1,15 @@
 # Warlock Healthstone Tracker
 Track healthstones traded to other players and their consumption.
 
+See the companion addon that shows healthstones using Blizzard party and raid frames.
+
 
 ## Features
-* Show healthstone icon next to party unit frames when player has healthstone [Blizzard default UI]
-* Hide healthstone icon upon consumption
+* Show simple list of players that need a healthstone
+* Exposes simple callback plugin interface for enhancing display of healthstone tracking.
 
 
 ## Future improvements
-* Show healthstone icon next to raid unit frames
 * Track healthstone creation
 * Track offline players and automatically remove their healthstones after 15 minutes.
 * Address ephemeral caching limitation

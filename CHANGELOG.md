@@ -1,3 +1,11 @@
+## v0.0.10-beta - 2019-11-03
+###### Added
+* View players that need healthstones as list
+###### Changed
+* Moved BlizzUI Plugin to separate addon project
+
+---
+
 ## v0.0.9-beta - 2019-10-31
 ###### Added
 * Alpha debugging for GetItemInfoAsync
