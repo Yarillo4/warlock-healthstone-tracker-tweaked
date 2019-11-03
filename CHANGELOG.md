@@ -1,3 +1,9 @@
+## v0.0.11-alpha - 2019-11-03
+###### Fixed
+* Localization namespace
+
+---
+
 ## v0.0.10-beta - 2019-11-03
 ###### Added
 * View players that need healthstones as list

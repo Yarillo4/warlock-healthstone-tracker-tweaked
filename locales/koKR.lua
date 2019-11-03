@@ -6,5 +6,4 @@ if not L then
     return
 end
 
---@localization(locale="koKR", format="lua_additive_table", namespace="Core")@
---@localization(locale="koKR", format="lua_additive_table", namespace="Common")@
+--@localization(locale="koKR", format="lua_additive_table")@

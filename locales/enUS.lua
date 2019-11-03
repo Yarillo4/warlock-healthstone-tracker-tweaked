@@ -11,5 +11,4 @@ if not L then
     return
 end
 
---@localization(locale="enUS", format="lua_additive_table", same-key-is-true=true, namespace="Core")@
---@localization(locale="enUS", format="lua_additive_table", same-key-is-true=true, namespace="Common")@
+--@localization(locale="enUS", format="lua_additive_table", same-key-is-true=true)@
