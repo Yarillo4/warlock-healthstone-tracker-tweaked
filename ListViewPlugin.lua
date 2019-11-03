@@ -74,10 +74,6 @@ local function updateListViewFrame()
             fontstring:Show()
             previous = fontstring
         end
-
-        -- resize frame to encompass all strings
-        -- if currentHeight < desiredHeight :: resize
-        -- else :: frame:SetPoint("BOTTOM", previous)
     end
 end
 
@@ -194,6 +190,7 @@ function WarlockHealthstoneTrackerListViewResizeButtonMixIn:OnMouseUp()
     self:GetParent():StopMovingOrSizing();
 end
 
+
 ---------------------------------------------
 -- INITIALIZE
 ---------------------------------------------
@@ -201,8 +198,6 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     --@alpha@
     HST:debug("initalize module", MODULE_NAME)
     --@end-alpha@
-
-    --WarlockHealthstoneTrackerListView:SetMovable(false)
 
     -- Receive healthstone updates
     PLUGIN.RegisterCallback(MODULE_NAME, "updateUnitHealthstone", updatePartyRaidHealthstone)
@@ -221,5 +216,4 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     C.RegisterListener(MODULE_NAME, "ListView/HideWhenEmpty", handleOptionsChanged)
     C.RegisterListener(MODULE_NAME, "ListView/HideWhenInCombat", handleOptionsChanged)
     C.RegisterListener(MODULE_NAME, "ListView/HideWhenNotInGroup", handleOptionsChanged)
-    handleOptionsChanged("ListView/Locked", C:is("ListView/Locked")) -- hack until proper options initialize events
 end)
