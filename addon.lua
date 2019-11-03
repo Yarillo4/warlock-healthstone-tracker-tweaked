@@ -6,6 +6,11 @@ ADDON[2] = {} -- C, Config
 ADDON[3] = LibStub("AceLocale-3.0"):GetLocale(ADDON_NAME, true) -- L, Locale
 local HST, C, L = unpack(ADDON)
 
+--@debug@
+_G["HST"] = HST --Expose internals on the Plugin lib
+--@end-debug@
+
+
 ---------------------------------------------
 -- CONSTANTS
 ---------------------------------------------
@@ -79,6 +84,7 @@ HST.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(event, addonName)
             --@end-alpha@
             WarlockHealthstoneTrackerDB = C.DEFAULT_DB
         end
+        C:upgradeDB()
 
         -- Register debug listener for all options
         local i = next(WarlockHealthstoneTrackerDB)

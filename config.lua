@@ -16,6 +16,14 @@ local L_CACHE = L["Cache"]
 local L_CACHE_DESCRIPTION = L["Party and Raid members with healthstones"]
 local L_PARTY = PARTY
 local L_RAID = RAID
+local L_LISTVIEW = L["List view"]
+local L_LISTVIEW_DESCRIPTION = L["View players without healthstones as a simple list"]
+local L_ENABLE = ENABLE
+local L_LOCK_WINDOW = L["Lock window"]
+local L_LOCK_WINDOW_DESCRIPTION = L["Disable dragging, resizing, and closing of the window"]
+local L_HIDE_WHEN_EMPTY = L["Hide frame when empty"]
+local L_HIDE_WHEN_EMPTY_DESCRIPTION = L["Hide frame when everyone has a healthstone"]
+
 
 
 ---------------------------------------------
@@ -24,13 +32,66 @@ local L_RAID = RAID
 C.DEFAULT_DB = {
     ["Version"] = 1,
     ["Debug"] = false,
-    ["EnableHealthstoneConsumedMessage"] = true
+    ["EnableHealthstoneConsumedMessage"] = true,
+    ListView = {
+        ["Enabled"] = true,
+        ["Locked"] = false,
+        ["HideWhenEmpty"] = false, -- false by default so initial users can position windows
+    },
 }
 
 local optionListeners = LibStub("CallbackHandler-1.0"):New(C, "RegisterListener", "UnregisterListener", false)
 
+local function setDefaults(DB, DEFAULTS)
+    -- find any nil values and set to default values
+    for k,v in pairs(DEFAULTS) do
+        if ( DB[k] == nil ) then
+            if ( type(v) == "table") then
+                DB[k] = {}
+            else
+                DB[k] = v
+                HST:debug("")
+            end
+        end
+
+        if ( type(DB[k]) == "table" ) then
+            setDefaults(DB[k], v)
+        end
+    end
+
+    -- clean up unknown values
+    for k,v in pairs(DB) do
+        if ( DEFAULTS[k] == nil ) then
+            DB[k] = nil
+        end
+    end
+end
+
+function C:upgradeDB()
+    if ( WarlockHealthstoneTrackerDB["Version"] == C.DEFAULT_DB["Version"] ) then
+        setDefaults(WarlockHealthstoneTrackerDB, C.DEFAULT_DB)
+    end
+end
+
 function C:is(option)
     return WarlockHealthstoneTrackerDB and WarlockHealthstoneTrackerDB[option]
+end
+
+function C:get(option)
+    if ( WarlockHealthstoneTrackerDB ) then
+        -- Walk the path until we have a final value
+        local path = { strsplit("./", option) }
+        local obj = WarlockHealthstoneTrackerDB
+        for _,v in ipairs(path) do
+            obj = obj[v]
+            if ( obj == nil ) then
+                error("Failed to find option '" .. option .. "'")
+            end
+        end
+        return obj
+    end
+
+    return nil
 end
 
 
@@ -41,14 +102,20 @@ function HST:debug(...)
 end
 
 local function getOption(info)
-    if ( WarlockHealthstoneTrackerDB ) then
-        return WarlockHealthstoneTrackerDB[info.arg] --options:GetOption(info.arg)
-    end
+    return C:get(info.arg)
 end
 
 local function setOption(info, value)
     if ( WarlockHealthstoneTrackerDB ) then
-        WarlockHealthstoneTrackerDB[info.arg] = value --options:SetOption(info.arg, value)
+        -- Walk the path until we have a final value
+        local path = { strsplit("./", info.arg) }
+        local o = WarlockHealthstoneTrackerDB
+        local finalArg = tremove(path, #path)
+        for _,v in ipairs(path) do
+            o = o[v]
+        end
+        o[finalArg] = value
+
         optionListeners:Fire(info.arg, value)
     end
 end
@@ -113,7 +180,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                     arg = "EnableHealthstoneConsumedMessage"
                 },
                 debug = {
-                    order = 9002,
+                    order = 100,
                     type = "toggle",
                     name = L_DEBUG,
                     desc = L_DEBUG_DESCRIPTION,
@@ -121,6 +188,55 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                     get = getOption,
                     width = "normal",
                     arg = "Debug"
+                },
+                listview = {
+                    order = 200,
+                    type = "group",
+                    inline = true,
+                    name = L_LISTVIEW,
+                    args = {
+                        desc = {
+                            order = 1,
+                            type = "description",
+                            name = L_LISTVIEW_DESCRIPTION,
+                            width = "full"
+                        },
+                        emptySpace = {
+                            order = 3,
+                            type = "description",
+                            name = " ",
+                            width = "full"
+                        },
+                        enable = {
+                            order = 10,
+                            type = "toggle",
+                            name = L_ENABLE,
+                            set = setOption,
+                            get = getOption,
+                            width = "full",
+                            arg = "ListView/Enabled"
+                        },
+                        lock = {
+                            order = 20,
+                            type = "toggle",
+                            name = L_LOCK_WINDOW,
+                            desc = L_LOCK_WINDOW_DESCRIPTION,
+                            set = setOption,
+                            get = getOption,
+                            width = "full",
+                            arg = "ListView/Locked"
+                        },
+                        hideWhenEmpty = {
+                            order = 30,
+                            type = "toggle",
+                            name = L_HIDE_WHEN_EMPTY,
+                            desc = L_HIDE_WHEN_EMPTY_DESCRIPTION,
+                            set = setOption,
+                            get = getOption,
+                            width = "full",
+                            arg = "ListView/HideWhenEmpty"
+                        },
+                    },
                 },
             },
         },
