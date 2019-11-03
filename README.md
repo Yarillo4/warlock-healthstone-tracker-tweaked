@@ -1,7 +1,7 @@
 # Warlock Healthstone Tracker
 Track healthstones traded to other players and their consumption.
 
-See the companion addon that shows healthstones using Blizzard party and raid frames.
+***See the [companion addon](https://www.curseforge.com/wow/addons/warlock-healthstone-tracker-blizzui) that shows healthstones using Blizzard party and raid frames.***
 
 
 ## Features
