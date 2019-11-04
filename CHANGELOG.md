@@ -10,7 +10,9 @@
 #### Known Issues
 * [#1] - Reset to Defaults doesn't work the second time
 * [#2] - List view remains locked after Reset to Defaults
+* [#4] - List view showed party member "Unknown"
 
 [#1]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/1
 [#2]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/2
 [#3]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/3
+[#4]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/4
