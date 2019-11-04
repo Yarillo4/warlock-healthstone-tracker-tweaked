@@ -1,3 +1,9 @@
+## v0.0.13-beta - 2019-11-04
+###### Added
+* Track healthstone creation
+
+---
+
 ## v0.0.12-beta - 2019-11-03
 ###### Fixed
 * Library packaging path

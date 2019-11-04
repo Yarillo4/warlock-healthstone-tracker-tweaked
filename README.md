@@ -10,7 +10,6 @@ Track healthstones traded to other players and their consumption.
 
 
 ## Future improvements
-* Track healthstone creation
 * Track offline players and automatically remove their healthstones after 15 minutes.
 * Address ephemeral caching limitation
 
