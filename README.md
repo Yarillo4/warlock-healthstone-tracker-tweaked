@@ -6,7 +6,16 @@ Track healthstones traded to other players and their consumption.
 
 ## Features
 * Show simple list of players that need a healthstone
-* Exposes simple callback plugin interface for enhancing display of healthstone tracking.
+* Track healthstones created, traded, and consumed
+* Exposes simple callback plugin interface for other addons to display healthstone tracking.
+
+
+## Known Issues
+* [#1] - Reset to Defaults doesn't work the second time
+* [#2] - List view remains locked after Reset to Defaults
+
+[#1]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/1
+[#2]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/2
 
 
 ## Future improvements
