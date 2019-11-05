@@ -1,3 +1,10 @@
+## v1.0.1-beta - 2019-11-05
+#### Fixed
+* [#4] - List view showed party member "Unknown"
+#### Known Issues
+* [#1] - Reset to Defaults doesn't work the second time
+* [#2] - List view remains locked after Reset to Defaults
+
 ## v1.0.0 - 2019-11-04
 #### Added
 * Track healthstone consumption

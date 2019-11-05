@@ -25,6 +25,19 @@ local playersThatNeedHealthstones = {}
 ---------------------------------------------
 -- UTILITIES
 ---------------------------------------------
+local function contains(t, value)
+    for i,v in ipairs(players) do
+        if ( v == value ) then
+            return true
+        end
+    end
+    return false
+end
+
+
+---------------------------------------------
+-- LIST VIEW
+---------------------------------------------
 local function showHideFrame()
     if ( not C:is("ListView/Enabled") ) then
         WarlockHealthstoneTrackerListView:Hide()
@@ -137,6 +150,12 @@ local function handleGroupUpdate(event)
         -- not in a group
         local name = UnitName("player")
         tinsert(players, name)
+    end
+
+    -- #4: List view showed party member "Unknown"
+    if ( event ~= "RETRY_UNKNOWN" and contains(players, UNKNOWNOBJECT) ) then -- Do not retry, if already retrying
+        -- Set timer to reinvoke this method in a few seconds
+        C_Timer.after(1, function() handleGroupUpdate("RETRY_UNKNOWN") end)
     end
 
     -- Add players without healthstones to list
