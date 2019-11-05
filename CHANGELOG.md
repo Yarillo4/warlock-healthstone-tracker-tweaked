@@ -5,6 +5,8 @@
 * [#1] - Reset to Defaults doesn't work the second time
 * [#2] - List view remains locked after Reset to Defaults
 
+---
+
 ## v1.0.0 - 2019-11-04
 #### Added
 * Track healthstone consumption
