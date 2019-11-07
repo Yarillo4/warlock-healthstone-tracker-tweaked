@@ -1,4 +1,4 @@
-## v1.0.1-beta - 2019-11-05
+## v1.0.1-beta - 2019-11-07
 #### Fixed
 * [#4] - List view showed party member "Unknown"
 * [#6] - Healthstones are not being tracked upon create
