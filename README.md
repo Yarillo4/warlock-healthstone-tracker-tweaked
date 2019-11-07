@@ -16,12 +16,14 @@ Track healthstones traded to other players and their consumption.
 * [#4] - List view showed party member "Unknown" *fixed in v1.0.1-beta*
 * [#5] - No-lib zip still includes libraries *fixed in v1.0.1-beta*
 * [#6] - Healthstones are not being tracked upon create *fixed in v1.0.1-beta*
+* [#7] - List view may show player names more than once *fixed in v1.0.1-beta*
 
 [#1]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/1
 [#2]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/2
 [#4]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/4
 [#5]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/5
 [#6]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/6
+[#7]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/7
 
 
 ## Future improvements

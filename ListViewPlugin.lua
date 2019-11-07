@@ -103,10 +103,10 @@ local function updatePartyRaidHealthstone(event, unitName, hasHealthstone)
             --@alpha@
             HST:debug(unitName, "has healthstone. Removing from list view")
             --@end-alpha@
-            for i = 1, #playersThatNeedHealthstones do
+            -- #7: List view may show player names more than once
+            for i = #playersThatNeedHealthstones, 1, -1 do -- proceed in reverse so we are not affected by any removals
                 if ( playersThatNeedHealthstones[i] == unitName ) then
                     tremove(playersThatNeedHealthstones, i)
-                    break
                 end
             end
 
@@ -114,7 +114,10 @@ local function updatePartyRaidHealthstone(event, unitName, hasHealthstone)
             --@alpha@
             HST:debug(unitName, "does not have healthstone. Adding to list view")
             --@end-alpha@
-            tinsert(playersThatNeedHealthstones, unitName)
+            -- #7: List view may show player names more than once
+            if ( not contains(playersThatNeedHealthstones, unitName) ) then
+                tinsert(playersThatNeedHealthstones, unitName)
+            end
         end
 
         updateListViewFrame()
