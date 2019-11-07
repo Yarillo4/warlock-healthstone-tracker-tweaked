@@ -7,6 +7,7 @@
 #### Known Issues
 * [#1] - Reset to Defaults doesn't work the second time
 * [#2] - List view remains locked after Reset to Defaults
+* [#8] - Healthstones traded away are not removed from trade source
 
 ---
 
@@ -26,6 +27,7 @@
 * [#5] - No-lib zip still includes libraries *fixed in v1.0.1-beta*
 * [#6] - Healthstones are not being tracked upon create *fixed in v1.0.1-beta*
 * [#7] - List view may show player names more than once *fixed in v1.0.1-beta*
+* [#8] - Healthstones traded away are not removed from trade source
 
 [#1]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/1
 [#2]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/2
@@ -34,3 +36,4 @@
 [#5]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/5
 [#6]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/6
 [#7]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/7
+[#8]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/8
