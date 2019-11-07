@@ -26,7 +26,7 @@ local playersThatNeedHealthstones = {}
 -- UTILITIES
 ---------------------------------------------
 local function contains(t, value)
-    for i,v in ipairs(players) do
+    for i,v in ipairs(t) do
         if ( v == value ) then
             return true
         end
