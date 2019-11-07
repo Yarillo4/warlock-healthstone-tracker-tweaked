@@ -20,6 +20,7 @@
 #### Known Issues
 * [#1] - Reset to Defaults doesn't work the second time
 * [#2] - List view remains locked after Reset to Defaults
+* [#4] - List view showed party member "Unknown" *fixed in v1.0.1-beta*
 * [#5] - No-lib zip still includes libraries *fixed in v1.0.1-beta*
 
 [#1]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/1
