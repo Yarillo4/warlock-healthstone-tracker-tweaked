@@ -14,7 +14,7 @@ Track healthstones traded to other players and their consumption.
 * [#1] - Reset to Defaults doesn't work the second time
 * [#2] - List view remains locked after Reset to Defaults
 * [#4] - List view showed party member "Unknown" *fixed in v1.0.1-beta*
-* [#5] - No-lib zip still includes libraries *fixed in v1.0.1-beta*
+* [#5] - No-lib zip still includes libraries
 * [#6] - Healthstones are not being tracked upon create *fixed in v1.0.1-beta*
 * [#7] - List view may show player names more than once *fixed in v1.0.1-beta*
 * [#8] - Healthstones traded away are not removed from trade source
