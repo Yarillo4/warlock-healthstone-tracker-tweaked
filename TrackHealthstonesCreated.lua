@@ -5,13 +5,13 @@ local MODULE_NAME = "TrackHealthstonesCreated"
 ---------------------------------------------
 -- CONSTANTS
 ---------------------------------------------
-local CREATE_HEALTHSTONE_BY_SPELLID = {
-    [5699] = true,
-    [6201] = true,
-    [6202] = true,
-    [11729] = true,
-    [11730] = true,
-}
+local CREATE_HEALTHSTONE_SPELLIDS = { 5699, 6201, 6202, 11729, 11730 }
+
+
+---------------------------------------------
+-- VARIABLES
+---------------------------------------------
+local createHealthstoneSpellsByName = {}
 
 
 ---------------------------------------------
@@ -20,18 +20,18 @@ local CREATE_HEALTHSTONE_BY_SPELLID = {
 local function trackHealthstoneCreated(...)
     local timestamp, event, hideCaster, srcGuid, srcName, srcFlags, srcRaidFlags, dstGuid, dstName, dstFlags, dstRaidFlags = ...
 
-    if ( srcName == "Malicene" ) then
-        local isPlayer = bit.band(srcFlags, COMBATLOG_OBJECT_TYPE_PLAYER) > 0
-        if ( event == "SPELL_CAST_SUCCESS" and isPlayer ) then
-            local spellName = select(13, ...)
-            local spellId = select(7, GetSpellInfo(spellName))
+    local isPlayer = bit.band(srcFlags, COMBATLOG_OBJECT_TYPE_PLAYER) > 0
+    if ( event == "SPELL_CAST_SUCCESS" and isPlayer ) then
+        local spellName = select(13, ...)
 
-            local isFriendly = bit.band(srcFlags, COMBATLOG_OBJECT_REACTION_FRIENDLY ) > 0
-            if ( spellId and CREATE_HEALTHSTONE_BY_SPELLID[spellId] and isFriendly ) then
-                HST:debug(srcName, "successfully casted", spellName)
-                HST.playersWithHealthstones[srcName] = true
-                HST.pluginCallbacks:Fire("updateUnitHealthstone", srcName, true)
-            end
+        local isFriendly = bit.band(srcFlags, COMBATLOG_OBJECT_REACTION_FRIENDLY ) > 0
+        --@debug@
+        HST:debug("trackHealthstoneCreated", srcName, spellName, createHealthstoneSpellsByName[spellName], isFriendly)
+        --@end-debug@
+        if ( spellName and createHealthstoneSpellsByName[spellName] and isFriendly ) then
+            HST:debug(srcName, "successfully casted", spellName)
+            HST.playersWithHealthstones[srcName] = true
+            HST.pluginCallbacks:Fire("updateUnitHealthstone", srcName, true)
         end
     end
 end
@@ -49,4 +49,10 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     HST.RegisterEvent(MODULE_NAME, "COMBAT_LOG_EVENT_UNFILTERED", function(event)
         trackHealthstoneCreated(CombatLogGetCurrentEventInfo())
     end)
+
+    -- Convert list of create healthstone spellIDs to spellNames
+    for _,spellId in ipairs(CREATE_HEALTHSTONE_SPELLIDS) do
+        local spellName = GetSpellInfo(spellId)
+        createHealthstoneSpellsByName[spellName] = true
+    end
 end)
