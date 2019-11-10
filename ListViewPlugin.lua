@@ -158,7 +158,7 @@ local function handleGroupUpdate(event)
     -- #4: List view showed party member "Unknown"
     if ( event ~= "RETRY_UNKNOWN" and contains(players, UNKNOWNOBJECT) ) then -- Do not retry, if already retrying
         -- Set timer to reinvoke this method in a few seconds
-        C_Timer.after(1, function() handleGroupUpdate("RETRY_UNKNOWN") end)
+        C_Timer.After(1, function() handleGroupUpdate("RETRY_UNKNOWN") end)
     end
 
     -- Add players without healthstones to list
