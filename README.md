@@ -29,10 +29,11 @@ Track healthstones traded to other players and their consumption.
 
 
 ## Future improvements
-* Track offline players and automatically remove their healthstones after 15 minutes.
+* [#11] - Track offline players and automatically remove their healthstones after 15 minutes.
 * [#10] - Address ephemeral caching limitation
 
 [#10]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/10
+[#11]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/11
 
 
 ## Limitations
