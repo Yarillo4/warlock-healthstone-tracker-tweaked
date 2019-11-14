@@ -33,9 +33,11 @@ Track healthstones traded to other players and their consumption.
 ## Future improvements
 * [#11] - Track offline players and automatically remove their healthstones after 15 minutes.
 * [#10] - Address ephemeral caching limitation
+* [#12] - Implement cache syncing among party / raid members
 
 [#10]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/10
 [#11]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/11
+[#12]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/12
 
 ## Limitations
 * **Healthstone consumption is based on combat log** - If you are in a different zone, corpse running, or simply too far away the addon will not see the healthstone was consumed.
