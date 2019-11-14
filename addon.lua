@@ -28,6 +28,15 @@ HST.playersWithHealthstones = {}
 
 
 ---------------------------------------------
+-- METHODS
+---------------------------------------------
+function HST:SetPlayerHealthstone(unitname, hasHealthstone)
+    self.playersWithHealthstones[unitname] = hasHealthstone
+    self.pluginCallbacks:Fire("updateUnitHealthstone", unitname, hasHealthstone)
+end
+
+
+---------------------------------------------
 -- EVENTS & CALLBACKS
 ---------------------------------------------
 HST.callbacks = LibStub("CallbackHandler-1.0"):New(HST)

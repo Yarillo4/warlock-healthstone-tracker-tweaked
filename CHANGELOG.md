@@ -1,3 +1,13 @@
+## v1.0.1-beta2 - 2019-11-07
+#### Fixed
+* [#8] - Healthstones traded away are not removed from trade source
+#### Known Issues
+* [#1] - Reset to Defaults doesn't work the second time
+* [#2] - List view remains locked after Reset to Defaults
+* [#5] - No-lib zip still includes libraries
+
+---
+
 ## v1.0.1-beta - 2019-11-07
 #### Fixed
 * [#4] - List view showed party member "Unknown"
