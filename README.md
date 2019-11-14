@@ -18,6 +18,7 @@ Track healthstones traded to other players and their consumption.
 * [#6] - Healthstones are not being tracked upon create *fixed in v1.0.1-beta*
 * [#7] - List view may show player names more than once *fixed in v1.0.1-beta*
 * [#8] - Healthstones traded away are not removed from trade source *fixed in v1.0.1-beta2*
+* [#14] - List view names overflow the borders
 
 [#1]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/1
 [#2]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/2
@@ -26,6 +27,7 @@ Track healthstones traded to other players and their consumption.
 [#6]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/6
 [#7]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/7
 [#8]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/8
+[#14]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/14
 
 
 ## Future improvements
@@ -34,7 +36,6 @@ Track healthstones traded to other players and their consumption.
 
 [#10]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/10
 [#11]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/11
-
 
 ## Limitations
 * **Healthstone consumption is based on combat log** - If you are in a different zone, corpse running, or simply too far away the addon will not see the healthstone was consumed.
