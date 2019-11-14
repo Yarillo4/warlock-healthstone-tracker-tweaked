@@ -18,7 +18,7 @@
 * [#1] - Reset to Defaults doesn't work the second time
 * [#2] - List view remains locked after Reset to Defaults
 * [#5] - No-lib zip still includes libraries
-* [#8] - Healthstones traded away are not removed from trade source
+* [#8] - Healthstones traded away are not removed from trade source *fixed in v1.0.1-beta2*
 * [#14] - List view names overflow the borders
 
 ---
@@ -39,7 +39,7 @@
 * [#5] - No-lib zip still includes libraries
 * [#6] - Healthstones are not being tracked upon create *fixed in v1.0.1-beta*
 * [#7] - List view may show player names more than once *fixed in v1.0.1-beta*
-* [#8] - Healthstones traded away are not removed from trade source
+* [#8] - Healthstones traded away are not removed from trade source *fixed in v1.0.1-beta2*
 * [#14] - List view names overflow the borders
 
 [#1]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/1
