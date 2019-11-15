@@ -1,3 +1,14 @@
+## v1.0.2-beta - 2019-11-15
+#### Added
+* [#10] - Address ephemeral caching limitation
+#### Known Issues
+* [#1] - Reset to Defaults doesn't work the second time
+* [#2] - List view remains locked after Reset to Defaults
+* [#5] - No-lib zip still includes libraries
+* [#14] - List view names overflow the borders
+
+---
+
 ## v1.0.1 - 2019-11-14
 #### Fixed
 * [#4] - List view showed party member "Unknown"
@@ -39,4 +50,5 @@
 [#6]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/6
 [#7]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/7
 [#8]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/8
+[#10]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/10
 [#14]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/14

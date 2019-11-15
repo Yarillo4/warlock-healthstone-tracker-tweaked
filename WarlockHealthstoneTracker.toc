@@ -25,7 +25,7 @@
 ## LoadOnDemand: 0
 ## OptionalDeps: LibStub, CallbackHandler-1.0, AceLocale-3.0, AceConfig-3.0, GetItemInfoAsync-1.0
 ## X-Embeds: LibStub, CallbackHandler-1.0, AceLocale-3.0, AceConfig-3.0, GetItemInfoAsync-1.0
-## SavedVariablesPerCharacter: WarlockHealthstoneTrackerDB
+## SavedVariablesPerCharacter: WarlockHealthstoneTrackerDB, WarlockHealthstoneTrackerCache
 
 #@no-lib-strip@
 lib\LibStub\LibStub.lua

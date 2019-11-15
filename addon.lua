@@ -37,6 +37,32 @@ end
 
 
 ---------------------------------------------
+-- CACHE
+---------------------------------------------
+local function loadCache()
+    if ( WarlockHealthstoneTrackerCache and WarlockHealthstoneTrackerCache.expiresAt > time() ) then
+        HST:debug("Loading cache")
+        for _,unitName in ipairs(WarlockHealthstoneTrackerCache.healthstones) do
+            HST:SetPlayerHealthstone(unitName, true)
+        end
+    end
+    WarlockHealthstoneTrackerCache = nil
+end
+
+local function writeCache()
+    local healthstones = {}
+    for unitName,_ in pairs(HST.playersWithHealthstones) do
+        tinsert(healthstones, unitName)
+    end
+
+    WarlockHealthstoneTrackerCache = {
+        expiresAt = time() + 60,
+        healthstones = healthstones
+    }
+end
+
+
+---------------------------------------------
 -- EVENTS & CALLBACKS
 ---------------------------------------------
 HST.callbacks = LibStub("CallbackHandler-1.0"):New(HST)
@@ -104,5 +130,11 @@ HST.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(event, addonName)
 
         -- Initialize addon modules
         HST.callbacks:Fire("initialize")
+
+        -- Load cache
+        loadCache()
+
+        -- Write cache on logout
+        HST.RegisterEvent(MODULE_NAME, "PLAYER_LOGOUT", writeCache)
     end
 end)
