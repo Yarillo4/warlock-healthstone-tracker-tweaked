@@ -3,11 +3,41 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
 
+	<Button name="WarlockHealthstoneTrackerListViewButtonTemplate" virtual="true" hidden="false">
+		<Anchors>
+			<Anchor point="RIGHT" />
+		</Anchors>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture>
+					<Anchors setAllPoints="true" />
+					<Color r="0.0" g="0" b="0" a="0.0"/>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<FontString parentKey="Name" inherits="GameFontNormal" justifyH="LEFT" justifyV="CENTER" >
+					<Anchors>
+						<Anchor point="TOPLEFT" x="3" />
+						<Anchor point="BOTTOMRIGHT" />
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+	</Button>
+
 	<Frame name="WarlockHealthstoneTrackerListView" hidden="false" toplevel="true" parent="UIParent" movable="true" resizable="true">
 		<Size x="150" y="100"/>
 		<Anchors>
 			<Anchor point="CENTER" />
 		</Anchors>
+		<ResizeBounds>
+			<minResize>
+				<AbsDimension x="150" y="100"/>
+			</minResize>
+			<maxResize>
+				<AbsDimension x="300" />
+			</maxResize>
+		</ResizeBounds>
 		<Frames>
 			<Frame parentKey="TitleBar" mixin="WarlockHealthstoneTrackerListViewTitleBarMixIn" frameLevel="100" hidden="false" enableMouse="true">
 				<Size y="20"/>
@@ -22,12 +52,7 @@
 						</Texture>
 					</Layer>
 					<Layer level="ARTWORK">
-						<FontString inherits="GameFontNormalMed1" text="L_WARLOCK_HEALTHSTONE_TRACKER_NEED_HEALTHSTONES" justifyH="CENTER" justifyV="CENTER">
-							<Anchors>
-								<Anchor point="TOPLEFT" />
-								<Anchor point="BOTTOMRIGHT" />
-							</Anchors>
-						</FontString>
+						<FontString inherits="GameFontNormalMed1" text="L_WARLOCK_HEALTHSTONE_TRACKER_NEED_HEALTHSTONES" justifyH="CENTER" justifyV="CENTER" setAllPoints="true" />
 					</Layer>
 				</Layers>
 				<Scripts>
@@ -38,6 +63,17 @@
 					<OnDragStop method="OnDragStop" />
 				</Scripts>
 			</Frame>
+			<ScrollFrame parentKey="ScrollFrame" mixin="WarlockHealthstoneTrackerListViewScrollFrameMixIn" inherits="FauxScrollFrameTemplate">
+				<Anchors>
+					<Anchor point="TOPLEFT" relativeKey="$parent.TitleBar" relativePoint="BOTTOMLEFT" />
+					<Anchor point="BOTTOMRIGHT" x="-22" />
+				</Anchors>
+				<Scripts>
+					<OnLoad method="OnLoad" />
+					<OnVerticalScroll method="OnVerticalScroll" />
+					<OnSizeChanged method="OnSizeChanged" />
+				</Scripts>
+			</ScrollFrame>
 			<Button parentKey="ResizeButton" mixin="WarlockHealthstoneTrackerListViewResizeButtonMixIn" frameLevel="200" enableMouse="true" movable="true" >
 				<Size x="16" y="16"/>
 				<Anchors>
@@ -63,16 +99,9 @@
 				</Texture>
 			</Layer>
 		</Layers>
-		<KeyValues>
-			<KeyValue key="minimumWidth" value="150" type="number"/>
-			<KeyValue key="minimumHeight" value="100" type="number"/>
-		</KeyValues>
 		<Scripts>
 			<OnLoad>
-				self:SetMinResize(self.minimumWidth, self.minimumHeight)
 				self:SetClampedToScreen(true)
-
-				self.namePool = CreateFontStringPool(self, "ARTWORK", 0, "GameFontNormal");
 			</OnLoad>
 		</Scripts>
 	</Frame>
