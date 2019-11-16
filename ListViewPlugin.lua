@@ -71,7 +71,7 @@ local function showHideFrame()
     end
 end
 
-local function updatePartyRaidHealthstone(event, unitName, hasHealthstone)
+local function handleHealthstoneUpdate(event, unitName, hasHealthstone)
     --@debug@
     HST:debug(unitName, "listView", C:is("ListView/Enabled"), "inParty", UnitInParty(unitName), "hasHealthstone", hasHealthstone)
     --@end-debug@
@@ -277,7 +277,7 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     --@end-alpha@
 
     -- Receive healthstone updates
-    PLUGIN.RegisterCallback(MODULE_NAME, "updateUnitHealthstone", updatePartyRaidHealthstone)
+    PLUGIN.RegisterCallback(MODULE_NAME, "updateUnitHealthstone", handleHealthstoneUpdate)
 
     -- Receive group updates
     HST.RegisterEvent(MODULE_NAME, "PLAYER_ENTERING_WORLD", handleGroupUpdate)
