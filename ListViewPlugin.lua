@@ -12,8 +12,8 @@ L_WARLOCK_HEALTHSTONE_TRACKER_NEED_HEALTHSTONES = L["Healthstone Tracker"]
 ---------------------------------------------
 -- CONSTANTS
 ---------------------------------------------
-local MINIMUM_FRAME_WIDTH = 50
-local MINIMUM_FRAME_HEIGHT = 50
+local BUTTON_HEIGHT = 16
+local BUTTON_MARGIN = 0
 
 
 ---------------------------------------------
@@ -71,29 +71,7 @@ local function showHideFrame()
     end
 end
 
-local function updateListViewFrame()
-    local frame = WarlockHealthstoneTrackerListView
-    frame.namePool:ReleaseAll()
-
-    showHideFrame()
-    if ( frame:IsShown() ) then
-        local isFirst = true
-        local previous = WarlockHealthstoneTrackerListView.TitleBar
-        for _,name in pairs(playersThatNeedHealthstones) do
-            local fontstring = frame.namePool:Acquire()
-            fontstring:ClearAllPoints()
-            fontstring:SetPoint("TOPLEFT", previous, "BOTTOMLEFT", isFirst and 5 or 0, -3)
-            fontstring:SetPoint("RIGHT", previous)
-            fontstring:SetJustifyH("LEFT");
-            fontstring:SetText(name)
-            fontstring:Show()
-            previous = fontstring
-            isFirst = false
-        end
-    end
-end
-
-local function updatePartyRaidHealthstone(event, unitName, hasHealthstone)
+local function handleHealthstoneUpdate(event, unitName, hasHealthstone)
     --@debug@
     HST:debug(unitName, "listView", C:is("ListView/Enabled"), "inParty", UnitInParty(unitName), "hasHealthstone", hasHealthstone)
     --@end-debug@
@@ -116,11 +94,11 @@ local function updatePartyRaidHealthstone(event, unitName, hasHealthstone)
             --@end-alpha@
             -- #7: List view may show player names more than once
             if ( not contains(playersThatNeedHealthstones, unitName) ) then
-                tinsert(playersThatNeedHealthstones, unitName)
+                tinsert(playersThatNeedHealthstones, 1, unitName)
             end
         end
 
-        updateListViewFrame()
+        WarlockHealthstoneTrackerListView.ScrollFrame:Update()
     end
 end
 
@@ -164,17 +142,17 @@ local function handleGroupUpdate(event)
     -- Add players without healthstones to list
     for i,unitname in ipairs(players) do
         if ( not PLUGIN:PlayerHasHealthstone(unitname) ) then
-            tinsert(playersThatNeedHealthstones, unitname)
+            tinsert(playersThatNeedHealthstones, 1, unitname)
         end
     end
 
     -- Update frame
-    updateListViewFrame()
+    WarlockHealthstoneTrackerListView.ScrollFrame:Update()
 end
 
 local function handleOptionsChanged(option, newValue)
     if ( option == "ListView/Enabled") then
-        updateListViewFrame()
+        WarlockHealthstoneTrackerListView.ScrollFrame:Update()
 
     elseif ( option == "ListView/Locked" ) then
         WarlockHealthstoneTrackerListView.TitleBar:EnableMouse(not newValue)
@@ -185,13 +163,13 @@ local function handleOptionsChanged(option, newValue)
     elseif ( option == "ListView/HideWhenEmpty"
             or option == "ListView/HideWhenInCombat"
             or option == "ListView/HideWhenNotInGroup" ) then
-        updateListViewFrame()
+        WarlockHealthstoneTrackerListView.ScrollFrame:Update()
     end
 end
 
 
 ---------------------------------------------
--- FRAME FUNCTIONS
+-- MIXIN: TITLE BAR
 ---------------------------------------------
 WarlockHealthstoneTrackerListViewTitleBarMixIn = {}
 function WarlockHealthstoneTrackerListViewTitleBarMixIn:OnDragStart()
@@ -202,6 +180,10 @@ function WarlockHealthstoneTrackerListViewTitleBarMixIn:OnDragStop()
     self:GetParent():StopMovingOrSizing()
 end
 
+
+---------------------------------------------
+-- MIXIN: RESIZE BUTTON
+---------------------------------------------
 WarlockHealthstoneTrackerListViewResizeButtonMixIn = {}
 function WarlockHealthstoneTrackerListViewResizeButtonMixIn:OnMouseDown()
     self:SetButtonState("PUSHED", true);
@@ -217,6 +199,76 @@ end
 
 
 ---------------------------------------------
+-- MIXIN: SCROLL FRAME
+---------------------------------------------
+WarlockHealthstoneTrackerListViewScrollFrameMixIn = {}
+function WarlockHealthstoneTrackerListViewScrollFrameMixIn:OnLoad()
+    self.buttons = {}
+    self.numDisplayedButtons = 5
+end
+
+function WarlockHealthstoneTrackerListViewScrollFrameMixIn:OnVerticalScroll(offset)
+    FauxScrollFrame_OnVerticalScroll(self, offset, BUTTON_HEIGHT+BUTTON_MARGIN, self.Update);
+end
+
+function WarlockHealthstoneTrackerListViewScrollFrameMixIn:CreateButtons()
+    local parent = self:GetParent()
+
+    for i = 1, self.numDisplayedButtons do
+        if ( not self.buttons[i] ) then
+            local button = CreateFrame("Button", nil, parent, "WarlockHealthstoneTrackerListViewButtonTemplate")
+            button:SetHeight(BUTTON_HEIGHT)
+            if i == 1 then
+                button:SetPoint("TOPLEFT", self)
+            else
+                button:SetPoint("TOPLEFT", self.buttons[i - 1], "BOTTOMLEFT", 0, -BUTTON_MARGIN)
+            end
+            button:Hide()
+            tinsert(self.buttons, button)
+        end
+    end
+end
+
+function WarlockHealthstoneTrackerListViewScrollFrameMixIn:OnSizeChanged()
+    -- recalculate number of displayed buttons
+    self.numDisplayedButtons = math.floor(self:GetHeight() / (BUTTON_HEIGHT+BUTTON_MARGIN))
+
+    self:CreateButtons()
+
+    -- hide buttons that are no longer needed
+    if ( #self.buttons > self.numDisplayedButtons ) then
+        for i = self.numDisplayedButtons, #self.buttons, 1 do
+            self.buttons[i]:Hide()
+        end
+    end
+
+    self:Update()
+end
+
+function WarlockHealthstoneTrackerListViewScrollFrameMixIn:Update()
+    local parent = self:GetParent()
+
+    showHideFrame()
+    if ( parent:IsShown() ) then
+        local numItems = #playersThatNeedHealthstones
+        FauxScrollFrame_Update(self, numItems, self.numDisplayedButtons, BUTTON_HEIGHT+BUTTON_MARGIN)
+
+        local offset = FauxScrollFrame_GetOffset(self)
+        for i = 1, self.numDisplayedButtons do
+            local index = i + offset
+            local button = self.buttons[i]
+            if ( index > numItems ) then
+                button:Hide()
+            else
+                button.Name:SetText(playersThatNeedHealthstones[index])
+                button:Show()
+            end
+        end
+    end
+end
+
+
+---------------------------------------------
 -- INITIALIZE
 ---------------------------------------------
 HST.RegisterCallback(MODULE_NAME, "initialize", function()
@@ -225,7 +277,7 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     --@end-alpha@
 
     -- Receive healthstone updates
-    PLUGIN.RegisterCallback(MODULE_NAME, "updateUnitHealthstone", updatePartyRaidHealthstone)
+    PLUGIN.RegisterCallback(MODULE_NAME, "updateUnitHealthstone", handleHealthstoneUpdate)
 
     -- Receive group updates
     HST.RegisterEvent(MODULE_NAME, "PLAYER_ENTERING_WORLD", handleGroupUpdate)
@@ -242,4 +294,7 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     C.RegisterListener(MODULE_NAME, "ListView/HideWhenInCombat", handleOptionsChanged)
     C.RegisterListener(MODULE_NAME, "ListView/HideWhenNotInGroup", handleOptionsChanged)
     handleOptionsChanged("ListView/Locked", C:is("ListView/Locked")) -- #3: List View not locked upon /reload (temporary fix)
+
+    -- Create initial scroll frame buttons
+    WarlockHealthstoneTrackerListView.ScrollFrame:CreateButtons()
 end)
