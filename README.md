@@ -14,7 +14,7 @@ Track healthstones traded to other players and their consumption.
 * [#1] - Reset to Defaults doesn't work the second time
 * [#2] - List view remains locked after Reset to Defaults
 * [#5] - No-lib zip still includes libraries
-* [#14] - List view names overflow the borders
+* [#14] - List view names overflow the borders *(fixed in 1.0.2-beta2)*
 
 [#1]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/1
 [#2]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/2
@@ -24,7 +24,7 @@ Track healthstones traded to other players and their consumption.
 
 ## Future improvements
 * [#11] - Track offline players and automatically remove their healthstones after 15 minutes.
-* [#10] - Address ephemeral caching limitation
+* [#10] - Address ephemeral caching limitation *(fixed in 1.0.2.beta)*
 * [#12] - Implement cache syncing among party / raid members
 * [#13] - Clicking a name in List View should target the player
 
