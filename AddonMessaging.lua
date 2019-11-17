@@ -22,7 +22,7 @@ end
 -- CACHEUPDATE
 ---------------------------------------------
 function HST:SendCacheUpdate(timestamp, unitname, hasHealthstone, isForced)
-    -- HST#139912   CACHEUPDATE:1:timestampe:isForced:unitname:hasHealthstone
+    -- HST#139912   CACHEUPDATE:1:timestamp:isForced:unitname:hasHealthstone
     if ( C:is("DistributedCacheEnabled") ) then
         local message = { "CACHEUPDATE", 1, timestamp, isForced, unitname, hasHealthstone }
         C_ChatInfo.SendAddonMessage(ADDON_MESSAGE_PREFIX, table.concat(message, ":"), "RAID")
@@ -39,6 +39,7 @@ local function handleCacheUpdate(version, ...)
         timestamp = tonumber(timestamp)
         isForced = tobool(isForced)
         hasHealthstone = tobool(hasHealthstone)
+
         HST:SetPlayerHealthstone(timestamp, unitname, hasHealthstone, isForced, true --[[doNotSendDistributedCacheUpdate]])
     end
 end
@@ -53,7 +54,7 @@ local function handleAddonMessage(event, prefix, message, distribution, sender)
         print(prefix, "      ", distribution, sender, message)
         --@end-alpha@
 
-        -- Do not respond to my own messages
+        -- Do not respond to your own messages
         if ( sender == PLAYER_FULLNAME or sender == PLAYER_NAME ) then
             --[===[@non-debug@
             return
