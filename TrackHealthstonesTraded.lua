@@ -65,7 +65,7 @@ local function initializeTrade(event)
 
     -- Update cache if target is trading healthstone
     if ( containsAnyValue(tradeState.targetItems, HST.HEALTHSTONES_BY_ITEMID) ) then
-        HST:SetPlayerHealthstone(tradeState.unitName, true)
+        HST:SetPlayerHealthstone(nil, tradeState.unitName, true)
     end
 end
 
@@ -84,7 +84,7 @@ local function updateTrade(event, slot)
 
             -- Update cache if unitName is trading healthstone
             if ( containsValue(HST.HEALTHSTONES_BY_ITEMID, itemID) and unitname ) then
-                HST:SetPlayerHealthstone(unitname, true)
+                HST:SetPlayerHealthstone(nil, unitname, true)
             end
         else
              storage[slot] = nil
@@ -123,33 +123,33 @@ local function validateTradeSuccess(event, msgid, msg)
         elseif ( sending and receiving ) then
             -- Both player and target have healthstones regardless of trade output, since they are both sending and receiving
             HST:debug("Both sending and receiving, outcome doesn't matter everyone has healthstone")
-            HST:SetPlayerHealthstone(player, true)
-            HST:SetPlayerHealthstone(target, true)
+            HST:SetPlayerHealthstone(nil, player, true)
+            HST:SetPlayerHealthstone(nil, target, true)
 
         elseif ( msg == ERR_TRADE_COMPLETE ) then
             -- Trade was successful, we are either sending OR receiving :: swap sending and receiving
             HST:debug("Successful trade with", target)
-            HST:SetPlayerHealthstone(player, receiving)
-            HST:SetPlayerHealthstone(target, sending)
+            HST:SetPlayerHealthstone(nil, player, receiving)
+            HST:SetPlayerHealthstone(nil, target, sending)
 
         elseif ( msg == ERR_TRADE_TARGET_MAX_COUNT_EXCEEDED ) then
             -- Trade failed, but we can still gather some information. We are either sending OR receiving
             HST:debug("Trade failed with", target .. ". Target has too many of a unique item")
             -- Either way the target has a healtstone
-            HST:SetPlayerHealthstone(target, true)
+            HST:SetPlayerHealthstone(nil, target, true)
             if ( sending ) then
                 -- Player clearly has healthsotne if sending. Cannot be certain if !sending though
-                HST:SetPlayerHealthstone(player, true)
+                HST:SetPlayerHealthstone(nil, player, true)
             end
 
         elseif ( msg == ERR_TRADE_MAX_COUNT_EXCEEDED ) then
             -- Trade failed, but we can still gather some information. We are either sending OR receiving
             HST:debug("Trade failed with", target .. ". Player has too many of a unique item")
             -- Either way the player has a healtstone
-            HST:SetPlayerHealthstone(player, true)
+            HST:SetPlayerHealthstone(nil, player, true)
             if ( receiving ) then
                 -- Target clearly has healthstone if receiving. Cannot be certain if !receiving though
-                HST:SetPlayerHealthstone(target, true)
+                HST:SetPlayerHealthstone(nil, target, true)
             end
 
         else

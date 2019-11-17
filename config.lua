@@ -38,6 +38,7 @@ C.DEFAULT_DB = {
     ["Version"] = 1,
     ["Debug"] = false,
     ["EnableHealthstoneConsumedMessage"] = true,
+    ["DistributedCacheEnabled"] = true,
     ListView = {
         ["Enabled"] = true,
         ["Locked"] = false,
@@ -145,8 +146,7 @@ end
 local function setCache(info, value)
     if ( UnitExists(info.arg) ) then
         local unitname = UnitName(info.arg)
-        HST.playersWithHealthstones[unitname] = (value) and value or nil -- true or nil
-        HST.pluginCallbacks:Fire("updateUnitHealthstone", unitname, value)
+        HST:SetPlayerHealthstone(unitname, value, true --[[isForced]])
     end
 end
 

@@ -30,9 +30,18 @@ HST.playersWithHealthstones = {}
 ---------------------------------------------
 -- METHODS
 ---------------------------------------------
-function HST:SetPlayerHealthstone(unitname, hasHealthstone)
-    self.playersWithHealthstones[unitname] = hasHealthstone
+function HST:SetPlayerHealthstone(timestamp, unitname, hasHealthstone, isForced, doNotSendDistributedCacheUpdate)
+    isForced = isForced or false
+    timestamp = timestamp or time()
+
+    self.playersWithHealthstones[unitname] = hasHealthstone and true or nil
     self.pluginCallbacks:Fire("updateUnitHealthstone", unitname, hasHealthstone)
+
+    if ( doNotSendDistributedCacheUpdate ) then
+        return
+    end
+
+    HST:SendCacheUpdate(timestamp, unitname, hasHealthstone, isForced)
 end
 
 
@@ -43,7 +52,7 @@ local function loadCache()
     if ( WarlockHealthstoneTrackerCache and WarlockHealthstoneTrackerCache.expiresAt > time() ) then
         HST:debug("Loading cache")
         for _,unitName in ipairs(WarlockHealthstoneTrackerCache.healthstones) do
-            HST:SetPlayerHealthstone(unitName, true)
+            HST:SetPlayerHealthstone(nil, unitName, true, false --[[isForced]], true --[[doNotSendDistributedCacheUpdate]])
         end
     end
     WarlockHealthstoneTrackerCache = nil

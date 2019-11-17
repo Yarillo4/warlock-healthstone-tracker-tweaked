@@ -44,8 +44,7 @@ local function trackHealthstoneUsage(...)
             ]]
             local isFriendly = bit.band(srcFlags, COMBATLOG_OBJECT_REACTION_FRIENDLY ) > 0
             if ( HST.playersWithHealthstones[srcName] or isFriendly ) then
-                HST.playersWithHealthstones[srcName] = nil
-                HST.pluginCallbacks:Fire("updateUnitHealthstone", srcName, false)
+                HST:SetPlayerHealthstone(timestamp, srcName, false)
 
                 if ( C:is("EnableHealthstoneConsumedMessage") ) then
                     print(srcName, L_UNIT_ATE_HEALTHSTONE)

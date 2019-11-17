@@ -30,8 +30,7 @@ local function trackHealthstoneCreated(...)
         --@end-debug@
         if ( spellName and createHealthstoneSpellsByName[spellName] and isFriendly ) then
             HST:debug(srcName, "successfully casted", spellName)
-            HST.playersWithHealthstones[srcName] = true
-            HST.pluginCallbacks:Fire("updateUnitHealthstone", srcName, true)
+            HST:SetPlayerHealthstone(timestamp, srcName, true)
         end
     end
 end
