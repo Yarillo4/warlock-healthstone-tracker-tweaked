@@ -146,7 +146,7 @@ end
 local function setCache(info, value)
     if ( UnitExists(info.arg) ) then
         local unitname = UnitName(info.arg)
-        HST:SetPlayerHealthstone(unitname, value, true --[[isForced]])
+        HST:SetPlayerHealthstone(nil, unitname, value, true --[[isForced]])
     end
 end
 
