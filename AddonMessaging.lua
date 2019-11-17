@@ -131,7 +131,7 @@ end
 
 
 ---------------------------------------------
--- ADDON MESSAGE HANDLER
+-- HANDLERS
 ---------------------------------------------
 local function handleAddonMessage(event, prefix, message, distribution, sender)
     if ( prefix == ADDON_MESSAGE_PREFIX ) then
