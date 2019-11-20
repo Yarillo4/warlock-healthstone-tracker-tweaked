@@ -196,7 +196,7 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     HST.RegisterEvent(MODULE_NAME, "CHAT_MSG_ADDON", handleAddonMessage)
 
     -- Send sync on login
-    HST.RegisterEvent(MODULE_NAME, "PLAYER_ENTERING_WORLD", handlePlayerLogin)
+    HST.RegisterEvent(MODULE_NAME, "PLAYER_LOGIN", handlePlayerLogin)
 
     -- Send sync on joining a party/raid
     HST.RegisterEvent(MODULE_NAME, "GROUP_ROSTER_UPDATE", handleGroupUpdate)
