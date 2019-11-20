@@ -34,6 +34,36 @@ local function contains(t, value)
     return false
 end
 
+local function shouldInclude(unitName)
+    -- Always include if raid members is less than the filter apply size
+    if ( GetNumGroupMembers() < C:get("ListView/FilterGroupSize") ) then
+        return true
+    end
+
+    -- Is class enabled?
+    local className = select(2, UnitClass(unitName))
+    if ( className and C:is("ListView/Filters/" .. className) ) then
+        return true
+    end
+
+
+    local raidId = UnitInRaid(unitName)
+    if ( raidId ) then
+        -- is maintank enabled?
+        local raidRole, _, roleName = select(10, GetRaidRosterInfo(raidId))
+        if ( raidRole == "MAINTANK" and C:is("ListView/Filters/TANK") ) then
+            return true
+        end
+
+        -- is role enabled?
+        if ( roleName and roleName ~= "NONE" and C:is("ListView/Filters/" .. roleName) ) then
+            return true
+        end
+    end
+
+    return false
+end
+
 
 ---------------------------------------------
 -- LIST VIEW
@@ -81,7 +111,6 @@ local function handleHealthstoneUpdate(event, unitName, hasHealthstone)
             --@alpha@
             HST:debug(unitName, "has healthstone. Removing from list view")
             --@end-alpha@
-            -- #7: List view may show player names more than once
             for i = #playersThatNeedHealthstones, 1, -1 do -- proceed in reverse so we are not affected by any removals
                 if ( playersThatNeedHealthstones[i] == unitName ) then
                     tremove(playersThatNeedHealthstones, i)
@@ -92,9 +121,10 @@ local function handleHealthstoneUpdate(event, unitName, hasHealthstone)
             --@alpha@
             HST:debug(unitName, "does not have healthstone. Adding to list view")
             --@end-alpha@
-            -- #7: List view may show player names more than once
-            if ( not contains(playersThatNeedHealthstones, unitName) ) then
-                tinsert(playersThatNeedHealthstones, 1, unitName)
+            if ( shouldInclude(unitName) ) then
+                if ( not contains(playersThatNeedHealthstones, unitName) ) then
+                    tinsert(playersThatNeedHealthstones, 1, unitName)
+                end
             end
         end
 
@@ -141,8 +171,10 @@ local function handleGroupUpdate(event)
 
     -- Add players without healthstones to list
     for i,unitname in ipairs(players) do
-        if ( not PLUGIN:PlayerHasHealthstone(unitname) ) then
-            tinsert(playersThatNeedHealthstones, 1, unitname)
+        if ( shouldInclude(unitname) ) then
+            if ( not PLUGIN:PlayerHasHealthstone(unitname) ) then
+                tinsert(playersThatNeedHealthstones, 1, unitname)
+            end
         end
     end
 
@@ -164,6 +196,21 @@ local function handleOptionsChanged(option, newValue)
             or option == "ListView/HideWhenInCombat"
             or option == "ListView/HideWhenNotInGroup" ) then
         WarlockHealthstoneTrackerListView.ScrollFrame:Update()
+
+    elseif ( option == "ListView/FilterGroupSize"
+            or option == "ListView/Filters/TANK"
+            or option == "ListView/Filters/HEALER"
+            or option == "ListView/Filters/DAMAGER"
+            or option == "ListView/Filters/DRUID"
+            or option == "ListView/Filters/HUNTER"
+            or option == "ListView/Filters/MAGE"
+            or option == "ListView/Filters/PRIEST"
+            or option == "ListView/Filters/ROGUE"
+            or option == "ListView/Filters/SHAMAN"
+            or option == "ListView/Filters/PALADIN"
+            or option == "ListView/Filters/WARLOCK"
+            or option == "ListView/Filters/WARRIOR" ) then
+        handleGroupUpdate("OptionChanged")
     end
 end
 
@@ -293,6 +340,19 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     C.RegisterListener(MODULE_NAME, "ListView/HideWhenEmpty", handleOptionsChanged)
     C.RegisterListener(MODULE_NAME, "ListView/HideWhenInCombat", handleOptionsChanged)
     C.RegisterListener(MODULE_NAME, "ListView/HideWhenNotInGroup", handleOptionsChanged)
+    C.RegisterListener(MODULE_NAME, "ListView/FilterGroupSize", handleOptionsChanged)
+    C.RegisterListener(MODULE_NAME, "ListView/Filters/TANK", handleOptionsChanged)
+    C.RegisterListener(MODULE_NAME, "ListView/Filters/HEALER", handleOptionsChanged)
+    C.RegisterListener(MODULE_NAME, "ListView/Filters/DAMAGER", handleOptionsChanged)
+    C.RegisterListener(MODULE_NAME, "ListView/Filters/DRUID", handleOptionsChanged)
+    C.RegisterListener(MODULE_NAME, "ListView/Filters/HUNTER", handleOptionsChanged)
+    C.RegisterListener(MODULE_NAME, "ListView/Filters/MAGE", handleOptionsChanged)
+    C.RegisterListener(MODULE_NAME, "ListView/Filters/PRIEST", handleOptionsChanged)
+    C.RegisterListener(MODULE_NAME, "ListView/Filters/ROGUE", handleOptionsChanged)
+    C.RegisterListener(MODULE_NAME, "ListView/Filters/SHAMAN", handleOptionsChanged)
+    C.RegisterListener(MODULE_NAME, "ListView/Filters/PALADIN", handleOptionsChanged)
+    C.RegisterListener(MODULE_NAME, "ListView/Filters/WARLOCK", handleOptionsChanged)
+    C.RegisterListener(MODULE_NAME, "ListView/Filters/WARRIOR", handleOptionsChanged)
     handleOptionsChanged("ListView/Locked", C:is("ListView/Locked")) -- #3: List View not locked upon /reload (temporary fix)
 
     -- Create initial scroll frame buttons
