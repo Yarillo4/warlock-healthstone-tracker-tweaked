@@ -32,7 +32,7 @@ HST.playersWithHealthstones = {}
 ---------------------------------------------
 function HST:SetPlayerHealthstone(timestamp, unitname, hasHealthstone, isForced, doNotSendDistributedCacheUpdate)
     isForced = isForced or false
-    timestamp = timestamp or time()
+    timestamp = timestamp or GetServerTime()
 
     self.playersWithHealthstones[unitname] = hasHealthstone and true or nil
     self.pluginCallbacks:Fire("updateUnitHealthstone", unitname, hasHealthstone)
