@@ -14,24 +14,22 @@ Track healthstones traded to other players and their consumption.
 * [#1] - Reset to Defaults doesn't work the second time
 * [#2] - List view remains locked after Reset to Defaults
 * [#5] - No-lib zip still includes libraries
-* [#14] - List view names overflow the borders *(fixed in 1.0.2-beta2)*
 
 [#1]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/1
 [#2]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/2
 [#5]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/5
-[#14]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/14
 
 
 ## Future improvements
 * [#11] - Track offline players and automatically remove their healthstones after 15 minutes.
-* [#10] - Address ephemeral caching limitation *(fixed in 1.0.2.beta)*
 * [#12] - Implement cache syncing among party / raid members
 * [#13] - Clicking a name in List View should target the player
+* [#15] - List view raid filters *(added in 1.0.3-beta)*
 
-[#10]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/10
 [#11]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/11
 [#12]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/12
 [#13]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/13
+[#15]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/15
 
 ## Limitations
 * **Healthstone consumption is based on combat log** - If you are in a different zone, corpse running, or simply too far away the addon will not see the healthstone was consumed.
