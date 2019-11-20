@@ -165,7 +165,9 @@ local function handlePlayerLogin()
     isInParty = UnitInParty("player")
 
     -- Synchronize CACHE upon login
-    HST:SendSync()
+    if ( isInParty ) then
+        HST:SendSync()
+    end
 end
 
 local function handleGroupUpdate()
