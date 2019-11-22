@@ -26,11 +26,11 @@ end
 local function createBatches(array, batchSize)
     local batches = {}
 
-    local count = 1
-    local currentBatch = 1
+    local count, currentBatch = 0, 0
     for _,value in ipairs(array) do
-        if ( count == 1 ) then
+        if ( count == 0 ) then
             tinsert(batches, {})
+            currentBatch = currentBatch + 1
         end
         tinsert(batches[currentBatch], value)
         count = (count + 1) % batchSize
@@ -201,3 +201,50 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     -- Send sync on joining a party/raid
     HST.RegisterEvent(MODULE_NAME, "GROUP_ROSTER_UPDATE", handleGroupUpdate)
 end)
+
+
+--@do-not-package@
+---------------------------------------------
+-- TESTS
+---------------------------------------------
+local function assertEqual(actual, expected, message)
+    assert(actual == expected, string.format("%s. Expected: %s, Actual: %s", message, expected, actual))
+end
+
+-- No values, batch 2
+local array = {}
+local batches = createBatches(array, 2)
+assertEqual(#batches, 0, "No values in batches of 2, should result in 0 batches")
+-- 1 value, batch 2
+array = {1}
+batches = createBatches(array, 2)
+assertEqual(#batches, 1, "1 value in batches of 2, should result in 1 batch")
+assertEqual(#batches[1], 1, "1 value in batches of 2. Batch 1, should have 1 element")
+assertEqual(batches[1][1], 1, "1 value in batches of 2. Batch 1 element 1, should be 1")
+-- 2 value, batch 2
+array = {1,2}
+batches = createBatches(array, 2)
+assertEqual(#batches, 1, "2 value in batches of 2, should result in 1 batch")
+assertEqual(#batches[1], 2, "2 value in batches of 2. Batch 1, should have 2 elements")
+assertEqual(batches[1][1], 1, "2 value in batches of 2. Batch 1 element 1, should be 1")
+assertEqual(batches[1][2], 2, "2 value in batches of 2. Batch 1 element 2, should be 2")
+-- 3 value, batch 3
+array = {1,2,3}
+batches = createBatches(array, 2)
+assertEqual(#batches, 2, "3 value in batches of 2, should result in 2 batches")
+assertEqual(#batches[1], 2, "3 value in batches of 2. Batch 1, should have 2 elements")
+assertEqual(batches[1][1], 1, "3 value in batches of 2. Batch 1 element 1, should be 1")
+assertEqual(batches[1][2], 2, "3 value in batches of 2. Batch 1 element 2, should be 2")
+assertEqual(#batches[2], 1, "3 value in batches of 2. Batch 2, should have 1 element")
+assertEqual(batches[2][1], 3, "3 value in batches of 2. Batch 2 element 1, should be 3")
+-- 3 value, batch 1
+array = {1,2,3}
+batches = createBatches(array, 1)
+assertEqual(#batches, 3, "3 value in batches of 1, should result in 2 batches")
+assertEqual(#batches[1], 1, "3 value in batches of 1. Batch 1, should have 2 elements")
+assertEqual(batches[1][1], 1, "3 value in batches of 1. Batch 1 element 1, should be 1")
+assertEqual(#batches[2], 1, "3 value in batches of 1. Batch 2, should have 1 element")
+assertEqual(batches[2][1], 2, "3 value in batches of 1. Batch 2 element 1, should be 2")
+assertEqual(#batches[3], 1, "3 value in batches of 1. Batch 2, should have 1 element")
+assertEqual(batches[3][1], 3, "3 value in batches of 1. Batch 3 element 1, should be 3")
+--@end-do-not-package@
