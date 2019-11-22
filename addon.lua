@@ -40,13 +40,21 @@ end
 -- CACHE
 ---------------------------------------------
 local function loadCache()
-    if ( WarlockHealthstoneTrackerCache and WarlockHealthstoneTrackerCache.expiresAt > time() ) then
-        HST:debug("Loading cache")
-        for _,unitName in ipairs(WarlockHealthstoneTrackerCache.healthstones) do
-            HST:SetPlayerHealthstone(unitName, true)
+    local cache = WarlockHealthstoneTrackerCache
+    WarlockHealthstoneTrackerCache = nil
+
+    if ( cache.version == nil ) then
+        cache.version = 1
+    end
+
+    if ( cache.version == 1 ) then
+        if ( WarlockHealthstoneTrackerCache and WarlockHealthstoneTrackerCache.expiresAt > time() ) then
+            HST:debug("Loading cache")
+            for _,unitName in ipairs(WarlockHealthstoneTrackerCache.healthstones) do
+                HST:SetPlayerHealthstone(unitName, true)
+            end
         end
     end
-    WarlockHealthstoneTrackerCache = nil
 end
 
 local function writeCache()
@@ -56,6 +64,7 @@ local function writeCache()
     end
 
     WarlockHealthstoneTrackerCache = {
+        version = 1,
         expiresAt = time() + 60,
         healthstones = healthstones
     }
