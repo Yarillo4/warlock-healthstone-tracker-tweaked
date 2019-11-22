@@ -13,7 +13,7 @@ Track healthstones traded to other players and their consumption.
 
 ## Known Issues
 * [#1] - Reset to Defaults doesn't work the second time *fixed in 1.0.4-beta*
-* [#2] - List view remains locked after Reset to Defaults
+* [#2] - List view remains locked after Reset to Defaults *fixed in 1.0.4-beta*
 * [#5] - No-lib zip still includes libraries
 
 [#1]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/1

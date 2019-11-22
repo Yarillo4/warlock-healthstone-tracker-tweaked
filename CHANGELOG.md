@@ -3,8 +3,8 @@
 * [#12] - List view raid filters
 #### Fixed
 * [#1] - Reset to Defaults doesn't work the second time
-#### Known Issues
 * [#2] - List view remains locked after Reset to Defaults
+#### Known Issues
 * [#5] - No-lib zip still includes libraries
 
 ---
