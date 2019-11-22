@@ -1,3 +1,13 @@
+## v1.0.4-beta - 2019-11-21
+#### Added
+* [#12] - List view raid filters
+#### Known Issues
+* [#1] - Reset to Defaults doesn't work the second time
+* [#2] - List view remains locked after Reset to Defaults
+* [#5] - No-lib zip still includes libraries
+
+---
+
 ## v1.0.3 - 2019-11-21
 #### Added
 * [#15] - List view raid filters
@@ -62,5 +72,6 @@
 [#7]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/7
 [#8]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/8
 [#10]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/10
+[#12]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/12
 [#14]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/14
 [#15]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/15

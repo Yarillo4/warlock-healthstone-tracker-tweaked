@@ -23,7 +23,7 @@ Track healthstones traded to other players and their consumption.
 
 ## Future improvements
 * [#11] - Track offline players and automatically remove their healthstones after 15 minutes.
-* [#12] - Implement cache syncing among party / raid members
+* [#12] - Implement cache syncing among party / raid members *added in 1.0.4-beta*
 * [#13] - Clicking a name in List View should target the player
 
 [#11]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/11
