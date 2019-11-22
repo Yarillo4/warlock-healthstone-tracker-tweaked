@@ -109,8 +109,10 @@ end
 function HST:SendCacheUpdate(timestamp, unitname, hasHealthstone, isForced)
     -- HST#139912   CACHEUPDATE:1:timestamp:isForced:unitname:hasHealthstone
     if ( C:is("DistributedCacheEnabled") ) then
-        local message = { "CACHEUPDATE", 1, timestamp, tostring(isForced), unitname, tostring(hasHealthstone) }
-        send(ADDON_MESSAGE_PREFIX, table.concat(message, ":"), "RAID")
+        if ( UnitInRaid(unitname) or UnitInParty(unitname) ) then
+            local message = { "CACHEUPDATE", 1, timestamp, tostring(isForced), unitname, tostring(hasHealthstone) }
+            send(ADDON_MESSAGE_PREFIX, table.concat(message, ":"), "RAID")
+        end
     end
 end
 
