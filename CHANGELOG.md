@@ -1,8 +1,9 @@
 ## v1.0.4-beta - 2019-11-21
 #### Added
 * [#12] - List view raid filters
-#### Known Issues
+#### Fixed
 * [#1] - Reset to Defaults doesn't work the second time
+#### Known Issues
 * [#2] - List view remains locked after Reset to Defaults
 * [#5] - No-lib zip still includes libraries
 

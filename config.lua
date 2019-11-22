@@ -93,6 +93,20 @@ local IS_CLASSIC = (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC)
 
 
 ---------------------------------------------
+-- UTILITIES
+---------------------------------------------
+local function clone(instance)
+    local obj = {}
+    local k,v = next(instance)
+    while ( k ~= nil ) do
+        obj[k] = ( type(v) ~= "table" ) and v or clone(v)
+        k,v = next(instance, k)
+    end
+    return obj;
+end
+
+
+---------------------------------------------
 -- OPTIONS
 ---------------------------------------------
 C.DEFAULT_DB = {
@@ -249,7 +263,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                         WarlockHealthstoneTrackerListView:ClearAllPoints()
                         WarlockHealthstoneTrackerListView:SetPoint("CENTER", UIParent)
                         WarlockHealthstoneTrackerListView:SetSize(150, 100)
-                        WarlockHealthstoneTrackerDB = C.DEFAULT_DB
+                        WarlockHealthstoneTrackerDB = clone(C.DEFAULT_DB)
                     end
                 },
                 desc = {

@@ -12,7 +12,7 @@ Track healthstones traded to other players and their consumption.
 
 
 ## Known Issues
-* [#1] - Reset to Defaults doesn't work the second time
+* [#1] - Reset to Defaults doesn't work the second time *fixed in 1.0.4-beta*
 * [#2] - List view remains locked after Reset to Defaults
 * [#5] - No-lib zip still includes libraries
 
