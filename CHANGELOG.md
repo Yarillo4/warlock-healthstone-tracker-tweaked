@@ -1,6 +1,7 @@
-## v1.0.4-beta - 2019-11-21
+## v1.0.4-beta - 2019-11-22
 #### Added
 * [#12] - List view raid filters
+* [#16] - Cache override configuration pane should color player names to their class
 #### Fixed
 * [#1] - Reset to Defaults doesn't work the second time
 * [#2] - List view remains locked after Reset to Defaults
@@ -76,3 +77,4 @@
 [#12]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/12
 [#14]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/14
 [#15]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/15
+[#16]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/16

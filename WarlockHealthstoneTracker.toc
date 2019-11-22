@@ -37,6 +37,7 @@ lib\GetItemInfoAsync-1.0\GetItemInfoAsync-1.0.xml
 
 locales.xml
 addon.lua
+media.lua
 config.lua
 plugins.lua
 

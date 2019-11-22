@@ -3,6 +3,15 @@ local MODULE_NAME = "config.lua"
 
 
 ---------------------------------------------
+-- CONSTANTS
+---------------------------------------------
+local IS_CLASSIC = (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC)
+local IS_HORDE = UnitFactionGroup("player")=="Horde"
+
+local SHAMAN_PALADIN_TEXTURE_ICON = IS_HORDE and HST.Media.CLASS_TEXTURE_ICONS.SHAMAN or HST.Media.CLASS_TEXTURE_ICONS.PALADIN
+
+
+---------------------------------------------
 -- LOCALIZATION
 ---------------------------------------------
 local L_ADDON_NAME = L["Warlock Healthstone Tracker"]
@@ -48,8 +57,8 @@ local L_DAMAGER = DAMAGER
 local L_LISTVIEW_FILTER_DAMAGER_DESCRIPTION = L["Show players with damage role"]
 local L_WARRIOR = C_CreatureInfo.GetClassInfo(1).className
 local L_LISTVIEW_FILTER_WARRIOR_DESCRIPTION = L["Show all warriors"]
-local L_SHAMAN_PALADIN = C_CreatureInfo.GetClassInfo( UnitFactionGroup("player")=="Horde" and 7 or 2).className
-local L_LISTVIEW_FILTER_SHAMAN_PALADIN_DESCRIPTION = UnitFactionGroup("player")=="Horde" and L["Show all shamans"] or L["Show all paladins"]
+local L_SHAMAN_PALADIN = C_CreatureInfo.GetClassInfo( IS_HORDE and 7 or 2).className
+local L_LISTVIEW_FILTER_SHAMAN_PALADIN_DESCRIPTION = IS_HORDE and L["Show all shamans"] or L["Show all paladins"]
 local L_HUNTER = C_CreatureInfo.GetClassInfo(3).className
 local L_LISTVIEW_FILTER_HUNTER_DESCRIPTION = L["Show all hunters"]
 local L_ROGUE = C_CreatureInfo.GetClassInfo(4).className
@@ -62,34 +71,6 @@ local L_WARLOCK = C_CreatureInfo.GetClassInfo(9).className
 local L_LISTVIEW_FILTER_WARLOCK_DESCRIPTION = L["Show all warlocks"]
 local L_DRUID = C_CreatureInfo.GetClassInfo(11).className
 local L_LISTVIEW_FILTER_DRUID_DESCRIPTION = L["Show all druids"]
-
-
----------------------------------------------
--- CONSTANTS
----------------------------------------------
-local function createTextureIcon(texture, oX, oY, tL, tR, tT, tB)
-    local path, tW, tH = unpack(texture)
-    return "|T" .. table.concat({ path, 0, 0, oX, oY, tW, tH, tL, tR, tT, tB }, ":") .. "|t"
-end
-
-local LFGROLE_TEXTURE = { [[Interface\LFGFrame\LFGROLE]], 64, 16 }
-local TANK_TEXTURE_ICON = createTextureIcon(LFGROLE_TEXTURE, 0, 0, 32, 48, 0, 16)
-local HEALER_TEXTURE_ICON = createTextureIcon(LFGROLE_TEXTURE, 0, 0, 48, 64, 0, 16)
-local DAMAGER_TEXTURE_ICON = createTextureIcon(LFGROLE_TEXTURE, 0, 0, 16, 32, 0, 16)
-
-local CLASSICON_TEXTURE = { [[Interface\GLUES\CHARACTERCREATE\UI-CharacterCreate-Classes]], 256, 256 }
-local WARRIOR_TEXTURE_ICON = createTextureIcon(CLASSICON_TEXTURE, 0, 0, 0, 64, 0, 64)
-local MAGE_TEXTURE_ICON = createTextureIcon(CLASSICON_TEXTURE, 0, 0, 64, 128, 0, 64)
-local ROGUE_TEXTURE_ICON = createTextureIcon(CLASSICON_TEXTURE, 0, 0, 128, 192, 0, 64)
-local DRUID_TEXTURE_ICON = createTextureIcon(CLASSICON_TEXTURE, 0, 0, 192, 256, 0, 64)
-local HUNTER_TEXTURE_ICON = createTextureIcon(CLASSICON_TEXTURE, 0, 0, 0, 64, 64, 128)
-local SHAMAN_TEXTURE_ICON = createTextureIcon(CLASSICON_TEXTURE, 0, 0, 64, 128, 64, 128)
-local PRIEST_TEXTURE_ICON = createTextureIcon(CLASSICON_TEXTURE, 0, 0, 128, 192, 64, 128)
-local WARLOCK_TEXTURE_ICON = createTextureIcon(CLASSICON_TEXTURE, 0, 0, 192, 256, 64, 128)
-local PALADIN_TEXTURE_ICON = createTextureIcon(CLASSICON_TEXTURE, 0, 0, 0, 64, 128, 192)
-local SHAMAN_PALADIN_TEXTURE_ICON = UnitFactionGroup("player")=="Horde" and SHAMAN_TEXTURE_ICON or PALADIN_TEXTURE_ICON
-
-local IS_CLASSIC = (WOW_PROJECT_ID == WOW_PROJECT_CLASSIC)
 
 
 ---------------------------------------------
@@ -220,7 +201,8 @@ end
 
 local function getUnitName(info)
     if ( UnitExists(info.arg) ) then
-        return UnitName(info.arg)
+        local class = select(2,UnitClass(info.arg))
+        return HST.Media.CLASS_TEXTURE_ICONS[class] .. " " .. GetClassColorObj(class):WrapTextInColorCode(UnitName(info.arg))
     end
     return info.arg
 end
@@ -412,7 +394,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterTank = {
                                     order = 20,
                                     type = "toggle",
-                                    name = TANK_TEXTURE_ICON .. " " ..L_TANK,
+                                    name = HST.Media.ROLE_TEXTURE_ICONS.TANK .. " " ..L_TANK,
                                     desc = L_LISTVIEW_FILTER_TANK_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -422,7 +404,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterDruid = {
                                     order = 23,
                                     type = "toggle",
-                                    name = DRUID_TEXTURE_ICON .. " " ..GetClassColorObj("DRUID"):WrapTextInColorCode(L_DRUID),
+                                    name = HST.Media.CLASS_TEXTURE_ICONS.DRUID .. " " ..GetClassColorObj("DRUID"):WrapTextInColorCode(L_DRUID),
                                     desc = L_LISTVIEW_FILTER_DRUID_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -432,7 +414,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterHunter = {
                                     order = 26,
                                     type = "toggle",
-                                    name = HUNTER_TEXTURE_ICON .. " " ..GetClassColorObj("HUNTER"):WrapTextInColorCode(L_HUNTER),
+                                    name = HST.Media.CLASS_TEXTURE_ICONS.HUNTER .. " " ..GetClassColorObj("HUNTER"):WrapTextInColorCode(L_HUNTER),
                                     desc = L_LISTVIEW_FILTER_HUNTER_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -442,7 +424,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterHealer = {
                                     order = 30,
                                     type = "toggle",
-                                    name = HEALER_TEXTURE_ICON .. " " ..L_HEALER,
+                                    name = HST.Media.ROLE_TEXTURE_ICONS.HEALER .. " " ..L_HEALER,
                                     desc = L_LISTVIEW_FILTER_HEALER_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -461,7 +443,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterMage = {
                                     order = 33,
                                     type = "toggle",
-                                    name = MAGE_TEXTURE_ICON .. " " ..GetClassColorObj("MAGE"):WrapTextInColorCode(L_MAGE),
+                                    name = HST.Media.CLASS_TEXTURE_ICONS.MAGE .. " " ..GetClassColorObj("MAGE"):WrapTextInColorCode(L_MAGE),
                                     desc = L_LISTVIEW_FILTER_MAGE_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -471,7 +453,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterPriest = {
                                     order = 36,
                                     type = "toggle",
-                                    name = PRIEST_TEXTURE_ICON .. " " ..GetClassColorObj("PRIEST"):WrapTextInColorCode(L_PRIEST),
+                                    name = HST.Media.CLASS_TEXTURE_ICONS.PRIEST .. " " ..GetClassColorObj("PRIEST"):WrapTextInColorCode(L_PRIEST),
                                     desc = L_LISTVIEW_FILTER_PRIEST_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -481,7 +463,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterDamager= {
                                     order = 40,
                                     type = "toggle",
-                                    name = DAMAGER_TEXTURE_ICON .. " " ..L_DAMAGER,
+                                    name = HST.Media.ROLE_TEXTURE_ICONS.DAMAGER .. " " ..L_DAMAGER,
                                     desc = L_LISTVIEW_FILTER_DAMAGER_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -500,7 +482,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterRogue = {
                                     order = 43,
                                     type = "toggle",
-                                    name = ROGUE_TEXTURE_ICON .. " " ..GetClassColorObj("ROGUE"):WrapTextInColorCode(L_ROGUE),
+                                    name = HST.Media.CLASS_TEXTURE_ICONS.ROGUE .. " " ..GetClassColorObj("ROGUE"):WrapTextInColorCode(L_ROGUE),
                                     desc = L_LISTVIEW_FILTER_ROGUE_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -515,7 +497,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                     set = setOption,
                                     get = getOption,
                                     width = "normal",
-                                    arg = UnitFactionGroup("player")=="Horde" and "ListView/Filters/SHAMAN" or "ListView/Filters/PALADIN"
+                                    arg = IS_HORDE and "ListView/Filters/SHAMAN" or "ListView/Filters/PALADIN"
                                 },
                                 filterWarlock_prespacer = {
                                     order = 50,
@@ -526,7 +508,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterWarlock = {
                                     order = 53,
                                     type = "toggle",
-                                    name = WARLOCK_TEXTURE_ICON .. " " .. GetClassColorObj("WARLOCK"):WrapTextInColorCode(L_WARLOCK),
+                                    name = HST.Media.CLASS_TEXTURE_ICONS.WARLOCK .. " " .. GetClassColorObj("WARLOCK"):WrapTextInColorCode(L_WARLOCK),
                                     desc = L_LISTVIEW_FILTER_WARLOCK_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -536,7 +518,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterWarrior = {
                                     order = 56,
                                     type = "toggle",
-                                    name = WARRIOR_TEXTURE_ICON .. " " ..GetClassColorObj("WARRIOR"):WrapTextInColorCode(L_WARRIOR),
+                                    name = HST.Media.CLASS_TEXTURE_ICONS.WARRIOR .. " " ..GetClassColorObj("WARRIOR"):WrapTextInColorCode(L_WARRIOR),
                                     desc = L_LISTVIEW_FILTER_WARRIOR_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
