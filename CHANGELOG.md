@@ -1,4 +1,4 @@
-## v1.0.3 - 2019-11-22
+## v1.0.3 - 2019-11-21
 #### Added
 * [#15] - List view raid filters
 #### Known Issues
