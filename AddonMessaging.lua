@@ -13,7 +13,7 @@ local PLAYER_FULLNAME = table.concat({UnitFullName("player")},"-")
 ---------------------------------------------
 -- VARIABLES
 ---------------------------------------------
-local isInParty = false
+local previouslyInParty = false
 
 
 ---------------------------------------------
@@ -45,6 +45,7 @@ local function send(prefix, message, distribution, target)
     --@end-alpha@
     C_ChatInfo.SendAddonMessage(prefix, message, distribution, target)
 end
+
 
 ---------------------------------------------
 -- SYNC
@@ -166,22 +167,22 @@ local function handleAddonMessage(event, prefix, message, distribution, sender)
 end
 
 local function handlePlayerLogin()
-    isInParty = UnitInParty("player")
+    previouslyInParty = UnitInParty("player")
 
     -- Synchronize CACHE upon login
-    if ( isInParty ) then
+    if ( previouslyInParty ) then
         HST:SendSync()
     end
 end
 
 local function handleGroupUpdate()
     -- Request SYNC if we were not previously in a group
-    if ( not isInParty ) then
+    if ( not previouslyInParty ) then
         HST:SendSync()
     end
 
     -- Update to reflect current in party status
-    isInParty = UnitInParty("player")
+    previouslyInParty = UnitInParty("player")
 end
 
 
