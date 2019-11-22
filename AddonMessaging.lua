@@ -52,8 +52,10 @@ end
 function HST:SendSync()
     -- HST#139912   SYNC:1
     if ( C:is("DistributedCacheEnabled") ) then
-        local message = { "SYNC", 1 }
-        send(ADDON_MESSAGE_PREFIX, table.concat(message, ":"), "RAID")
+        if ( UnitInParty("player") ) then
+            local message = { "SYNC", 1 }
+            send(ADDON_MESSAGE_PREFIX, table.concat(message, ":"), "RAID")
+        end
     end
 end
 
