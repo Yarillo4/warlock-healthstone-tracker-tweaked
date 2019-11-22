@@ -44,6 +44,10 @@ function HST:SetPlayerHealthstone(timestamp, unitname, hasHealthstone, isForced,
     HST:SendCacheUpdate(timestamp, unitname, hasHealthstone, isForced)
 end
 
+function HST:PlayerHasHealthstone(unitname)
+    return HST.playersWithHealthstones[unitname] == true
+end
+
 
 ---------------------------------------------
 -- CACHE

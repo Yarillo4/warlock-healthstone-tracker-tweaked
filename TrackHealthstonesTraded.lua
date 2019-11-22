@@ -65,7 +65,10 @@ local function initializeTrade(event)
 
     -- Update cache if target is trading healthstone
     if ( containsAnyValue(tradeState.targetItems, HST.HEALTHSTONES_BY_ITEMID) ) then
-        HST:SetPlayerHealthstone(nil, tradeState.unitName, true)
+        -- Only update if player isn't already known to have a healthstone (cut down on addon message chatter)
+        if ( not HST:PlayerHasHealthstone(tradeState.unitName) ) then
+            HST:SetPlayerHealthstone(nil, tradeState.unitName, true)
+        end
     end
 end
 
@@ -84,7 +87,10 @@ local function updateTrade(event, slot)
 
             -- Update cache if unitName is trading healthstone
             if ( containsValue(HST.HEALTHSTONES_BY_ITEMID, itemID) and unitname ) then
-                HST:SetPlayerHealthstone(nil, unitname, true)
+                -- Only update if player isn't already known to have a healthstone (cut down on addon message chatter)
+                if ( not HST:PlayerHasHealthstone(unitname) ) then
+                    HST:SetPlayerHealthstone(nil, unitname, true)
+                end
             end
         else
              storage[slot] = nil
