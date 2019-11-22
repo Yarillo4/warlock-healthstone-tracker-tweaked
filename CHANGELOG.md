@@ -1,4 +1,4 @@
-## v1.0.3-beta - 2019-11-20
+## v1.0.3 - 2019-11-22
 #### Added
 * [#15] - List view raid filters
 #### Known Issues
@@ -30,7 +30,7 @@
 * [#1] - Reset to Defaults doesn't work the second time
 * [#2] - List view remains locked after Reset to Defaults
 * [#5] - No-lib zip still includes libraries
-* [#14] - List view names overflow the borders
+* [#14] - List view names overflow the borders *fixed in v1.0.2*
 
 ---
 
