@@ -57,8 +57,10 @@ local L_DAMAGER = DAMAGER
 local L_LISTVIEW_FILTER_DAMAGER_DESCRIPTION = L["Show players with damage role"]
 local L_WARRIOR = C_CreatureInfo.GetClassInfo(1).className
 local L_LISTVIEW_FILTER_WARRIOR_DESCRIPTION = L["Show all warriors"]
-local L_SHAMAN_PALADIN = C_CreatureInfo.GetClassInfo( IS_HORDE and 7 or 2).className
-local L_LISTVIEW_FILTER_SHAMAN_PALADIN_DESCRIPTION = IS_HORDE and L["Show all shamans"] or L["Show all paladins"]
+local L_SHAMAN = C_CreatureInfo.GetClassInfo(7).className
+local L_LISTVIEW_FILTER_SHAMAN_DESCRIPTION = L["Show all shamans"]
+local L_PALADIN = C_CreatureInfo.GetClassInfo(2).className
+local L_LISTVIEW_FILTER_PALADIN_DESCRIPTION =  L["Show all paladins"]
 local L_HUNTER = C_CreatureInfo.GetClassInfo(3).className
 local L_LISTVIEW_FILTER_HUNTER_DESCRIPTION = L["Show all hunters"]
 local L_ROGUE = C_CreatureInfo.GetClassInfo(4).className
@@ -86,6 +88,9 @@ local function clone(instance)
     return obj;
 end
 
+local function formatClass(class, str)
+    return HST.Media.CLASS_TEXTURE_ICONS[class] .. " " .. GetClassColorObj(class):WrapTextInColorCode(str)
+end
 
 ---------------------------------------------
 -- OPTIONS
@@ -199,25 +204,47 @@ local function setOption(info, value)
     end
 end
 
-local function getUnitName(info)
-    if ( UnitExists(info.arg) ) then
-        local class = select(2,UnitClass(info.arg))
-        return HST.Media.CLASS_TEXTURE_ICONS[class] .. " " .. GetClassColorObj(class):WrapTextInColorCode(UnitName(info.arg))
+local function getCacheUnit(info)
+    local raidunit, partyunit = unpack(info.arg)
+    if ( UnitInRaid("player") ) then
+        return raidunit
+    else
+        return partyunit
     end
-    return info.arg
+end
+
+local function getUnitName(info)
+    local unit = getCacheUnit(info)
+    if ( UnitExists(unit) ) then
+        local class = select(2,UnitClass(unit))
+        return formatClass(class, UnitName(unit))
+    end
+    return unit
+end
+
+local function getDisabled(info)
+    local unit = getCacheUnit(info)
+    return not UnitExists(unit)
+end
+
+local function getHidden(info)
+    local unit = getCacheUnit(info)
+    return unit == nil
 end
 
 local function getCache(info)
-    if ( UnitExists(info.arg) ) then
-        local unitname = UnitName(info.arg)
+    local unit = getCacheUnit(info)
+    if ( UnitExists(unit) ) then
+        local unitname = UnitName(unit)
         return HST.playersWithHealthstones[unitname] == true
     end
     return false
 end
 
 local function setCache(info, value)
-    if ( UnitExists(info.arg) ) then
-        local unitname = UnitName(info.arg)
+    local unit = getCacheUnit(info)
+    if ( UnitExists(unit) ) then
+        local unitname = UnitName(unit)
         HST:SetPlayerHealthstone(nil, unitname, value, true --[[isForced]])
     end
 end
@@ -404,7 +431,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterDruid = {
                                     order = 23,
                                     type = "toggle",
-                                    name = HST.Media.CLASS_TEXTURE_ICONS.DRUID .. " " ..GetClassColorObj("DRUID"):WrapTextInColorCode(L_DRUID),
+                                    name = formatClass("DRUID", L_DRUID),
                                     desc = L_LISTVIEW_FILTER_DRUID_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -414,7 +441,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterHunter = {
                                     order = 26,
                                     type = "toggle",
-                                    name = HST.Media.CLASS_TEXTURE_ICONS.HUNTER .. " " ..GetClassColorObj("HUNTER"):WrapTextInColorCode(L_HUNTER),
+                                    name = formatClass("HUNTER", L_HUNTER),
                                     desc = L_LISTVIEW_FILTER_HUNTER_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -443,7 +470,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterMage = {
                                     order = 33,
                                     type = "toggle",
-                                    name = HST.Media.CLASS_TEXTURE_ICONS.MAGE .. " " ..GetClassColorObj("MAGE"):WrapTextInColorCode(L_MAGE),
+                                    name = formatClass("MAGE", L_MAGE),
                                     desc = L_LISTVIEW_FILTER_MAGE_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -453,7 +480,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterPriest = {
                                     order = 36,
                                     type = "toggle",
-                                    name = HST.Media.CLASS_TEXTURE_ICONS.PRIEST .. " " ..GetClassColorObj("PRIEST"):WrapTextInColorCode(L_PRIEST),
+                                    name = formatClass("PRIEST", L_PRIEST),
                                     desc = L_LISTVIEW_FILTER_PRIEST_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -482,7 +509,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterRogue = {
                                     order = 43,
                                     type = "toggle",
-                                    name = HST.Media.CLASS_TEXTURE_ICONS.ROGUE .. " " ..GetClassColorObj("ROGUE"):WrapTextInColorCode(L_ROGUE),
+                                    name = formatClass("ROGUE", L_ROGUE),
                                     desc = L_LISTVIEW_FILTER_ROGUE_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -492,8 +519,8 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterShamanPaladin = {
                                     order = 46,
                                     type = "toggle",
-                                    name = SHAMAN_PALADIN_TEXTURE_ICON .. " " .. GetClassColorObj("PALADIN"):WrapTextInColorCode(L_SHAMAN_PALADIN),
-                                    desc = L_LISTVIEW_FILTER_SHAMAN_PALADIN_DESCRIPTION,
+                                    name = IS_HORDE and formatClass("SHAMAN", L_SHAMAN) or formatClass("PALADIN", L_PALADIN),
+                                    desc = IS_HORDE and L_LISTVIEW_FILTER_SHAMAN_DESCRIPTION or L_LISTVIEW_FILTER_PALADIN_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
                                     width = "normal",
@@ -508,7 +535,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterWarlock = {
                                     order = 53,
                                     type = "toggle",
-                                    name = HST.Media.CLASS_TEXTURE_ICONS.WARLOCK .. " " .. GetClassColorObj("WARLOCK"):WrapTextInColorCode(L_WARLOCK),
+                                    name = formatClass("WARLOCK", L_WARLOCK),
                                     desc = L_LISTVIEW_FILTER_WARLOCK_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -518,7 +545,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                                 filterWarrior = {
                                     order = 56,
                                     type = "toggle",
-                                    name = HST.Media.CLASS_TEXTURE_ICONS.WARRIOR .. " " ..GetClassColorObj("WARRIOR"):WrapTextInColorCode(L_WARRIOR),
+                                    name = formatClass("WARRIOR", L_WARRIOR),
                                     desc = L_LISTVIEW_FILTER_WARRIOR_DESCRIPTION,
                                     set = setOption,
                                     get = getOption,
@@ -548,471 +575,445 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                     name = " ",
                     width = "full"
                 },
-                party = {
+                raid1 = {
                     order = 10,
-                    type = "group",
-                    inline = true,
-                    name = L_PARTY,
-                    args = {
-                        player = {
-                            order = 1,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "player"
-                        },
-                        party1 = {
-                            order = 10,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "party1"
-                        },
-                        party2 = {
-                            order = 20,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "party2"
-                        },
-                        party3 = {
-                            order = 30,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "party3"
-                        },
-                        party4 = {
-                            order = 40,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "party4"
-                        },
-                    },
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid1", "player" }
                 },
-                raid = {
+                raid2 = {
                     order = 20,
-                    type = "group",
-                    inline = true,
-                    name = L_RAID,
-                    args = {
-                        raid1 = {
-                            order = 10,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid1"
-                        },
-                        raid2 = {
-                            order = 20,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid2"
-                        },
-                        raid3 = {
-                            order = 30,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid3"
-                        },
-                        raid4 = {
-                            order = 40,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid4"
-                        },
-                        raid5 = {
-                            order = 50,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid5"
-                        },
-                        raid6 = {
-                            order = 60,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid6"
-                        },
-                        raid7 = {
-                            order = 70,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid7"
-                        },
-                        raid8 = {
-                            order = 80,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid8"
-                        },
-                        raid9 = {
-                            order = 90,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid9"
-                        },
-                        raid10 = {
-                            order = 100,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid10"
-                        },
-                        raid11 = {
-                            order = 110,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid11"
-                        },
-                        raid12 = {
-                            order = 120,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid12"
-                        },
-                        raid13 = {
-                            order = 130,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid13"
-                        },
-                        raid14 = {
-                            order = 140,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid14"
-                        },
-                        raid15 = {
-                            order = 150,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid15"
-                        },
-                        raid16 = {
-                            order = 160,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid16"
-                        },
-                        raid17 = {
-                            order = 170,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid17"
-                        },
-                        raid18 = {
-                            order = 180,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid18"
-                        },
-                        raid19 = {
-                            order = 190,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid19"
-                        },
-                        raid20 = {
-                            order = 200,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid20"
-                        },
-                        raid21 = {
-                            order = 210,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid21"
-                        },
-                        raid22 = {
-                            order = 220,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid22"
-                        },
-                        raid23 = {
-                            order = 230,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid23"
-                        },
-                        raid24 = {
-                            order = 240,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid24"
-                        },
-                        raid25 = {
-                            order = 250,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid25"
-                        },
-                        raid26 = {
-                            order = 260,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid26"
-                        },
-                        raid27 = {
-                            order = 270,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid27"
-                        },
-                        raid28 = {
-                            order = 280,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid28"
-                        },
-                        raid29 = {
-                            order = 290,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid29"
-                        },
-                        raid30 = {
-                            order = 300,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid30"
-                        },
-                        raid31 = {
-                            order = 310,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid31"
-                        },
-                        raid32 = {
-                            order = 320,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid32"
-                        },
-                        raid33 = {
-                            order = 330,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid33"
-                        },
-                        raid34 = {
-                            order = 340,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid34"
-                        },
-                        raid35 = {
-                            order = 350,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid35"
-                        },
-                        raid36 = {
-                            order = 360,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid36"
-                        },
-                        raid37 = {
-                            order = 370,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid37"
-                        },
-                        raid38 = {
-                            order = 380,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid38"
-                        },
-                        raid39 = {
-                            order = 390,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid39"
-                        },
-                        raid40 = {
-                            order = 400,
-                            type = "toggle",
-                            name = getUnitName,
-                            set = setCache,
-                            get = getCache,
-                            disabled = function(info) return not UnitExists(info.arg) end,
-                            width = "normal",
-                            arg = "raid40"
-                        },
-                    },
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid2", "party1" }
+                },
+                raid3 = {
+                    order = 30,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid3", "party2" }
+                },
+                raid4 = {
+                    order = 40,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid4", "party3" }
+                },
+                raid5 = {
+                    order = 50,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid5", "party4" }
+                },
+                raid6 = {
+                    order = 60,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid6" }
+                },
+                raid7 = {
+                    order = 70,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid7" }
+                },
+                raid8 = {
+                    order = 80,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid8" }
+                },
+                raid9 = {
+                    order = 90,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid9" }
+                },
+                raid10 = {
+                    order = 100,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid10" }
+                },
+                raid11 = {
+                    order = 110,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid11" }
+                },
+                raid12 = {
+                    order = 120,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid12" }
+                },
+                raid13 = {
+                    order = 130,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid13" }
+                },
+                raid14 = {
+                    order = 140,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid14" }
+                },
+                raid15 = {
+                    order = 150,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid15" }
+                },
+                raid16 = {
+                    order = 160,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid16" }
+                },
+                raid17 = {
+                    order = 170,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid17" }
+                },
+                raid18 = {
+                    order = 180,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid18" }
+                },
+                raid19 = {
+                    order = 190,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid19" }
+                },
+                raid20 = {
+                    order = 200,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid20" }
+                },
+                raid21 = {
+                    order = 210,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid21" }
+                },
+                raid22 = {
+                    order = 220,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid22" }
+                },
+                raid23 = {
+                    order = 230,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid23" }
+                },
+                raid24 = {
+                    order = 240,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid24" }
+                },
+                raid25 = {
+                    order = 250,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid25" }
+                },
+                raid26 = {
+                    order = 260,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid26" }
+                },
+                raid27 = {
+                    order = 270,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid27" }
+                },
+                raid28 = {
+                    order = 280,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid28" }
+                },
+                raid29 = {
+                    order = 290,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid29" }
+                },
+                raid30 = {
+                    order = 300,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid30" }
+                },
+                raid31 = {
+                    order = 310,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid31" }
+                },
+                raid32 = {
+                    order = 320,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid32" }
+                },
+                raid33 = {
+                    order = 330,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid33" }
+                },
+                raid34 = {
+                    order = 340,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid34" }
+                },
+                raid35 = {
+                    order = 350,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid35" }
+                },
+                raid36 = {
+                    order = 360,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid36" }
+                },
+                raid37 = {
+                    order = 370,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid37" }
+                },
+                raid38 = {
+                    order = 380,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid38" }
+                },
+                raid39 = {
+                    order = 390,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid39" }
+                },
+                raid40 = {
+                    order = 400,
+                    type = "toggle",
+                    name = getUnitName,
+                    set = setCache,
+                    get = getCache,
+                    disabled = getDisabled,
+                    hidden = getHidden,
+                    width = "normal",
+                    arg = { "raid40" }
                 },
             },
         },
