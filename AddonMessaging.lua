@@ -177,7 +177,7 @@ end
 
 local function handleGroupUpdate()
     -- Request SYNC if we were not previously in a group
-    if ( not previouslyInParty ) then
+    if ( not previouslyInParty and UnitInParty("player") ) then
         HST:SendSync()
         -- Immediately send CACHEUPDATE for yourself
         HST:SendCacheUpdate(GetServerTime(), PLAYER_NAME, HST:PlayerHasHealthstone(unitname), false --[[ isForced ]])
