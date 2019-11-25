@@ -56,7 +56,7 @@ function HST:PlayerHasHealthstone(unitname)
 end
 
 function HST:debug(...)
-    if ( C:is("Debug") ) then
+    if ( HST.isDebug ) then
         print("[" .. HST.ADDON_NAME .. "]", ...)
     end
 end
