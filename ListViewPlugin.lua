@@ -112,8 +112,6 @@ local function showHideFrame()
 end
 
 local function handleHealthstoneUpdate(event, unitName, hasHealthstone)
-    HST:trace(MODULE_NAME, "handleHealthstoneUpdate", event, unitName, hasHealthstone)
-
     if ( C:is("ListView/Enabled") ) then
         if hasHealthstone then  -- remove from list
             for i = #playersThatNeedHealthstones, 1, -1 do -- proceed in reverse so we are not affected by any removals
