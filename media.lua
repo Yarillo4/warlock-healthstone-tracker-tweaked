@@ -11,6 +11,15 @@ local function createTextureIcon(texture, oX, oY, tL, tR, tT, tB)
     return "|T" .. table.concat({ path, 0, 0, oX, oY, tW, tH, tL, tR, tT, tB }, ":") .. "|t"
 end
 
+function HST.Media:formatClass(unitname)
+    local class = select(2,UnitClass(unitname))
+    if ( class ) then
+        return HST.Media.CLASS_TEXTURE_ICONS[class] .. " " .. GetClassColorObj(class):WrapTextInColorCode(unitname)
+    else
+        return unitname
+    end
+end
+
 
 ---------------------------------------------
 -- TEXTURES

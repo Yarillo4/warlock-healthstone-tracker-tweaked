@@ -304,7 +304,7 @@ function WarlockHealthstoneTrackerListViewScrollFrameMixIn:Update()
             if ( index > numItems ) then
                 button:Hide()
             else
-                button.Name:SetText(playersThatNeedHealthstones[index])
+                button.Name:SetText(HST.media:formatClass(playersThatNeedHealthstones[index]))
                 button:Show()
             end
         end
