@@ -93,24 +93,19 @@ local function showHideFrame()
     end
 
     if ( isEmpty or inCombat or not inParty ) then
-        HST:debug("HIDE", "isEmpty", isEmpty, "inCombat", inCombat, "inParty", inParty)
+        HST:trace(MODULE_NAME, "HIDE", "isEmpty", isEmpty, "inCombat", inCombat, "inParty", inParty)
         WarlockHealthstoneTrackerListView:Hide()
     else
-        HST:debug("SHOW", "isEmpty", isEmpty, "inCombat", inCombat, "inParty", inParty)
+        HST:trace(MODULE_NAME, "SHOW", "isEmpty", isEmpty, "inCombat", inCombat, "inParty", inParty)
         WarlockHealthstoneTrackerListView:Show()
     end
 end
 
 local function handleHealthstoneUpdate(event, unitName, hasHealthstone)
-    --@debug@
-    HST:debug(unitName, "listView", C:is("ListView/Enabled"), "inParty", UnitInParty(unitName), "hasHealthstone", hasHealthstone)
-    --@end-debug@
+    HST:trace(MODULE_NAME, "handleHealthstoneUpdate", event, unitName, hasHealthstone)
 
     if ( C:is("ListView/Enabled") ) then
         if hasHealthstone then  -- remove from list
-            --@alpha@
-            HST:debug(unitName, "has healthstone. Removing from list view")
-            --@end-alpha@
             for i = #playersThatNeedHealthstones, 1, -1 do -- proceed in reverse so we are not affected by any removals
                 if ( playersThatNeedHealthstones[i] == unitName ) then
                     tremove(playersThatNeedHealthstones, i)
@@ -133,6 +128,8 @@ local function handleHealthstoneUpdate(event, unitName, hasHealthstone)
 end
 
 local function handleGroupUpdate(event)
+    HST:trace(MODULE_NAME, "handleGroupUpdate", event)
+
     -- Recreate list entirely
     playersThatNeedHealthstones = {}
 
@@ -319,10 +316,6 @@ end
 -- INITIALIZE
 ---------------------------------------------
 HST.RegisterCallback(MODULE_NAME, "initialize", function()
-    --@alpha@
-    HST:debug("initalize module", MODULE_NAME)
-    --@end-alpha@
-
     -- Receive healthstone updates
     PLUGIN.RegisterCallback(MODULE_NAME, "updateUnitHealthstone", handleHealthstoneUpdate)
 

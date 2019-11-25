@@ -40,9 +40,7 @@ local function createBatches(array, batchSize)
 end
 
 local function send(prefix, message, distribution, target)
-    --@alpha@
-    print(">", prefix, "   ", distribution, target, message)
-    --@end-alpha@
+    HST:debug(">", prefix, "   ", distribution, target, message)
     C_ChatInfo.SendAddonMessage(prefix, message, distribution, target)
 end
 
@@ -140,9 +138,7 @@ end
 ---------------------------------------------
 local function handleAddonMessage(event, prefix, message, distribution, sender)
     if ( prefix == ADDON_MESSAGE_PREFIX ) then
-        --@alpha@
-        print("<", prefix, "   ", distribution, sender, message)
-        --@end-alpha@
+        HST:debug("<", prefix, "   ", distribution, sender, message)
 
         -- Do not respond to your own messages
         if ( sender == PLAYER_FULLNAME or sender == PLAYER_NAME ) then
@@ -192,10 +188,6 @@ end
 -- INITIALIZE
 ---------------------------------------------
 HST.RegisterCallback(MODULE_NAME, "initialize", function()
-    --@alpha@
-    HST:debug("initalize module", MODULE_NAME)
-    --@end-alpha@
-
     -- Register prefix
     C_ChatInfo.RegisterAddonMessagePrefix(ADDON_MESSAGE_PREFIX)
 

@@ -20,10 +20,17 @@ HST.VERSION = GetAddOnMetadata(ADDON_NAME, "Version")
 HST.HEALTHSTONES_BY_ITEMID = { 5509, 5510, 5511, 5512, 9421, 19004, 19005, 19006, 19007, 19008, 19009, 19010, 19011, 19012, 19013 }
 HST.HEALTHSTONES_BY_NAME = {} -- Localized healthstone names are loaded at runtime using GetItemInfo(itemId)
 
+HST.IS_RELEASE_VERSION = HST.VERSION:match("^%d+.%d+.%d+$") ~= nil
+--@debug@
+HST.IS_RELEASE_VERSION = false
+--@end-debug@
+
+
 
 ---------------------------------------------
 -- VARIABLES
 ---------------------------------------------
+HST.isDebug = false
 HST.playersWithHealthstones = {}
 
 
@@ -48,6 +55,18 @@ function HST:PlayerHasHealthstone(unitname)
     return HST.playersWithHealthstones[unitname] == true
 end
 
+function HST:debug(...)
+    if ( C:is("Debug") ) then
+        print("[" .. HST.ADDON_NAME .. "]", ...)
+    end
+end
+
+function HST:trace(...)
+    --@alpha@
+    HST:debug(...)
+    --@end-alpha@
+end
+
 
 ---------------------------------------------
 -- CACHE
@@ -59,9 +78,8 @@ local function loadCache()
     if ( cache ) then
         if ( cache.version == nil or cache.version == 1 ) then
             if ( cache.expiresAt > time() ) then
-                HST:debug("Loading cache")
                 for _,unitName in ipairs(cache.healthstones) do
-	            HST:SetPlayerHealthstone(nil, unitName, true, false --[[isForced]], true --[[doNotSendDistributedCacheUpdate]])
+                    HST:SetPlayerHealthstone(nil, unitName, true, false --[[isForced]], true --[[doNotSendDistributedCacheUpdate]])
                 end
             end
         end
@@ -104,22 +122,15 @@ end
 ---------------------------------------------
 -- INITIALIZE
 ---------------------------------------------
---@alpha@
+--@debug@
 LoadAddOn("Blizzard_DebugTools")
---@end-alpha@
+--@end-debug@
 
 local GetItemInfoAsync = LibStub("GetItemInfoAsync-1.0")
 HST.RegisterCallback(MODULE_NAME, "initialize", function(event)
-    --@alpha@
-    HST:debug("initalize module", MODULE_NAME)
-    --@end-alpha@
-
     -- Initialize HealthstoneNames from itemId. (automatic localization)
     for _,itemID in pairs(HST.HEALTHSTONES_BY_ITEMID) do
         GetItemInfoAsync(itemID, function(itemName, ...)
-            --@alpha@
-            HST:debug("Retrieved item", itemID, itemName)
-            --@end-alpha@
             HST.HEALTHSTONES_BY_NAME[itemName] = true
         end)
     end
@@ -128,10 +139,6 @@ end)
 HST.RegisterEvent(MODULE_NAME, "ADDON_LOADED", function(event, addonName)
     if ( addonName == HST.ADDON_NAME ) then
         HST.UnregisterEvent(MODULE_NAME, "ADDON_LOADED")
-
-        --@alpha@
-        HST:debug("ADDON_LOADED", addonName)
-        --@end-alpha@
 
         if ( not WarlockHealthstoneTrackerDB ) then
             --@alpha@

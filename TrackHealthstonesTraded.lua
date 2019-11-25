@@ -61,7 +61,7 @@ end
 
 local function initializeTrade(event)
     tradeState.unitName = UnitName("NPC")
-    HST:debug("Trading with", tradeState.unitName)
+    HST:trace(MODULE_NAME, "initializeTrade", "Trading with", tradeState.unitName)
 
     -- Update cache if target is trading healthstone
     if ( containsAnyValue(tradeState.targetItems, HST.HEALTHSTONES_BY_ITEMID) ) then
@@ -77,9 +77,7 @@ local function updateTrade(event, slot)
 
     if (slot) then
         local itemLink = getTradeItemLink(slot);
-        --@alpha@
-        HST:debug(event, "slot", slot, "itemLink", itemLink)
-        --@end-alpha@
+        HST:trace(MODULE_NAME, "updateTrade", event, slot, itemLink)
 
         if ( itemLink ) then
             local itemID = tonumber(itemLink:match("item:(%d+)"))
@@ -101,18 +99,15 @@ end
 local function validateTradeSuccess(event, msgid, msg)
     -- Only take action for ERR_TRADE* messages
     if ( msgid and GetGameMessageInfo(msgid):sub(1,#"ERR_TRADE") == "ERR_TRADE" ) then
-        --@debug@
-        HST:debug("tradeState.unitName =", tradeState.unitName)
-        HST:debug("tradeState.playerItems =", table.concat(tradeState.playerItems, ","))
-        HST:debug("tradeState.targetItems =", table.concat(tradeState.targetItems, ","))
-        --@end-debug@
+        HST:trace(MODULE_NAME, "validateTradeSuccess", "tradeState.unitName =", tradeState.unitName)
+        HST:trace(MODULE_NAME, "validateTradeSuccess", "tradeState.playerItems =", table.concat(tradeState.playerItems, ","))
+        HST:trace(MODULE_NAME, "validateTradeSuccess", "tradeState.targetItems =", table.concat(tradeState.targetItems, ","))
+
         local player = UnitName("player")
         local target = tradeState.unitName
         local sending = containsAnyValue(tradeState.playerItems, HST.HEALTHSTONES_BY_ITEMID)
         local receiving = containsAnyValue(tradeState.targetItems, HST.HEALTHSTONES_BY_ITEMID)
-        --@alpha@
-        HST:debug("Finalizing trade. sending =", sending, "receiving =", receiving, "msg =", GetGameMessageInfo(msgid))
-        --@end-alpha@
+        HST:debug("Finalizaing trade with", target, "sending =", sending, "receiving =", receiving, "msg =", GetGameMessageInfo(msgid))
 
         -- Reset trade state
         tradeState = {
@@ -170,10 +165,6 @@ end
 -- INITIALIZE
 ---------------------------------------------
 HST.RegisterCallback(MODULE_NAME, "initialize", function()
-    --@alpha@
-    HST:debug("initalize module", MODULE_NAME)
-    --@end-alpha@
-
     -- Track trade state
     HST.RegisterEvent(MODULE_NAME, "TRADE_SHOW", initializeTrade)
     HST.RegisterEvent(MODULE_NAME, "TRADE_PLAYER_ITEM_CHANGED", updateTrade)

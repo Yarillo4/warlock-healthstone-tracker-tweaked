@@ -98,7 +98,6 @@ end
 ---------------------------------------------
 C.DEFAULT_DB = {
     ["Version"] = 1,
-    ["Debug"] = false,
     ["EnableHealthstoneConsumedMessage"] = true,
     ["DistributedCacheEnabled"] = true,
     ListView = {
@@ -135,7 +134,6 @@ local function setDefaults(DB, DEFAULTS)
                 DB[k] = {}
             else
                 DB[k] = v
-                HST:debug("")
             end
         end
 
@@ -177,13 +175,6 @@ function C:get(option)
     end
 
     return nil
-end
-
-
-function HST:debug(...)
-    if ( C:is("Debug") ) then
-        print("[" .. HST.ADDON_NAME .. "]", ...)
-    end
 end
 
 local function getOption(info)
@@ -304,10 +295,10 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
                     type = "toggle",
                     name = L_DEBUG,
                     desc = L_DEBUG_DESCRIPTION,
-                    set = setOption,
-                    get = getOption,
+                    set = function(info, value) HST.isDebug = value end,
+                    get = function(info) return HST.isDebug end,
+                    hidden = HST.IS_RELEASE_VERSION,
                     width = "normal",
-                    arg = "Debug"
                 },
                 debug_spacer = {
                     order = 101,
@@ -1039,7 +1030,4 @@ configPanes.cache = AceConfigDialog:AddToBlizOptions(HST.ADDON_NAME, L_CACHE, HS
 -- INITIALIZE
 ---------------------------------------------
 HST.RegisterCallback(MODULE_NAME, "initialize", function()
-    --@alpha@
-    HST:debug("initalize module", MODULE_NAME)
-    --@end-alpha@
 end)

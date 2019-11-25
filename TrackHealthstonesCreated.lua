@@ -27,9 +27,7 @@ local function trackHealthstoneCreated(...)
         local spellName = select(13, ...)
 
         local isFriendly = bit.band(srcFlags, COMBATLOG_OBJECT_REACTION_FRIENDLY ) > 0
-        --@debug@
-        HST:debug("trackHealthstoneCreated", srcName, spellName, createHealthstoneSpellsByName[spellName], isFriendly)
-        --@end-debug@
+        HST:trace(MODULE_NAME, "trackHealthstoneCreated", srcName, spellName, createHealthstoneSpellsByName[spellName], isFriendly)
         if ( spellName and createHealthstoneSpellsByName[spellName] and isFriendly ) then
             HST:debug(srcName, "successfully casted", spellName)
             HST:SetPlayerHealthstone(timestamp, srcName, true)
@@ -56,10 +54,6 @@ end
 -- INITIALIZE
 ---------------------------------------------
 HST.RegisterCallback(MODULE_NAME, "initialize", function()
-    --@alpha@
-    HST:debug("initalize module", MODULE_NAME)
-    --@end-alpha@
-
     -- Watch combat log for healthstone created
     HST.RegisterEvent(MODULE_NAME, "COMBAT_LOG_EVENT_UNFILTERED", function(event)
         trackHealthstoneCreated(CombatLogGetCurrentEventInfo())
