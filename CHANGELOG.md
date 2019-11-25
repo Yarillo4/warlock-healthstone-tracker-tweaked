@@ -1,3 +1,20 @@
+## v1.0.4-beta2 - 2019-11-25
+#### Added
+* [#12] - List view raid filters
+* [#16] - Cache override configuration pane should color player names to their class
+#### Fixed
+* [#1] - Reset to Defaults doesn't work the second time
+* [#2] - List view remains locked after Reset to Defaults
+#### Changed
+* List view now shows player class color and icon
+* Cache override configuration now has a single section used for both party and raids
+* Upon zoning in search your bags for healthstones
+* Refactored debugging, removing the option on release versions
+#### Known Issues
+* [#5] - No-lib zip still includes libraries
+
+---
+
 ## v1.0.4-beta - 2019-11-22
 #### Added
 * [#12] - List view raid filters
