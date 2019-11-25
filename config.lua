@@ -208,7 +208,8 @@ end
 local function getUnitName(info)
     local unit = getCacheUnit(info)
     if ( UnitExists(unit) ) then
-        return HST.Media:formatClass(UnitName(unit))
+        local class = select(2,UnitClass(unitname))
+        return formatClass(class, UnitName(unit))
     end
     return unit
 end

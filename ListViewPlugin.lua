@@ -3,6 +3,7 @@ local MODULE_NAME = "ListView"
 
 local PLUGIN = LibStub("WarlockHealthstoneTracker-1.0", 1)
 
+
 ---------------------------------------------
 -- LOCALIZATION
 ---------------------------------------------
@@ -32,6 +33,15 @@ local function contains(t, value)
         end
     end
     return false
+end
+
+local function formatClass(unitname)
+    local class = select(2,UnitClass(unitname))
+    if ( class ) then
+        return GetClassColorObj(class):WrapTextInColorCode(unitname)
+    else
+        return unitname
+    end
 end
 
 local function shouldInclude(unitName)
@@ -304,7 +314,7 @@ function WarlockHealthstoneTrackerListViewScrollFrameMixIn:Update()
             if ( index > numItems ) then
                 button:Hide()
             else
-                button.Name:SetText(HST.media:formatClass(playersThatNeedHealthstones[index]))
+                button.Name:SetText(formatClass(playersThatNeedHealthstones[index]))
                 button:Show()
             end
         end
