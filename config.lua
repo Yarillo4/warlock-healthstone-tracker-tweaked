@@ -1031,7 +1031,7 @@ configPanes.cache = AceConfigDialog:AddToBlizOptions(HST.ADDON_NAME, L_CACHE, HS
 ---------------------------------------------
 HST.RegisterCallback(MODULE_NAME, "initialize", function()
     -- Update cache configuration when healthstones upated
-    local PLUGIN = LibStub:NewLibrary(HST.ADDON_NAME.."-1.0", 1)
+    local PLUGIN = LibStub("WarlockHealthstoneTracker-1.0", 1)
     PLUGIN.RegisterCallback(HST.ADDON_NAME .. "." .. MODULE_NAME, "updateUnitHealthstone", function(event, unitname, hasHealthstone)
         AceConfigRegistry:NotifyChange(HST.ADDON_NAME)
     end)
