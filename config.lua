@@ -208,7 +208,7 @@ end
 local function getUnitName(info)
     local unit = getCacheUnit(info)
     if ( UnitExists(unit) ) then
-        local class = select(2,UnitClass(unitname))
+        local class = select(2,UnitClass(unit))
         return formatClass(class, UnitName(unit))
     end
     return unit
