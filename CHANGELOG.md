@@ -8,7 +8,7 @@
 * [#2] - List view remains locked after Reset to Defaults
 * [#17] - Hidden dependencies on AceGUI-3.0 and AceConfigDialog-3.0
 #### Changed
-* List view now shows player class color and icon
+* List view now shows player class color
 * Cache override configuration now has a single section used for both party and raids
 * Upon zoning in search your bags for healthstones
 * Refactored debugging, removing the option on release versions
