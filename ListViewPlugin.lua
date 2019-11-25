@@ -317,7 +317,7 @@ end
 ---------------------------------------------
 HST.RegisterCallback(MODULE_NAME, "initialize", function()
     -- Receive healthstone updates
-    PLUGIN.RegisterCallback(MODULE_NAME, "updateUnitHealthstone", handleHealthstoneUpdate)
+    PLUGIN.RegisterCallback(HST.ADDON_NAME .. "." .. MODULE_NAME, "updateUnitHealthstone", handleHealthstoneUpdate)
 
     -- Receive group updates
     HST.RegisterEvent(MODULE_NAME, "PLAYER_ENTERING_WORLD", handleGroupUpdate)

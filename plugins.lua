@@ -9,7 +9,7 @@ function PLUGIN:PlayerHasHealthstone(playerName)
 end
 
 
-PLUGIN.RegisterCallback("debug", "updateUnitHealthstone", function(event, unitname, hasHealthstone)
+PLUGIN.RegisterCallback(HST.ADDON_NAME .. ".debug", "updateUnitHealthstone", function(event, unitname, hasHealthstone)
     HST:debug(event, unitname, hasHealthstone)
     --@debug@
     if ( HST.isDebug ) then
