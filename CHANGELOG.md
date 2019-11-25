@@ -1,10 +1,12 @@
-## v1.0.4-beta2 - 2019-11-25
+## v1.0.4-alpha2 - 2019-11-25
 #### Added
 * [#12] - List view raid filters
 * [#16] - Cache override configuration pane should color player names to their class
+* [#18] - Update configuration cache when a player eats a healthstone and group changed
 #### Fixed
 * [#1] - Reset to Defaults doesn't work the second time
 * [#2] - List view remains locked after Reset to Defaults
+* [#17] - Hidden dependencies on AceGUI-3.0 and AceConfigDialog-3.0
 #### Changed
 * List view now shows player class color and icon
 * Cache override configuration now has a single section used for both party and raids
@@ -95,3 +97,5 @@
 [#14]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/14
 [#15]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/15
 [#16]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/16
+[#17]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/17
+[#18]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/18

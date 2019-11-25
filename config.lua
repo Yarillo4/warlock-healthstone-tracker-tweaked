@@ -244,8 +244,8 @@ end
 ---------------------------------------------
 -- CONFIG
 ---------------------------------------------
-local AceConfig = LibStub("AceConfig-3.0")
-AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
+local AceConfigRegistry = LibStub("AceConfigRegistry-3.0")
+AceConfigRegistry:RegisterOptionsTable(HST.ADDON_NAME, {
     type = "group",
     name = L_ADDON_NAME,
     args = {
@@ -1017,7 +1017,7 @@ AceConfig:RegisterOptionsTable(HST.ADDON_NAME, {
             },
         },
     },
-})
+}, HST.IS_RELEASE_VERSION)
 
 local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 local configPanes = {}
@@ -1029,4 +1029,14 @@ configPanes.cache = AceConfigDialog:AddToBlizOptions(HST.ADDON_NAME, L_CACHE, HS
 -- INITIALIZE
 ---------------------------------------------
 HST.RegisterCallback(MODULE_NAME, "initialize", function()
+    -- Update cache configuration when healthstones upated
+    local PLUGIN = LibStub:NewLibrary(HST.ADDON_NAME.."-1.0", 1)
+    PLUGIN.RegisterCallback(MODULE_NAME, "updateUnitHealthstone", function(event, unitname, hasHealthstone)
+        AceConfigRegistry:NotifyChange(HST.ADDON_NAME)
+    end)
+
+    -- Update cache configuration when GROUP_ROSTER_CHANGED
+    HST.RegisterEvent(MODULE_NAME, "GROUP_ROSTER_UPDATE", function()
+        AceConfigRegistry:NotifyChange(HST.ADDON_NAME)
+    end)
 end)

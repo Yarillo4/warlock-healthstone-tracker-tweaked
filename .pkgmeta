@@ -18,8 +18,14 @@ externals:
     lib/AceLocale-3.0:
         url: https://repos.wowace.com/wow/ace3/mainline/trunk/AceLocale-3.0
         tag: latest
-    lib/AceConfig-3.0:
-        url: https://repos.wowace.com/wow/ace3/mainline/trunk/AceConfig-3.0
+    lib/AceConfigRegistry-3.0:
+        url: https://repos.wowace.com/wow/ace3/mainline/trunk/AceConfig-3.0/AceConfigRegistry-3.0
+        tag: latest
+    lib/AceConfigDialog-3.0:
+        url: https://repos.wowace.com/wow/ace3/mainline/trunk/AceConfig-3.0/AceConfigDialog-3.0
+        tag: latest
+    lib/AceGUI-3.0:
+        url: https://repos.wowace.com/wow/ace3/mainline/trunk/AceGUI-3.0
         tag: latest
     lib/GetItemInfoAsync-1.0:
         url: https://repos.curseforge.com/wow/getiteminfoasync/GetItemInfoAsync-1.0
