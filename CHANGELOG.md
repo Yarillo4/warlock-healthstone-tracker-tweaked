@@ -106,6 +106,7 @@
 [#8]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/8
 [#10]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/10
 [#12]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/12
+[#13]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/13
 [#14]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/14
 [#15]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/15
 [#16]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/16
