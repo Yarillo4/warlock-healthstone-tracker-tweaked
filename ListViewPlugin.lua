@@ -35,6 +35,22 @@ local function contains(t, value)
     return false
 end
 
+local function getUnitId(unitname)
+    local raidId = UnitInRaid(unitname)
+    if ( raidId ) then
+        return "raid" .. raidId
+    elseif ( UnitIsUnit("player", unitname) ) then
+        return "player"
+    else
+        for i = 1, MAX_PARTY_MEMBERS do
+            local unit = "party"..i
+            if ( UnitIsUnit(unit, unitname) ) then
+                return unit
+            end
+        end
+    end
+end
+
 local function formatClass(unitname)
     local class = select(2,UnitClass(unitname))
     if ( class ) then
@@ -312,7 +328,9 @@ function WarlockHealthstoneTrackerListViewScrollFrameMixIn:Update()
             if ( index > numItems ) then
                 button:Hide()
             else
-                button.Name:SetText(formatClass(playersThatNeedHealthstones[index]))
+                local name = playersThatNeedHealthstones[index]
+                button.Name:SetText(formatClass(name))
+                button:SetAttribute("unit", getUnitId(name))
                 button:Show()
             end
         end
