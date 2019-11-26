@@ -205,7 +205,7 @@ end
 
 local function handleOptionsChanged(option, newValue)
     if ( option == "ListView/Enabled") then
-        WarlockHealthstoneTrackerListView.ScrollFrame:Update()
+        handleGroupUpdate("OptionChanged")
 
     elseif ( option == "ListView/Locked" ) then
         WarlockHealthstoneTrackerListView.TitleBar:EnableMouse(not newValue)

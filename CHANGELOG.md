@@ -1,6 +1,8 @@
 ## v1.0.4-beta3 - 2019-11-25
 #### Added
 * [#13] - Clicking a name in List View should target the player
+#### Fixed
+* [#19] - Disabling then Enabling List view shows out of date information
 #### Known Issues
 * [#5] - No-lib zip still includes libraries
 
@@ -18,6 +20,7 @@
 * Refactored debugging, removing the option on release versions
 #### Known Issues
 * [#5] - No-lib zip still includes libraries
+* [#19] - Disabling then Enabling List view shows out of date information
 
 ---
 
@@ -30,6 +33,7 @@
 * [#2] - List view remains locked after Reset to Defaults
 #### Known Issues
 * [#5] - No-lib zip still includes libraries
+* [#19] - Disabling then Enabling List view shows out of date information
 
 ---
 
@@ -40,6 +44,7 @@
 * [#1] - Reset to Defaults doesn't work the second time
 * [#2] - List view remains locked after Reset to Defaults
 * [#5] - No-lib zip still includes libraries
+* [#19] - Disabling then Enabling List view shows out of date information
 
 ---
 
@@ -52,6 +57,7 @@
 * [#1] - Reset to Defaults doesn't work the second time
 * [#2] - List view remains locked after Reset to Defaults
 * [#5] - No-lib zip still includes libraries
+* [#19] - Disabling then Enabling List view shows out of date information
 
 ---
 
@@ -66,6 +72,7 @@
 * [#2] - List view remains locked after Reset to Defaults
 * [#5] - No-lib zip still includes libraries
 * [#14] - List view names overflow the borders *fixed in v1.0.2*
+* [#19] - Disabling then Enabling List view shows out of date information
 
 ---
 
@@ -87,6 +94,7 @@
 * [#7] - List view may show player names more than once *fixed in v1.0.1*
 * [#8] - Healthstones traded away are not removed from trade source *fixed in v1.0.1*
 * [#14] - List view names overflow the borders
+* [#19] - Disabling then Enabling List view shows out of date information
 
 [#1]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/1
 [#2]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/2
@@ -103,3 +111,4 @@
 [#16]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/16
 [#17]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/17
 [#18]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/18
+[#19]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/19
