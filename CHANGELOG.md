@@ -26,7 +26,7 @@
 
 ## v1.0.4-beta - 2019-11-22
 #### Added
-* [#12] - List view raid filters
+* [#12] - Implement cache syncing among party / raid members
 * [#16] - Cache override configuration pane should color player names to their class
 #### Fixed
 * [#1] - Reset to Defaults doesn't work the second time
