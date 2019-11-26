@@ -71,7 +71,7 @@
 * [#1] - Reset to Defaults doesn't work the second time
 * [#2] - List view remains locked after Reset to Defaults
 * [#5] - No-lib zip still includes libraries
-* [#14] - List view names overflow the borders *fixed in v1.0.2*
+* [#14] - List view names overflow the borders
 * [#19] - Disabling then Enabling List view shows out of date information
 
 ---
@@ -88,11 +88,11 @@
 #### Known Issues
 * [#1] - Reset to Defaults doesn't work the second time
 * [#2] - List view remains locked after Reset to Defaults
-* [#4] - List view showed party member "Unknown" *fixed in v1.0.1*
+* [#4] - List view showed party member "Unknown"
 * [#5] - No-lib zip still includes libraries
-* [#6] - Healthstones are not being tracked upon create *fixed in v1.0.1*
-* [#7] - List view may show player names more than once *fixed in v1.0.1*
-* [#8] - Healthstones traded away are not removed from trade source *fixed in v1.0.1*
+* [#6] - Healthstones are not being tracked upon create
+* [#7] - List view may show player names more than once
+* [#8] - Healthstones traded away are not removed from trade source
 * [#14] - List view names overflow the borders
 * [#19] - Disabling then Enabling List view shows out of date information
 
