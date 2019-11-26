@@ -7,7 +7,8 @@ Track healthstones traded to other players and their consumption.
 ## Features
 * Track healthstones created, traded, and consumed
 * Show simple list of players that need a healthstone
-* Filter via role select and/or class
+* Filter list view by role select and/or class
+* Sync healthstone status among party / raid members
 * Exposes simple callback plugin interface for other addons to display healthstone tracking.
 
 
