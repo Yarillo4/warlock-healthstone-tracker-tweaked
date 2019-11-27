@@ -265,6 +265,7 @@ AceConfigRegistry:RegisterOptionsTable(HST.ADDON_NAME, {
                         WarlockHealthstoneTrackerListView:SetPoint("CENTER", UIParent)
                         WarlockHealthstoneTrackerListView:SetSize(150, 100)
                         WarlockHealthstoneTrackerDB = clone(C.DEFAULT_DB)
+                        optionListeners:Fire("ListView/Enabled", C:get("ListView/Enabled"))
                         optionListeners:Fire("ListView/Locked", C:get("ListView/Locked"))
                     end
                 },
