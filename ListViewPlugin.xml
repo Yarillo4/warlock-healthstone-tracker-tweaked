@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
 
-	<Button name="WarlockHealthstoneTrackerListViewButtonTemplate" virtual="true" hidden="true">
+	<Button name="WarlockHealthstoneTrackerListViewButtonTemplate" inherits="SecureUnitButtonTemplate" virtual="true" hidden="true">
 		<Anchors>
 			<Anchor point="RIGHT" />
 		</Anchors>
@@ -17,6 +17,18 @@
 				</FontString>
 			</Layer>
 		</Layers>
+		<Scripts>
+			<OnLoad>
+				self:SetAttribute("type1", "target");
+			</OnLoad>
+			<OnMouseDown>
+				self.Name:SetPoint("TOPLEFT", 4, -2)
+			</OnMouseDown>
+			<OnMouseUp>
+				self.Name:SetPoint("TOPLEFT", 3, 0)
+			</OnMouseUp>
+		</Scripts>
+		<HighlightTexture file="Interface\FriendsFrame\UI-FriendsFrame-HighlightBar" alphaMode="ADD" setAllPoints="true"/>
 	</Button>
 
 	<Frame name="WarlockHealthstoneTrackerListView" hidden="false" toplevel="true" parent="UIParent" movable="true" resizable="true">
