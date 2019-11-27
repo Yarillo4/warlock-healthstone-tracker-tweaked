@@ -1,3 +1,11 @@
+## v1.0.4-alpha4 - 2019-11-27
+#### Removed
+* [#13] - Clicking a name in List View should target the player
+#### Known Issues
+* [#5] - No-lib zip still includes libraries
+
+---
+
 ## v1.0.4-beta3 - 2019-11-25
 #### Added
 * [#13] - Clicking a name in List View should target the player
@@ -5,6 +13,7 @@
 * [#19] - Disabling then Enabling List view shows out of date information
 #### Known Issues
 * [#5] - No-lib zip still includes libraries
+* Newly added [#13] causes taint errors
 
 ---
 
