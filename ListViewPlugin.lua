@@ -330,7 +330,6 @@ function WarlockHealthstoneTrackerListViewScrollFrameMixIn:Update()
             else
                 local name = playersThatNeedHealthstones[index]
                 button.Name:SetText(formatClass(name))
-                button:SetAttribute("unit", getUnitId(name))
                 button:Show()
             end
         end
