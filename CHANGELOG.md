@@ -1,8 +1,17 @@
+## v1.0.4-alpha5 - 2019-11-27
+#### Fixed
+* [#20] - List view not visible after resetting defaults when List view was disabled
+#### Known Issues
+* [#5] - No-lib zip still includes libraries
+
+---
+
 ## v1.0.4-alpha4 - 2019-11-27
 #### Removed
 * [#13] - Clicking a name in List View should target the player
 #### Known Issues
 * [#5] - No-lib zip still includes libraries
+* [#20] - List view not visible after resetting defaults when List view was disabled
 
 ---
 
@@ -14,6 +23,7 @@
 #### Known Issues
 * [#5] - No-lib zip still includes libraries
 * Newly added [#13] causes taint errors
+* [#20] - List view not visible after resetting defaults when List view was disabled
 
 ---
 
@@ -30,6 +40,7 @@
 #### Known Issues
 * [#5] - No-lib zip still includes libraries
 * [#19] - Disabling then Enabling List view shows out of date information
+* [#20] - List view not visible after resetting defaults when List view was disabled
 
 ---
 
@@ -43,6 +54,7 @@
 #### Known Issues
 * [#5] - No-lib zip still includes libraries
 * [#19] - Disabling then Enabling List view shows out of date information
+* [#20] - List view not visible after resetting defaults when List view was disabled
 
 ---
 
@@ -54,6 +66,7 @@
 * [#2] - List view remains locked after Reset to Defaults
 * [#5] - No-lib zip still includes libraries
 * [#19] - Disabling then Enabling List view shows out of date information
+* [#20] - List view not visible after resetting defaults when List view was disabled
 
 ---
 
@@ -67,6 +80,7 @@
 * [#2] - List view remains locked after Reset to Defaults
 * [#5] - No-lib zip still includes libraries
 * [#19] - Disabling then Enabling List view shows out of date information
+* [#20] - List view not visible after resetting defaults when List view was disabled
 
 ---
 
@@ -82,6 +96,7 @@
 * [#5] - No-lib zip still includes libraries
 * [#14] - List view names overflow the borders
 * [#19] - Disabling then Enabling List view shows out of date information
+* [#20] - List view not visible after resetting defaults when List view was disabled
 
 ---
 
@@ -104,6 +119,7 @@
 * [#8] - Healthstones traded away are not removed from trade source
 * [#14] - List view names overflow the borders
 * [#19] - Disabling then Enabling List view shows out of date information
+* [#20] - List view not visible after resetting defaults when List view was disabled
 
 [#1]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/1
 [#2]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/2
@@ -122,3 +138,4 @@
 [#17]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/17
 [#18]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/18
 [#19]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/19
+[#20]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/20
