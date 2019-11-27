@@ -83,7 +83,7 @@ local function clone(instance)
     local obj = {}
     local k,v = next(instance)
     while ( k ~= nil ) do
-        obj[k] = ( type(v) ~= "table" ) and v or clone(v)
+        obj[k] = ( type(v) == "table" ) and clone(v) or v
         k,v = next(instance, k)
     end
     return obj;
