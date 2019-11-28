@@ -1,3 +1,11 @@
+## v1.0.4-beta5 - 2019-11-27
+#### Fixed
+* [#20] - List view not visible after resetting defaults when List view was disabled
+#### Known Issues
+* [#5] - No-lib zip still includes libraries
+
+---
+
 ## v1.0.4-alpha5 - 2019-11-27
 #### Fixed
 * [#20] - List view not visible after resetting defaults when List view was disabled
