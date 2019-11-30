@@ -1,45 +1,14 @@
-## v1.0.4-beta5 - 2019-11-27
-#### Fixed
-* [#20] - List view not visible after resetting defaults when List view was disabled
-#### Known Issues
-* [#5] - No-lib zip still includes libraries
-
----
-
-## v1.0.4-alpha5 - 2019-11-27
-#### Fixed
-* [#20] - List view not visible after resetting defaults when List view was disabled
-#### Known Issues
-* [#5] - No-lib zip still includes libraries
-
----
-
-## v1.0.4-alpha4 - 2019-11-27
-#### Removed
-* [#13] - Clicking a name in List View should target the player
-#### Known Issues
-* [#5] - No-lib zip still includes libraries
-* [#20] - List view not visible after resetting defaults when List view was disabled
-
----
-
-## v1.0.4-beta3 - 2019-11-25
+## v1.1.0 - 2019-11-29
 #### Added
-* [#13] - Clicking a name in List View should target the player
-#### Fixed
-* [#19] - Disabling then Enabling List view shows out of date information
-#### Known Issues
-* [#5] - No-lib zip still includes libraries
-* Newly added [#13] causes taint errors
-* [#20] - List view not visible after resetting defaults when List view was disabled
-
----
-
-## v1.0.4-alpha2 - 2019-11-25
-#### Added
+* [#12] - Implement cache syncing among party / raid members
+* [#16] - Cache override configuration pane should color player names to their class
 * [#18] - Update configuration cache when a player eats a healthstone and group changed
 #### Fixed
+* [#1] - Reset to Defaults doesn't work the second time
+* [#2] - List view remains locked after Reset to Defaults
 * [#17] - Hidden dependencies on AceGUI-3.0 and AceConfigDialog-3.0
+* [#19] - Disabling then Enabling List view shows out of date information
+* [#20] - List view not visible after resetting defaults when List view was disabled
 #### Changed
 * List view now shows player class color
 * Cache override configuration now has a single section used for both party and raids
@@ -47,22 +16,6 @@
 * Refactored debugging, removing the option on release versions
 #### Known Issues
 * [#5] - No-lib zip still includes libraries
-* [#19] - Disabling then Enabling List view shows out of date information
-* [#20] - List view not visible after resetting defaults when List view was disabled
-
----
-
-## v1.0.4-beta - 2019-11-22
-#### Added
-* [#12] - Implement cache syncing among party / raid members
-* [#16] - Cache override configuration pane should color player names to their class
-#### Fixed
-* [#1] - Reset to Defaults doesn't work the second time
-* [#2] - List view remains locked after Reset to Defaults
-#### Known Issues
-* [#5] - No-lib zip still includes libraries
-* [#19] - Disabling then Enabling List view shows out of date information
-* [#20] - List view not visible after resetting defaults when List view was disabled
 
 ---
 
