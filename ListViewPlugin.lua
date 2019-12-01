@@ -21,6 +21,7 @@ local BUTTON_MARGIN = 0
 -- VARIABLES
 ---------------------------------------------
 local playersThatNeedHealthstones = {}
+local useSecureFrames = true
 
 
 ---------------------------------------------
@@ -203,6 +204,26 @@ local function handleGroupUpdate(event)
     WarlockHealthstoneTrackerListView.ScrollFrame:Update()
 end
 
+local function handleCombat(event)
+    local self =WarlockHealthstoneTrackerListView.ScrollFrame
+    if ( event == "PLAYER_REGEN_DISABLED" ) then
+        -- In combat :: start using insecure frames, hide all secure ones
+        useSecureFrames = false
+        for i = 1, #self.secureButtons do
+            self.secureButtons[i]:Hide()
+        end
+
+    elseif ( event == "PLAYER_REGEN_ENABLED" ) then
+        -- Out of combat :: start using secure frames, hide all insecure ones
+        useSecureFrames = true
+        for i = 1, #self.buttons do
+            self.buttons[i]:Hide()
+        end
+    end
+
+    self:Update()
+end
+
 local function handleOptionsChanged(option, newValue)
     if ( option == "ListView/Enabled") then
         handleGroupUpdate("OptionChanged")
@@ -272,41 +293,42 @@ end
 WarlockHealthstoneTrackerListViewScrollFrameMixIn = {}
 function WarlockHealthstoneTrackerListViewScrollFrameMixIn:OnLoad()
     self.buttons = {}
-    self.numDisplayedButtons = 5
+    self.secureButtons = {}
 end
 
 function WarlockHealthstoneTrackerListViewScrollFrameMixIn:OnVerticalScroll(offset)
     FauxScrollFrame_OnVerticalScroll(self, offset, BUTTON_HEIGHT+BUTTON_MARGIN, self.Update);
 end
 
-function WarlockHealthstoneTrackerListViewScrollFrameMixIn:CreateButtons()
+function WarlockHealthstoneTrackerListViewScrollFrameMixIn:GetButton(i)
+    local buttons = ( useSecureFrames ) and self.secureButtons or self.buttons
+    local template = ( useSecureFrames ) and "WarlockHealthstoneTrackerListViewSecureButtonTemplate" or "WarlockHealthstoneTrackerListViewButtonTemplate"
     local parent = self:GetParent()
 
-    for i = 1, self.numDisplayedButtons do
-        if ( not self.buttons[i] ) then
-            local button = CreateFrame("Button", nil, parent, "WarlockHealthstoneTrackerListViewButtonTemplate")
-            button:SetHeight(BUTTON_HEIGHT)
-            if i == 1 then
-                button:SetPoint("TOPLEFT", self)
-            else
-                button:SetPoint("TOPLEFT", self.buttons[i - 1], "BOTTOMLEFT", 0, -BUTTON_MARGIN)
-            end
-            button:Hide()
-            tinsert(self.buttons, button)
+    if ( not buttons[i] ) then
+        local button = CreateFrame("Button", nil, parent, template)
+        button:SetHeight(BUTTON_HEIGHT)
+        if i == 1 then
+            button:SetPoint("TOPLEFT", self)
+        else
+            button:SetPoint("TOPLEFT", self.buttons[i - 1], "BOTTOMLEFT", 0, -BUTTON_MARGIN)
         end
+        button:Hide()
+        tinsert(buttons, button)
     end
+
+    return buttons[i]
 end
 
 function WarlockHealthstoneTrackerListViewScrollFrameMixIn:OnSizeChanged()
     -- recalculate number of displayed buttons
     self.numDisplayedButtons = math.floor(self:GetHeight() / (BUTTON_HEIGHT+BUTTON_MARGIN))
 
-    self:CreateButtons()
-
     -- hide buttons that are no longer needed
-    if ( #self.buttons > self.numDisplayedButtons ) then
-        for i = self.numDisplayedButtons, #self.buttons, 1 do
-            self.buttons[i]:Hide()
+    local buttons = ( useSecureFrames ) and self.secureButtons or self.buttons
+    if ( #buttons > self.numDisplayedButtons ) then
+        for i = self.numDisplayedButtons, #buttons, 1 do
+            buttons[i]:Hide()
         end
     end
 
@@ -324,12 +346,15 @@ function WarlockHealthstoneTrackerListViewScrollFrameMixIn:Update()
         local offset = FauxScrollFrame_GetOffset(self)
         for i = 1, self.numDisplayedButtons do
             local index = i + offset
-            local button = self.buttons[i]
+            local button = self:GetButton(i)
             if ( index > numItems ) then
                 button:Hide()
             else
                 local name = playersThatNeedHealthstones[index]
                 button.Name:SetText(formatClass(name))
+                if ( useSecureFrames ) then
+                    button:SetAttribute("unit", getUnitId(name))
+                end
                 button:Show()
             end
         end
@@ -349,8 +374,8 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     HST.RegisterEvent(MODULE_NAME, "GROUP_ROSTER_UPDATE", handleGroupUpdate)
 
     -- Receive combat updates
-    HST.RegisterEvent(MODULE_NAME, "PLAYER_REGEN_DISABLED", showHideFrame)
-    HST.RegisterEvent(MODULE_NAME, "PLAYER_REGEN_ENABLED", showHideFrame)
+    HST.RegisterEvent(MODULE_NAME, "PLAYER_REGEN_DISABLED", handleCombat)
+    HST.RegisterEvent(MODULE_NAME, "PLAYER_REGEN_ENABLED", handleCombat)
 
     -- Receive options updates
     C.RegisterListener(MODULE_NAME, "ListView/Enabled", handleOptionsChanged)
@@ -372,7 +397,4 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     C.RegisterListener(MODULE_NAME, "ListView/Filters/WARLOCK", handleOptionsChanged)
     C.RegisterListener(MODULE_NAME, "ListView/Filters/WARRIOR", handleOptionsChanged)
     handleOptionsChanged("ListView/Locked", C:is("ListView/Locked")) -- #3: List View not locked upon /reload (temporary fix)
-
-    -- Create initial scroll frame buttons
-    WarlockHealthstoneTrackerListView.ScrollFrame:CreateButtons()
 end)

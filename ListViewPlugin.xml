@@ -18,6 +18,20 @@
 			</Layer>
 		</Layers>
 	</Button>
+	<Button name="WarlockHealthstoneTrackerListViewSecureButtonTemplate" inherits="SecureUnitButtonTemplate,WarlockHealthstoneTrackerListViewButtonTemplate" virtual="true" hidden="true">
+		<Scripts>
+			<OnLoad>
+				self:SetAttribute("type1", "target");
+			</OnLoad>
+			<OnMouseDown>
+				self.Name:SetPoint("TOPLEFT", 4, -2)
+			</OnMouseDown>
+			<OnMouseUp>
+				self.Name:SetPoint("TOPLEFT", 3, 0)
+			</OnMouseUp>
+		</Scripts>
+		<HighlightTexture file="Interface\FriendsFrame\UI-FriendsFrame-HighlightBar" alphaMode="ADD" setAllPoints="true"/>
+	</Button>
 
 	<Frame name="WarlockHealthstoneTrackerListView" hidden="false" toplevel="true" parent="UIParent" movable="true" resizable="true">
 		<Size x="150" y="100"/>
