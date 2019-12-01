@@ -1,3 +1,11 @@
+## v1.2.0-alpha2 - 2019-12-1
+#### Fixed
+* Additional temporary secure frame status of List view while in combat
+#### Known Issues
+* [#5] - No-lib zip still includes libraries
+
+--
+
 ## v1.2.0-alpha1 - 2019-12-1
 #### Added
 * [#13] - Clicking a name in List View now targets the player
