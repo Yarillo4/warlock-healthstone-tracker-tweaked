@@ -1,3 +1,11 @@
+## v1.2.0-alpha1 - 2019-12-1
+#### Added
+* [#13] - Clicking a name in List View now targets the player
+#### Known Issues
+* [#5] - No-lib zip still includes libraries
+
+--
+
 ## v1.1.0 - 2019-11-29
 #### Added
 * [#12] - Implement cache syncing among party / raid members
