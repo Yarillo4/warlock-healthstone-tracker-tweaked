@@ -311,7 +311,7 @@ function WarlockHealthstoneTrackerListViewScrollFrameMixIn:GetButton(i)
         if i == 1 then
             button:SetPoint("TOPLEFT", self)
         else
-            button:SetPoint("TOPLEFT", self.buttons[i - 1], "BOTTOMLEFT", 0, -BUTTON_MARGIN)
+            button:SetPoint("TOPLEFT", buttons[i - 1], "BOTTOMLEFT", 0, -BUTTON_MARGIN)
         end
         button:Hide()
         tinsert(buttons, button)
