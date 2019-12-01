@@ -306,12 +306,13 @@ end
 
 
 function WarlockHealthstoneTrackerListViewScrollFrameMixIn:GetButtons()
-    return ( useSecureFrames ) and self.secureButtons or self.buttons
+    local buttons = ( useSecureFrames ) and self.secureButtons or self.buttons
+    local template = ( useSecureFrames ) and "WarlockHealthstoneTrackerListViewSecureButtonTemplate" or "WarlockHealthstoneTrackerListViewButtonTemplate"
+    return buttons, template
 end
 
 function WarlockHealthstoneTrackerListViewScrollFrameMixIn:GetButton(i)
-    local buttons = ( useSecureFrames ) and self.secureButtons or self.buttons
-    local template = ( useSecureFrames ) and "WarlockHealthstoneTrackerListViewSecureButtonTemplate" or "WarlockHealthstoneTrackerListViewButtonTemplate"
+    local buttons, template = self:GetButtons()
     local parent = self:GetParent()
 
     if ( not buttons[i] ) then
@@ -334,7 +335,7 @@ function WarlockHealthstoneTrackerListViewScrollFrameMixIn:OnSizeChanged()
     self.numDisplayedButtons = math.floor(self:GetHeight() / (BUTTON_HEIGHT+BUTTON_MARGIN))
 
     -- hide buttons that are no longer needed
-    local buttons = ( useSecureFrames ) and self.secureButtons or self.buttons
+    local buttons = self:GetButtons()
     if ( #buttons > self.numDisplayedButtons ) then
         for i = self.numDisplayedButtons, #buttons, 1 do
             buttons[i]:Hide()
