@@ -211,6 +211,7 @@ local function handleStartEndCombat(event)
         useSecureFrames = false
         for i = 1, #self.secureButtons do
             self.secureButtons[i]:Hide()
+            self.secureButtons[i]:SetParent(nil) -- remove parent, removing the parent's temporary secure status
         end
 
     elseif ( event == "PLAYER_REGEN_ENABLED" ) then
@@ -218,6 +219,9 @@ local function handleStartEndCombat(event)
         useSecureFrames = true
         for i = 1, #self.buttons do
             self.buttons[i]:Hide()
+        end
+        for i = 1, #self.secureButtons do
+            self.secureButtons[i]:SetParent(self:GetParent()) -- add parent, setting the parent's temporary secure status
         end
     end
 
