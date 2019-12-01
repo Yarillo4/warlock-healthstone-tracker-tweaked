@@ -20,8 +20,8 @@ local BUTTON_MARGIN = 0
 ---------------------------------------------
 -- VARIABLES
 ---------------------------------------------
-local playersThatNeedHealthstones = {}
-local useSecureFrames = true
+local playersThatNeedHealthstones = {} -- list of group members that need healthstones
+local useSecureFrames = true -- determines when we can use secure frames or not
 
 
 ---------------------------------------------
