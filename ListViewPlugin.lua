@@ -304,6 +304,11 @@ function WarlockHealthstoneTrackerListViewScrollFrameMixIn:OnVerticalScroll(offs
     FauxScrollFrame_OnVerticalScroll(self, offset, BUTTON_HEIGHT+BUTTON_MARGIN, self.Update);
 end
 
+
+function WarlockHealthstoneTrackerListViewScrollFrameMixIn:GetButtons()
+    return ( useSecureFrames ) and self.secureButtons or self.buttons
+end
+
 function WarlockHealthstoneTrackerListViewScrollFrameMixIn:GetButton(i)
     local buttons = ( useSecureFrames ) and self.secureButtons or self.buttons
     local template = ( useSecureFrames ) and "WarlockHealthstoneTrackerListViewSecureButtonTemplate" or "WarlockHealthstoneTrackerListViewButtonTemplate"
@@ -345,21 +350,23 @@ function WarlockHealthstoneTrackerListViewScrollFrameMixIn:Update()
     showHideFrame()
     if ( parent:IsShown() ) then
         local numItems = #playersThatNeedHealthstones
+        local numButtons = #self:GetButtons()
         FauxScrollFrame_Update(self, numItems, self.numDisplayedButtons, BUTTON_HEIGHT+BUTTON_MARGIN)
 
         local offset = FauxScrollFrame_GetOffset(self)
         for i = 1, self.numDisplayedButtons do
             local index = i + offset
-            local button = self:GetButton(i)
-            if ( index > numItems ) then
-                button:Hide()
-            else
+            if ( index <= numItems ) then
+                local button = self:GetButton(i)
                 local name = playersThatNeedHealthstones[index]
                 button.Name:SetText(formatClass(name))
                 if ( useSecureFrames ) then
                     button:SetAttribute("unit", getUnitId(name))
                 end
                 button:Show()
+            elseif ( index <= numButtons ) then
+                local button = self:GetButton(i)
+                button:Hide()
             end
         end
     end
