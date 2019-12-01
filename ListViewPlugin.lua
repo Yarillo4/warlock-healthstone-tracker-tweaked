@@ -204,8 +204,8 @@ local function handleGroupUpdate(event)
     WarlockHealthstoneTrackerListView.ScrollFrame:Update()
 end
 
-local function handleCombat(event)
-    local self =WarlockHealthstoneTrackerListView.ScrollFrame
+local function handleStartEndCombat(event)
+    local self = WarlockHealthstoneTrackerListView.ScrollFrame
     if ( event == "PLAYER_REGEN_DISABLED" ) then
         -- In combat :: start using insecure frames, hide all secure ones
         useSecureFrames = false
@@ -374,8 +374,8 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     HST.RegisterEvent(MODULE_NAME, "GROUP_ROSTER_UPDATE", handleGroupUpdate)
 
     -- Receive combat updates
-    HST.RegisterEvent(MODULE_NAME, "PLAYER_REGEN_DISABLED", handleCombat)
-    HST.RegisterEvent(MODULE_NAME, "PLAYER_REGEN_ENABLED", handleCombat)
+    HST.RegisterEvent(MODULE_NAME, "PLAYER_REGEN_DISABLED", handleStartEndCombat)
+    HST.RegisterEvent(MODULE_NAME, "PLAYER_REGEN_ENABLED", handleStartEndCombat)
 
     -- Receive options updates
     C.RegisterListener(MODULE_NAME, "ListView/Enabled", handleOptionsChanged)
