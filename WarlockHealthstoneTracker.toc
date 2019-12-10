@@ -1,5 +1,5 @@
 ## Interface: 11302
-## Title: @localization(locale="enUS", key="Warlock Healthstone Tracker")@
+## Title: Warlock Healthstone Tracker
 ## Title-deDE: @localization(locale="deDE", key="Warlock Healthstone Tracker")@
 ## Title-esES: @localization(locale="esES", key="Warlock Healthstone Tracker")@
 ## Title-frFR: @localization(locale="frFR", key="Warlock Healthstone Tracker")@
@@ -9,7 +9,7 @@
 ## Title-ruRU: @localization(locale="ruRU", key="Warlock Healthstone Tracker")@
 ## Title-zhCN: @localization(locale="zhCN", key="Warlock Healthstone Tracker")@
 ## Title-zhTW: @localization(locale="zhTW", key="Warlock Healthstone Tracker")@
-## Notes: @localization(locale="enUS", key="Track healthstones used by party & raid members")@
+## Notes: Track healthstones used by party & raid members
 ## Notes-deDE: @localization(locale="deDE", key="Track healthstones used by party & raid members")@
 ## Notes-esES: @localization(locale="esES", key="Track healthstones used by party & raid members")@
 ## Notes-frFR: @localization(locale="frFR", key="Track healthstones used by party & raid members")@
