@@ -206,13 +206,33 @@ end
 
 local function handleStartEndCombat(event)
     local self = WarlockHealthstoneTrackerListView.ScrollFrame
+
+    --[[
+        There are two major concerns.
+
+            1) Hiding & showing SecureButtons while in combat.
+               Buttons must be able to automatically hide and show while in combat in response to combat events.
+               This isn't possible with SecureButtons, so as a workaround we remove the secure buttons upon
+               entering combat, and add them on leaving combat.
+
+            2) Remove the temporary secure status from ListView
+               Temporary secure status is set when the frame has secure children, or a secure frame is anchored to it.
+               To remove ListView's temporary secure status we must,
+                a) Remove the parent for all secure buttons; regardless of their visiblity
+                b) Clear anchors for SecureButton[1] specifically. Only SecureButton[1] is directly
+                   anchored to the ListView frame, all other SecureButtons are anchored to the button
+                   that precedes it.
+    ]]
+
     if ( event == "PLAYER_REGEN_DISABLED" ) then
         -- In combat :: start using insecure frames, hide all secure ones
         useSecureFrames = false
+        -- Hide secure buttons and remove the parent's temporary secure status
         for i = 1, #self.secureButtons do
             self.secureButtons[i]:Hide()
-            self.secureButtons[i]:SetParent(nil) -- remove parent, removing the parent's temporary secure status
+            self.secureButtons[i]:SetParent(nil)
         end
+        self.secureButtons[1]:ClearAllPoints()
 
     elseif ( event == "PLAYER_REGEN_ENABLED" ) then
         -- Out of combat :: start using secure frames, hide all insecure ones
@@ -220,9 +240,12 @@ local function handleStartEndCombat(event)
         for i = 1, #self.buttons do
             self.buttons[i]:Hide()
         end
+        -- add parent and anchors to secure buttons, setting the parent's temporary secure status
         for i = 1, #self.secureButtons do
-            self.secureButtons[i]:SetParent(self:GetParent()) -- add parent, setting the parent's temporary secure status
+            self.secureButtons[i]:SetParent(self:GetParent())
         end
+        self.secureButtons[1]:SetPoint("TOPLEFT", self)
+        self.secureButtons[1]:SetPoint("RIGHT", self:GetParent())
     end
 
     self:Update()
