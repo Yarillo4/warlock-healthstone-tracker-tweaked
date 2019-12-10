@@ -1,10 +1,18 @@
+## v1.2.0-alpha3 - 2019-12-10
+#### Fixed
+* [#21] - ListView attempted to call protected function during combat lockdown
+#### Known Issues
+* [#5] - No-lib zip still includes libraries
+
+---
+
 ## v1.2.0-beta2 - 2019-12-2
 #### Fixed
 * Additional temporary secure frame status of List view while in combat
 #### Known Issues
 * [#5] - No-lib zip still includes libraries
 
---
+---
 
 ## v1.2.0-alpha2 - 2019-12-1
 #### Fixed
@@ -12,7 +20,7 @@
 #### Known Issues
 * [#5] - No-lib zip still includes libraries
 
---
+---
 
 ## v1.2.0-alpha1 - 2019-12-1
 #### Added
@@ -20,7 +28,7 @@
 #### Known Issues
 * [#5] - No-lib zip still includes libraries
 
---
+---
 
 ## v1.1.0 - 2019-11-29
 #### Added
@@ -124,3 +132,4 @@
 [#18]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/18
 [#19]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/19
 [#20]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/20
+[#21]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/21
