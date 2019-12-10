@@ -1,3 +1,11 @@
+## v1.2.0-beta4 - 2019-12-10
+#### Changed
+* Update for 1.13.03 game version
+#### Known Issues
+* [#5] - No-lib zip still includes libraries
+
+---
+
 ## v1.2.0-alpha4 - 2019-12-10
 #### Changed
 * Update for 1.13.03 game version
