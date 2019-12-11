@@ -206,46 +206,42 @@ end
 
 local function handleStartEndCombat(event)
     local self = WarlockHealthstoneTrackerListView.ScrollFrame
+    if ( event == "PLAYER_REGEN_DISABLED" ) then
+        -- In combat :: start using insecure frames, hide all secure ones
+        useSecureFrames = false
+
+    elseif ( event == "PLAYER_REGEN_ENABLED" ) then
+        -- Out of combat :: start using secure frames, hide all insecure ones
+        useSecureFrames = true
+    end
 
     --[[
         There are two major concerns.
 
             1) Hiding & showing SecureButtons while in combat.
                Buttons must be able to automatically hide and show while in combat in response to combat events.
-               This isn't possible with SecureButtons, so as a workaround we remove the secure buttons upon
-               entering combat, and add them on leaving combat.
+               This isn't possible with SecureButtons, so as a workaround we use insecure buttons upon entering
+               combat, and add them on leaving combat.
 
             2) Remove the temporary secure status from ListView
                Temporary secure status is set when the frame has secure children, or a secure frame is anchored to it.
                To remove ListView's temporary secure status we must,
                 a) Remove the parent for all secure buttons; regardless of their visiblity
-                b) Clear anchors for SecureButton[1] specifically. Only SecureButton[1] is directly
-                   anchored to the ListView frame, all other SecureButtons are anchored to the button
-                   that precedes it.
+                b) Clear anchors for all SecureButton.
+
+        To satisfy both of these conditions we swamp insecure and secure buttons upon enter/leave combat.
     ]]
+    local removeButtons = useSecureFrames and self.buttons or self.secureButtons
+    for i = 1, #removeButtons do
+        removeButtons[i]:Hide()
+        removeButtons[i]:SetParent(nil)
+        removeButtons[i]:ClearAllPoints()
+    end
 
-    if ( event == "PLAYER_REGEN_DISABLED" ) then
-        -- In combat :: start using insecure frames, hide all secure ones
-        useSecureFrames = false
-        -- Hide secure buttons and remove the parent's temporary secure status
-        for i = 1, #self.secureButtons do
-            self.secureButtons[i]:Hide()
-            self.secureButtons[i]:SetParent(nil)
-        end
-        self.secureButtons[1]:ClearAllPoints()
-
-    elseif ( event == "PLAYER_REGEN_ENABLED" ) then
-        -- Out of combat :: start using secure frames, hide all insecure ones
-        useSecureFrames = true
-        for i = 1, #self.buttons do
-            self.buttons[i]:Hide()
-        end
-        -- add parent and anchors to secure buttons, setting the parent's temporary secure status
-        for i = 1, #self.secureButtons do
-            self.secureButtons[i]:SetParent(self:GetParent())
-        end
-        self.secureButtons[1]:SetPoint("TOPLEFT", self)
-        self.secureButtons[1]:SetPoint("RIGHT", self:GetParent())
+    local addButtons = useSecureFrames and self.secureButtons or self.buttons
+    for i = 1, #addButtons do
+        addButtons[i]:SetParent(self:GetParent())
+        addButtons[i]:SetAnchors()
     end
 
     self:Update()
@@ -298,6 +294,24 @@ end
 
 
 ---------------------------------------------
+-- MIXIN: BUTTON
+---------------------------------------------
+WarlockHealthstoneTrackerListViewButtonMixIn = {}
+function WarlockHealthstoneTrackerListViewButtonMixIn:SetAnchors()
+    local listView = self:GetParent()
+    local scrollFrame = listView.ScrollFrame
+
+    local buttons = self:IsProtected() and scrollFrame.secureButtons or scrollFrame.buttons
+    self:SetPoint("RIGHT", listView)
+    if self:GetID() == 1 then
+        self:SetPoint("TOPLEFT", scrollFrame)
+    else
+        self:SetPoint("TOPLEFT", buttons[self:GetID() - 1], "BOTTOMLEFT", 0, -BUTTON_MARGIN)
+    end
+end
+
+
+---------------------------------------------
 -- MIXIN: RESIZE BUTTON
 ---------------------------------------------
 WarlockHealthstoneTrackerListViewResizeButtonMixIn = {}
@@ -340,12 +354,9 @@ function WarlockHealthstoneTrackerListViewScrollFrameMixIn:GetButton(i)
 
     if ( not buttons[i] ) then
         local button = CreateFrame("Button", nil, parent, template)
+        button:SetID(i)
         button:SetHeight(BUTTON_HEIGHT)
-        if i == 1 then
-            button:SetPoint("TOPLEFT", self)
-        else
-            button:SetPoint("TOPLEFT", buttons[i - 1], "BOTTOMLEFT", 0, -BUTTON_MARGIN)
-        end
+        button:SetAnchors()
         button:Hide()
         tinsert(buttons, button)
     end

@@ -3,10 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
 
-	<Button name="WarlockHealthstoneTrackerListViewButtonTemplate" virtual="true" hidden="true">
-		<Anchors>
-			<Anchor point="RIGHT" />
-		</Anchors>
+	<Button name="WarlockHealthstoneTrackerListViewButtonTemplate" mixin="WarlockHealthstoneTrackerListViewButtonMixIn" virtual="true" hidden="true">
 		<Layers>
 			<Layer level="ARTWORK">
 				<FontString parentKey="Name" inherits="GameFontNormal" justifyH="LEFT" justifyV="CENTER" >
