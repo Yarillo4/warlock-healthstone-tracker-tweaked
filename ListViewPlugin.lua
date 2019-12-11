@@ -206,6 +206,7 @@ end
 
 local function handleStartEndCombat(event)
     local self = WarlockHealthstoneTrackerListView.ScrollFrame
+    local removeButtons = self:GetButtons()
     if ( event == "PLAYER_REGEN_DISABLED" ) then
         -- In combat :: start using insecure frames, hide all secure ones
         useSecureFrames = false
@@ -214,6 +215,7 @@ local function handleStartEndCombat(event)
         -- Out of combat :: start using secure frames, hide all insecure ones
         useSecureFrames = true
     end
+    local addButtons = self:GetButtons()
 
     --[[
         There are two major concerns.
@@ -231,17 +233,16 @@ local function handleStartEndCombat(event)
 
         To satisfy both of these conditions we swamp insecure and secure buttons upon enter/leave combat.
     ]]
-    local removeButtons = useSecureFrames and self.buttons or self.secureButtons
-    for i = 1, #removeButtons do
-        removeButtons[i]:Hide()
-        removeButtons[i]:SetParent(nil)
-        removeButtons[i]:ClearAllPoints()
-    end
-
-    local addButtons = useSecureFrames and self.secureButtons or self.buttons
-    for i = 1, #addButtons do
-        addButtons[i]:SetParent(self:GetParent())
-        addButtons[i]:SetAnchors()
+    if ( removeButtons ~= addButtons ) then
+        for i = 1, #removeButtons do
+            removeButtons[i]:Hide()
+            removeButtons[i]:SetParent(nil)
+            removeButtons[i]:ClearAllPoints()
+        end
+        for i = 1, #addButtons do
+            addButtons[i]:SetParent(self:GetParent())
+            addButtons[i]:SetAnchors()
+        end
     end
 
     self:Update()
