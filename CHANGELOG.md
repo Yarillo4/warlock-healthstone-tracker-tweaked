@@ -1,3 +1,16 @@
+## v1.2.1-beta - 2019-12-11
+#### Added
+* [#13] - Clicking a name in List View now targets the player
+#### Fixed
+* [#21] - ListView attempted to call protected function during combat lockdown
+* Additional temporary secure frame status of List view while in combat
+#### Changed
+* Update for 1.13.03 game version
+#### Known Issues
+* [#5] - No-lib zip still includes libraries
+
+---
+
 ## v1.2.1-alpha - 2019-12-11
 #### Added
 * [#13] - Clicking a name in List View now targets the player
