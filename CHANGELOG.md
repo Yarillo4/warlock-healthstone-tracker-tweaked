@@ -1,4 +1,4 @@
-## v1.2.1-beta - 2019-12-11
+## v1.2.1 - 2019-12-14
 #### Added
 * [#13] - Clicking a name in List View now targets the player
 #### Fixed
@@ -6,67 +6,6 @@
 * Additional temporary secure frame status of List view while in combat
 #### Changed
 * Update for 1.13.03 game version
-#### Known Issues
-* [#5] - No-lib zip still includes libraries
-
----
-
-## v1.2.1-alpha - 2019-12-11
-#### Added
-* [#13] - Clicking a name in List View now targets the player
-#### Fixed
-* [#21] - ListView attempted to call protected function during combat lockdown
-* Additional temporary secure frame status of List view while in combat
-#### Changed
-* Update for 1.13.03 game version
-#### Known Issues
-* [#5] - No-lib zip still includes libraries
-
----
-
-## v1.2.0-beta4 - 2019-12-10
-#### Changed
-* Update for 1.13.03 game version
-#### Known Issues
-* [#5] - No-lib zip still includes libraries
-
----
-
-## v1.2.0-alpha4 - 2019-12-10
-#### Changed
-* Update for 1.13.03 game version
-#### Known Issues
-* [#5] - No-lib zip still includes libraries
-
----
-
-## v1.2.0-alpha3 - 2019-12-10
-#### Fixed
-* [#21] - ListView attempted to call protected function during combat lockdown
-#### Known Issues
-* [#5] - No-lib zip still includes libraries
-
----
-
-## v1.2.0-beta2 - 2019-12-2
-#### Fixed
-* Additional temporary secure frame status of List view while in combat
-#### Known Issues
-* [#5] - No-lib zip still includes libraries
-
----
-
-## v1.2.0-alpha2 - 2019-12-1
-#### Fixed
-* Additional temporary secure frame status of List view while in combat
-#### Known Issues
-* [#5] - No-lib zip still includes libraries
-
----
-
-## v1.2.0-alpha1 - 2019-12-1
-#### Added
-* [#13] - Clicking a name in List View now targets the player
 #### Known Issues
 * [#5] - No-lib zip still includes libraries
 
