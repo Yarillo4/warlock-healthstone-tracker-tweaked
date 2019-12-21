@@ -99,6 +99,8 @@ end
 local function validateTradeSuccess(event, msgid, msg)
     -- Only take action for ERR_TRADE* messages
     if ( msgid and GetGameMessageInfo(msgid):sub(1,#"ERR_TRADE") == "ERR_TRADE" ) then
+        tradeState.playerItems = tradeState.playerItems or {}
+        tradeState.targetItems = tradeState.targetItems or {}
         HST:trace(MODULE_NAME, "validateTradeSuccess", "tradeState.unitName =", tradeState.unitName)
         HST:trace(MODULE_NAME, "validateTradeSuccess", "tradeState.playerItems =", table.concat(tradeState.playerItems, ","))
         HST:trace(MODULE_NAME, "validateTradeSuccess", "tradeState.targetItems =", table.concat(tradeState.targetItems, ","))
