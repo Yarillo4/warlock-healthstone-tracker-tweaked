@@ -1,3 +1,11 @@
+## v1.2.2-alpha - 2019-12-21
+#### Fixed
+* Nil issue on trade
+#### Known Issues
+* [#5] - No-lib zip still includes libraries
+
+---
+
 ## v1.2.1 - 2019-12-14
 #### Added
 * [#13] - Clicking a name in List View now targets the player
