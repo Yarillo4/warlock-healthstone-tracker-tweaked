@@ -99,6 +99,7 @@ end
 C.DEFAULT_DB = {
     ["Version"] = 1,
     ["EnableHealthstoneConsumedMessage"] = true,
+    ["Debug"] = false,
     ListView = {
         ["Enabled"] = true,
         ["Locked"] = false,
@@ -295,10 +296,11 @@ AceConfigRegistry:RegisterOptionsTable(HST.ADDON_NAME, {
                     type = "toggle",
                     name = L_DEBUG,
                     desc = L_DEBUG_DESCRIPTION,
-                    set = function(info, value) HST.isDebug = value end,
-                    get = function(info) return HST.isDebug end,
-                    hidden = HST.IS_RELEASE_VERSION,
+                    set = setOption,
+                    get = getOption,
+                    hidden = function() return HST.IS_RELEASE_VERSION and not C:is("Debug") end,
                     width = "normal",
+                    arg = "Debug"
                 },
                 debug_spacer = {
                     order = 101,

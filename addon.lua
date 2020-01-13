@@ -30,7 +30,6 @@ HST.IS_RELEASE_VERSION = false
 ---------------------------------------------
 -- VARIABLES
 ---------------------------------------------
-HST.isDebug = false
 HST.playersWithHealthstones = {}
 
 
@@ -56,7 +55,7 @@ function HST:PlayerHasHealthstone(unitname)
 end
 
 function HST:debug(...)
-    if ( HST.isDebug ) then
+    if ( C:is("Debug") ) then
         print("[" .. HST.ADDON_NAME .. "]", ...)
     end
 end
