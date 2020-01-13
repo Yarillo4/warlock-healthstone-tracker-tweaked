@@ -99,7 +99,6 @@ end
 C.DEFAULT_DB = {
     ["Version"] = 1,
     ["EnableHealthstoneConsumedMessage"] = true,
-    ["DistributedCacheEnabled"] = true,
     ListView = {
         ["Enabled"] = true,
         ["Locked"] = false,

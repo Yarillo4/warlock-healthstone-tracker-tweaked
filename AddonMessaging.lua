@@ -50,19 +50,13 @@ end
 ---------------------------------------------
 function HST:SendSync()
     -- HST#139912   SYNC:1
-    if ( C:is("DistributedCacheEnabled") ) then
-        if ( UnitInParty("player") ) then
-            local message = { "SYNC", 1 }
-            send(ADDON_MESSAGE_PREFIX, table.concat(message, ":"), "RAID")
-        end
+    if ( UnitInParty("player") ) then
+        local message = { "SYNC", 1 }
+        send(ADDON_MESSAGE_PREFIX, table.concat(message, ":"), "RAID")
     end
 end
 
 local function handleSync(sender, version, ...)
-    if ( not C:is("DistributedCacheEnabled") ) then
-        return
-    end
-
     local playersWithHealthstones = {}
     for unitname,_ in pairs(HST.playersWithHealthstones) do
         if ( UnitInRaid(unitname) or UnitInParty(unitname) or unitname == PLAYER_NAME ) then
@@ -79,20 +73,14 @@ end
 ---------------------------------------------
 function HST:SendDump(playersWithHealthstones, target)
     -- HST#139912   DUMP:1:player1,player2
-    if ( C:is("DistributedCacheEnabled") ) then
-        local batches = createBatches(playersWithHealthstones, 10)
-        for _,batch in ipairs(batches) do
-            local message = { "DUMP", 1, table.concat(batch, ",") }
-            send(ADDON_MESSAGE_PREFIX, table.concat(message, ":"), "WHISPER", target)
-        end
+    local batches = createBatches(playersWithHealthstones, 10)
+    for _,batch in ipairs(batches) do
+        local message = { "DUMP", 1, table.concat(batch, ",") }
+        send(ADDON_MESSAGE_PREFIX, table.concat(message, ":"), "WHISPER", target)
     end
 end
 
 local function handleDump(sender, version, ...)
-    if ( not C:is("DistributedCacheEnabled") ) then
-        return
-    end
-
     -- Update my cache with these details
     if ( version == 1 ) then
         local players = ...
@@ -109,19 +97,13 @@ end
 ---------------------------------------------
 function HST:SendCacheUpdate(timestamp, unitname, hasHealthstone, isForced)
     -- HST#139912   CACHEUPDATE:1:timestamp:isForced:unitname:hasHealthstone
-    if ( C:is("DistributedCacheEnabled") ) then
-        if ( UnitInRaid(unitname) or UnitInParty(unitname) ) then
-            local message = { "CACHEUPDATE", 1, timestamp, tostring(isForced), unitname, tostring(hasHealthstone) }
-            send(ADDON_MESSAGE_PREFIX, table.concat(message, ":"), "RAID")
-        end
+    if ( UnitInRaid(unitname) or UnitInParty(unitname) ) then
+        local message = { "CACHEUPDATE", 1, timestamp, tostring(isForced), unitname, tostring(hasHealthstone) }
+        send(ADDON_MESSAGE_PREFIX, table.concat(message, ":"), "RAID")
     end
 end
 
 local function handleCacheUpdate(sender, version, ...)
-    if ( not C:is("DistributedCacheEnabled") ) then
-        return
-    end
-
     if ( version == 1 ) then
         local timestamp, isForced, unitname, hasHealthstone = ...
         timestamp = tonumber(timestamp)
