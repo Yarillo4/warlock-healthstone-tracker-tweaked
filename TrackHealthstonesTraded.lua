@@ -46,6 +46,24 @@ local function containsAnyValue(tbl, values)
     return false
 end
 
+local function collapseArray(arr)
+    -- remove nil values from the array
+    for k=1,#arr do
+        while (arr[k] == nil) do
+            tremove(arr, k)
+            if (k >= #arr ) then
+                break
+            end
+        end
+
+        if (k >= #arr ) then
+            break
+        end
+    end
+
+    return arr
+end
+
 
 ---------------------------------------------
 -- TRACK HEALTHSTONE TRADES
@@ -102,8 +120,8 @@ local function validateTradeSuccess(event, msgid, msg)
         tradeState.playerItems = tradeState.playerItems or {}
         tradeState.targetItems = tradeState.targetItems or {}
         HST:trace(MODULE_NAME, "validateTradeSuccess", "tradeState.unitName =", tradeState.unitName)
-        HST:trace(MODULE_NAME, "validateTradeSuccess", "tradeState.playerItems =", table.concat(tradeState.playerItems, ","))
-        HST:trace(MODULE_NAME, "validateTradeSuccess", "tradeState.targetItems =", table.concat(tradeState.targetItems, ","))
+        HST:trace(MODULE_NAME, "validateTradeSuccess", "tradeState.playerItems =", table.concat(collapseArray(tradeState.playerItems), ","))
+        HST:trace(MODULE_NAME, "validateTradeSuccess", "tradeState.targetItems =", table.concat(collapseArray(tradeState.targetItems), ","))
 
         local player = UnitName("player")
         local target = tradeState.unitName
