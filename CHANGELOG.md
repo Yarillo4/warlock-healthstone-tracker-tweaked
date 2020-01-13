@@ -1,3 +1,13 @@
+## v1.2.3-alpha - 2020-01-13
+#### Fixed
+* Nil issue on trade
+#### Changed
+* Distributed cache is always enabled
+#### Known Issues
+* [#5] - No-lib zip still includes libraries
+
+---
+
 ## v1.2.2-alpha - 2019-12-21
 #### Fixed
 * Nil issue on trade
