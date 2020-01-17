@@ -1,3 +1,11 @@
+## v1.2.4-beta - 2020-01-17
+#### Fixed
+* [#22] - Raid sync not functioning
+#### Known Issues
+* [#5] - No-lib zip still includes libraries
+
+---
+
 ## v1.2.4-alpha - 2020-01-17
 #### Fixed
 * [#22] - Raid sync not functioning
