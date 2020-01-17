@@ -1,3 +1,11 @@
+## v1.2.4-alpha - 2020-01-17
+#### Fixed
+* [#22] - Raid sync not functioning
+#### Known Issues
+* [#5] - No-lib zip still includes libraries
+
+---
+
 ## v1.2.3-alpha - 2020-01-13
 #### Fixed
 * Nil issue on trade
@@ -132,3 +140,4 @@
 [#19]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/19
 [#20]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/20
 [#21]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/21
+[#22]: https://www.curseforge.com/wow/addons/warlock-healthstone-tracker/issues/22
