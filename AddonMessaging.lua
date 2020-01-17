@@ -58,13 +58,15 @@ end
 
 local function handleSync(sender, version, ...)
     local playersWithHealthstones = {}
-    for unitname,_ in pairs(HST.playersWithHealthstones) do
-        if ( UnitInRaid(unitname) or UnitInParty(unitname) or unitname == PLAYER_NAME ) then
-            tinsert(playersWithHealthstones, unitname)
+    if ( version == 1 ) then
+        for unitname,_ in pairs(HST.playersWithHealthstones) do
+            if ( UnitInRaid(unitname) or UnitInParty(unitname) or unitname == PLAYER_NAME ) then
+                tinsert(playersWithHealthstones, unitname)
+            end
         end
-    end
 
-    HST:SendDump(playersWithHealthstones, sender)
+        HST:SendDump(playersWithHealthstones, sender)
+    end
 end
 
 
@@ -84,7 +86,7 @@ local function handleDump(sender, version, ...)
     -- Update my cache with these details
     if ( version == 1 ) then
         local players = ...
-        players = strsplit(",", players)
+        players = {strsplit(",", players)}
         for _,unitname in ipairs(players) do
             HST:SetPlayerHealthstone(nil, unitname, true, false, true --[[doNotSendDistributedCacheUpdate]])
         end
@@ -132,7 +134,7 @@ local function handleAddonMessage(event, prefix, message, distribution, sender)
         local args = {strsplit(":", message)}
         if ( #args >= 2 ) then
             local msgtype = tremove(args, 1)
-            local version = tremove(args, 1)
+            local version = tonumber(tremove(args, 1))
             if ( msgtype == "CACHEUPDATE" ) then
                 handleCacheUpdate(sender, version, unpack(args))
             elseif ( msgtype == "SYNC" ) then
