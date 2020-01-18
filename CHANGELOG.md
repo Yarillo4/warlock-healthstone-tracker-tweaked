@@ -1,32 +1,9 @@
-## v1.2.4-beta - 2020-01-17
+## v1.2.4 - 2020-01-18
 #### Fixed
 * [#22] - Raid sync not functioning
-#### Known Issues
-* [#5] - No-lib zip still includes libraries
-
----
-
-## v1.2.4-alpha - 2020-01-17
-#### Fixed
-* [#22] - Raid sync not functioning
-#### Known Issues
-* [#5] - No-lib zip still includes libraries
-
----
-
-## v1.2.3-alpha - 2020-01-13
-#### Fixed
 * Nil issue on trade
 #### Changed
 * Distributed cache is always enabled
-#### Known Issues
-* [#5] - No-lib zip still includes libraries
-
----
-
-## v1.2.2-alpha - 2019-12-21
-#### Fixed
-* Nil issue on trade
 #### Known Issues
 * [#5] - No-lib zip still includes libraries
 
