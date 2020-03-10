@@ -1,3 +1,9 @@
+## v1.2.5 - 2020-03-10
+#### Changed
+* Updated TOC version 11304
+
+---
+
 ## v1.2.5-beta - 2020-03-10
 #### Changed
 * Updated TOC version 11304
