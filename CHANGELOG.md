@@ -1,3 +1,9 @@
+## v1.2.5-alpha - 2020-03-10
+#### Changed
+* Updated TOC version 11304
+
+---
+
 ## v1.2.4 - 2020-01-18
 #### Fixed
 * [#22] - Raid sync not functioning
