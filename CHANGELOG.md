@@ -1,3 +1,21 @@
+## v1.2.6 - 2020-07-30
+#### Changed
+* Updated TOC version 11305
+
+---
+
+## v1.2.6-beta - 2020-07-30
+#### Changed
+* Updated TOC version 11305
+
+---
+
+## v1.2.6-alpha - 2020-07-29
+#### Changed
+* Updated TOC version 11305
+
+---
+
 ## v1.2.5 - 2020-03-10
 #### Changed
 * Updated TOC version 11304
