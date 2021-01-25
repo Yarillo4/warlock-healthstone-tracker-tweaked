@@ -37,14 +37,14 @@
 		</Anchors>
 		<ResizeBounds>
 			<minResize>
-				<AbsDimension x="150" y="100"/>
+				<AbsDimension x="10" y="10"/>
 			</minResize>
 			<maxResize>
 				<AbsDimension x="300" />
 			</maxResize>
 		</ResizeBounds>
 		<Frames>
-			<Frame parentKey="TitleBar" mixin="WarlockHealthstoneTrackerListViewTitleBarMixIn" frameLevel="100" hidden="false" enableMouse="true">
+			<Frame parentKey="TitleBar" mixin="WarlockHealthstoneTrackerListViewTitleBarMixIn" inherits="" name="WarlockHealthstoneTrackerTitleBar" frameLevel="100" hidden="false" enableMouse="true">
 				<Size y="20"/>
 				<Anchors>
 					<Anchor point="TOPLEFT" />

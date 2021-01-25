@@ -101,7 +101,7 @@ C.DEFAULT_DB = {
     ["EnableHealthstoneConsumedMessage"] = true,
     ["Debug"] = false,
     ListView = {
-        ["Enabled"] = true,
+        ["Enabled"] = false,
         ["Locked"] = false,
         ["HideWhenEmpty"] = false, -- false by default so initial users can position windows
         ["HideWhenInCombat"] = false,
@@ -1033,7 +1033,7 @@ configPanes.cache = AceConfigDialog:AddToBlizOptions(HST.ADDON_NAME, L_CACHE, HS
 ---------------------------------------------
 HST.RegisterCallback(MODULE_NAME, "initialize", function()
     -- Update cache configuration when healthstones upated
-    local PLUGIN = LibStub("WarlockHealthstoneTracker-1.0", 1)
+    local PLUGIN = LibStub(HST.ADDON_NAME .. "-1.0", 1)
     PLUGIN.RegisterCallback(HST.ADDON_NAME .. "." .. MODULE_NAME, "updateUnitHealthstone", function(event, unitname, hasHealthstone)
         AceConfigRegistry:NotifyChange(HST.ADDON_NAME)
     end)
@@ -1042,4 +1042,6 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     HST.RegisterEvent(MODULE_NAME, "GROUP_ROSTER_UPDATE", function()
         AceConfigRegistry:NotifyChange(HST.ADDON_NAME)
     end)
+
+    print("addon_name", HST.ADDON_NAME)
 end)

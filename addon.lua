@@ -19,6 +19,23 @@ HST.VERSION = GetAddOnMetadata(ADDON_NAME, "Version")
 
 HST.HEALTHSTONES_BY_ITEMID = { 5509, 5510, 5511, 5512, 9421, 19004, 19005, 19006, 19007, 19008, 19009, 19010, 19011, 19012, 19013 }
 HST.HEALTHSTONES_BY_NAME = {} -- Localized healthstone names are loaded at runtime using GetItemInfo(itemId)
+HST.HEALTHSTONES_HP = {
+    [5512]  = 100,
+    [19004] = 110,
+    [19005] = 120,
+    [5511]  = 250,
+    [19006] = 275,
+    [19007] = 300,
+    [5509]  = 500,
+    [19008] = 550,
+    [19009] = 600,
+    [5510]  = 800,
+    [19010] = 880,
+    [19011] = 960,
+    [9421]  = 1200,
+    [19012] = 1320,
+    [19013] = 1440,
+}
 
 HST.IS_RELEASE_VERSION = HST.VERSION:match("^%d+.%d+.%d+$") ~= nil
 --@debug@

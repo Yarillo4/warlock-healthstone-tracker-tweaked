@@ -1,7 +1,7 @@
 local HST, C, L = unpack(select(2, ...))
 local MODULE_NAME = "ListView"
 
-local PLUGIN = LibStub("WarlockHealthstoneTracker-1.0", 1)
+local PLUGIN = LibStub(HST.ADDON_NAME.."-1.0", 1)
 
 
 ---------------------------------------------
@@ -15,7 +15,7 @@ L_WARLOCK_HEALTHSTONE_TRACKER_NEED_HEALTHSTONES = L["Healthstone Tracker"]
 ---------------------------------------------
 local BUTTON_HEIGHT = 16
 local BUTTON_MARGIN = 0
-
+local TRADE         = 2 -- WoW API constant for CheckInteractDistance 2nd arg
 
 ---------------------------------------------
 -- VARIABLES
@@ -52,13 +52,28 @@ local function getUnitId(unitname)
     end
 end
 
-local function formatClass(unitname)
-    local class = select(2,UnitClass(unitname))
-    if ( class ) then
-        return GetClassColorObj(class):WrapTextInColorCode(unitname)
-    else
-        return unitname
+local function formatClass(unitname, options)
+    if UnitExists(unitname) then
+        local dimFactor = 1
+        if options and options.colorByRange == true then
+            dimFactor = 0.5
+
+            if CheckInteractDistance(unitname, TRADE) then
+                dimFactor = 1 -- brighter
+            end
+        end
+
+        local class = select(2,UnitClass(unitname))
+        if ( class ) then
+            local c = GetClassColorObj(class)
+            local c = CreateColor(c.r*dimFactor, c.g*dimFactor, c.b*dimFactor)
+            return c:WrapTextInColorCode(unitname)
+        else
+            return unitname
+        end
     end
+
+    return unitname
 end
 
 local function shouldInclude(unitName)
@@ -371,9 +386,11 @@ function WarlockHealthstoneTrackerListViewScrollFrameMixIn:OnSizeChanged()
 
     -- hide buttons that are no longer needed
     local buttons = self:GetButtons()
-    if ( #buttons > self.numDisplayedButtons ) then
+    if ( buttons and #buttons > self.numDisplayedButtons ) then
         for i = self.numDisplayedButtons, #buttons, 1 do
-            buttons[i]:Hide()
+            if buttons[i] then
+                buttons[i]:Hide()
+            end
         end
     end
 
@@ -381,6 +398,10 @@ function WarlockHealthstoneTrackerListViewScrollFrameMixIn:OnSizeChanged()
 end
 
 function WarlockHealthstoneTrackerListViewScrollFrameMixIn:Update()
+    if not self.setup_periodic_refresh then
+        self:periodic_refresh()
+    end
+
     local parent = self:GetParent()
 
     showHideFrame()
@@ -395,7 +416,7 @@ function WarlockHealthstoneTrackerListViewScrollFrameMixIn:Update()
             if ( index <= numItems ) then
                 local button = self:GetButton(i)
                 local name = playersThatNeedHealthstones[index]
-                button.Name:SetText(formatClass(name))
+                button.Name:SetText(formatClass(name, {colorByRange=true}))
                 if ( useSecureFrames ) then
                     button:SetAttribute("unit", getUnitId(name))
                 end
@@ -408,6 +429,24 @@ function WarlockHealthstoneTrackerListViewScrollFrameMixIn:Update()
     end
 end
 
+function WarlockHealthstoneTrackerListViewScrollFrameMixIn:periodic_refresh()
+    C_Timer.After(0.5, function() self.periodic_refresh(self) end)
+    self.setup_periodic_refresh = true
+
+    local btns = self:GetButtons()
+    local scrollOffset = FauxScrollFrame_GetOffset(self)
+    for i = 1, self.numDisplayedButtons do
+        local button = self:GetButton(i)
+        local name = playersThatNeedHealthstones[i + scrollOffset]
+        button.Name:SetText(formatClass(name, {colorByRange=true}))
+        if ( useSecureFrames ) then
+            --button:SetAttribute("unit", getUnitId(name))
+        end
+        --button:Show()
+    end
+
+    --self:Update()
+end
 
 ---------------------------------------------
 -- INITIALIZE
