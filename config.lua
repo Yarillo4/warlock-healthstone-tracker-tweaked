@@ -1042,6 +1042,4 @@ HST.RegisterCallback(MODULE_NAME, "initialize", function()
     HST.RegisterEvent(MODULE_NAME, "GROUP_ROSTER_UPDATE", function()
         AceConfigRegistry:NotifyChange(HST.ADDON_NAME)
     end)
-
-    print("addon_name", HST.ADDON_NAME)
 end)
